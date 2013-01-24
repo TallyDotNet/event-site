@@ -1,0 +1,13 @@
+﻿%div= TempData["Error"]
+-if (ViewData.Model == null) throw new InvalidOperationException("The model cannot be null!");
+-var type = ViewData.Model.GetType();
+%form{method="post"}
+	%table
+		-var properties = type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+		-foreach (var property in properties)
+			%tr
+				%td= Html.Label(property.Name)
+				%td= Html.FormFieldFor(property)
+	%input {type="submit" value="Save"}
+	%button {onclick="javascript:history.back()" type="button"}
+		Cancel

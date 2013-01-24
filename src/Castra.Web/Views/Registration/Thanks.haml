@@ -1,0 +1,9 @@
+﻿.two-columns
+	.sidebar
+		-Html.RenderAction("Featured","Sponsors")
+	.main-column
+		%h2 Thanks!
+		%p We're looking forward to seeing you there!
+		%p Just a reminder, everyone is welcome to speak. If you decide that you'd like to do so,just
+			=Html.ActionLink("submit a proposal","Propose","Session")
+			or two.

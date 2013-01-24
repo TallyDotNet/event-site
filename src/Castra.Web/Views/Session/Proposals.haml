@@ -1,0 +1,14 @@
+﻿%h2 Proposed Sessions
+
+-foreach(var proposal in ViewData.Model)
+	-var speakerName = (proposal.Speaker != null) ? proposal.Speaker.Name : "?"
+	-var speakerLookupName = (proposal.Speaker != null) ? proposal.Speaker.LookupName : "?"
+	%table.proposal
+		%tr
+			%td 
+				%h3 =proposal.Title
+				%div by 
+					=Html.ActionLink(speakerName, "Details",new {controller="speakers", lookupName=speakerLookupName})					
+		%tr
+			%td =proposal.Abstract
+	%div =Html.ActionLink("Approve " + proposal.Title, "Approve",new {proposalId=proposal.Id})

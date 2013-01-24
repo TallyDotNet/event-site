@@ -1,0 +1,29 @@
+﻿-var session = ViewData.Model;
+-var speakerName = (session.Speaker !=null) ? session.Speaker.Name : "Unknown";
+-var speakerLookup = (session.Speaker !=null) ? session.Speaker.LookupName : string.Empty;
+-var gravatarId = (session.Speaker !=null) ? session.Speaker.Account.Username : string.Empty;
+
+.two-columns
+	.sidebar
+		-Html.RenderAction("Featured","Sponsors")
+
+	.main-column
+		.session
+			%h2=session.Title
+			.session-speaker by
+				=Html.ActionLink(speakerName, "Details", new {controller="speakers", lookupName=speakerLookup})
+			
+			.speaker-pic 
+				%img{src=Url.Gravatar(gravatarId,120) alt=speakerName width="120"}
+
+			%div = session.Abstract
+
+		-if(!string.IsNullOrEmpty(session.SpeakerRateUrl)) {
+			%div{style="clear:both;"}
+			%br
+			%div
+				%p We all value feedback. After attending, please
+					%a{href=session.SpeakerRateUrl} rate this session!
+		-}
+
+			

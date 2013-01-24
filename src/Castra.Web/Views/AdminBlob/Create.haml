@@ -1,0 +1,17 @@
+﻿- title = "Create " + ViewData.Model.GetType().Name
+
+%h2 Create a 
+	=ViewData.Model.GetType().Name
+%div= TempData["Error"]
+-if (ViewData.Model == null) throw new InvalidOperationException("The model cannot be null!");
+-var type = ViewData.Model.GetType();
+%form{method="post" enctype="multipart/form-data" action="upload"}
+	%table
+		%tr
+			%td
+				%label Data
+			%td
+				%input {type="file" name="Data" id="Data"}
+	%input {type="submit" value="Save"}
+	%button {onclick="javascript:history.back()" type="button"}
+		Cancel

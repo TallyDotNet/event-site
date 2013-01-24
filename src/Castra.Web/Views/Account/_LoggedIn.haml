@@ -1,0 +1,5 @@
+﻿%img{src=Url.Gravatar(currentUser.Username,24)}
+%span
+	=Html.ActionLink(currentUser.Username,"EditProfile","Account")
+%span
+	=Html.ActionLink("Logout","Logout","Account")

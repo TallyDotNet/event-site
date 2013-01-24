@@ -1,0 +1,23 @@
+﻿.two-columns
+	.sidebar
+		%h3 Event Details
+		%p Saturday, November 3rd, 2012
+		%div 8am - 5pm
+		%div (or for as long as you can stay)
+	.main-column
+		%h1 Attendee Registration
+		%p Just create an account and fill out a (very) short profile.
+		=Html.ValidationSummary()
+		%form{method="post"}
+			.field
+				%label Email Address
+				= Html.FormField<CreateUser>(x=>x.Username)
+			.field
+				%label Password
+				= Html.Password("Password")
+			.field
+				%label Verify Password
+				= Html.Password("PasswordVerification")
+			.form-buttons
+				%input {type="submit" value="Next"}
+				= Html.BackButton("Cancel")

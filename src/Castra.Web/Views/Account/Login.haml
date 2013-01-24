@@ -1,0 +1,18 @@
+﻿.two-columns
+	.sidebar
+		-Html.RenderAction("Featured","Sponsors")
+		%p Want to speak at the Code Camp? You can submit prosposed sessions after
+			=Html.ActionLink("creating an account.","New","Account")
+	.main-column
+		%h1 Speaker Login
+		=Html.ValidationSummary()
+		%form{method="post"}
+			=Html.Hidden("ReturnUrl")
+			.field
+				%label Email Address
+				= Html.FormField<Login>(x=>x.Username)
+			.field
+				%label Password
+				= Html.Password("Password")
+			.form-buttons
+				%input {type="submit" value="Login"}

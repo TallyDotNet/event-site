@@ -1,0 +1,39 @@
+﻿^ var title = "Tallahassee Code Camp"
+^ var needFacebookScript = false
+
+!!!
+%html{xmlns="http://www.w3.org/1999/xhtml"}
+	%head
+		%title= title
+		%link{href="/Content/Site.css" rel="stylesheet" type="text/css"}
+		%link{href="/Content/overcast/jquery-ui-1.8.4.custom.css" rel="stylesheet" type="text/css"}
+		%script{type="text/javascript" src="/scripts/jquery-1.4.1.min.js"}
+
+	%body
+
+		#logo
+			.title 
+				=Html.ActionLink("Tallahassee Code Camp","Index","Home")
+			%p Capital City .NET User Group of Florida
+		-Html.RenderAction("Menu","Home")
+		-Html.RenderAction("Status","Account")
+
+		#content
+			_
+		-// hack - the next two lines are just for layout
+		%div{style="clear:both;"}
+		%br
+		#submenu
+		#footer 
+			%p
+				%span Revision Number:
+				%span{id="revisionNumber"}1.0.10000.0
+			%p 
+				\&copy; 2010 All Rights Reserved
+				\&nbsp;&bull;&nbsp; Design by 
+				%a{href="http://www.freecsstemplates.org/"}Free CSS Templates
+				\&nbsp;&bull;&nbsp; Icons by 
+				%a{href="http://www.famfamfam.com/"}FAMFAMFAM
+				
+		%script{type="text/javascript" src="/scripts/analytics.js"}
+		!= needFacebookScript ? "<script src='http://connect.facebook.net/en_US/all.js#appId=200665599993844&amp;xfbml=1'></script>" : null

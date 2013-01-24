@@ -1,0 +1,25 @@
+﻿.two-columns
+	.sidebar
+		%h3 Open Call for Speakers
+		%p Anyone is welcome to speak at our code camp, however we do have a limited number of slots.
+		%p Just create an account here and submit any sessions that you would like to present.
+		%p We'll let you know which ones we are able to accept.
+	.main-column
+		%h1 Speaker Registration
+		%div
+			=Html.ValidationSummary()
+			%form{method="post"}
+				.field
+					%label Email Address
+					= Html.FormField<CreateUser>(x=>x.Username)
+				.field
+					%label Password
+					= Html.Password("Password")
+				.field
+					%label Verify Password
+					= Html.Password("PasswordVerification")
+				.form-buttons
+					%input {type="submit" value="Next"}
+					= Html.BackButton("Cancel")
+		%div{style="clear:both;padding:10px;"} 
+			=Html.ActionLink("Login and edit your profile.","EditProfile","Account")

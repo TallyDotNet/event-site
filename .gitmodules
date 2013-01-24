@@ -1,0 +1,6 @@
+[submodule "bluespire.mvc"]
+	path = bluespire.mvc
+	url = git@bluespire.unfuddle.com:bluespire/mvc.git
+[submodule "blueprint.css"]
+	path = blueprint.css
+	url = http://github.com/joshuaclayton/blueprint-css.git

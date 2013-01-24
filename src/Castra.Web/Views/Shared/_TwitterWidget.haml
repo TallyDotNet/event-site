@@ -1,0 +1,8 @@
+﻿-var timelineUrl = string.Format("http://twitter.com/statuses/user_timeline/{0}.json?callback=twitterCallback2&amp;count=5",twitter);
+-var profileUrl = string.Format("http://twitter.com/{0}", twitter);
+#twitter_div
+	%h2.sidebar-title Twitter
+	%ul#twitter_update_list"
+	%a#twitter-link{href=profileUrl style="display:block;text-align:right;"} follow me on Twitter
+%script{type="text/javascript" src="http://twitter.com/javascripts/blogger.js"}
+%script{type="text/javascript" src=timelineUrl}

@@ -1,0 +1,33 @@
+﻿-var type = ViewData.Model.Type.Name;
+-title = "Index " + type
+
+%h2 Index
+	=type
+%p= Html.ActionLink("Create " + type, "Create")
+%div Pages:
+	-for (int p = 1; p <= ViewData.Model.PageCount; p++)
+		= Html.ActionLink(p.ToString(),"Index",new{page=p})
+		
+%ul
+	-foreach (var item in ViewData.Model.Items)
+		%li
+			-var url = "/resource/"+item.Id
+			-var copyid = "copy-" + item.Id
+			-var urlid = "hidden-" + item.Id
+			-var flashvars = string.Format("id={0}&amp;copied=&amp;copyto=",urlid)
+			%img{src=url width="24" height="24"}
+			=Html.ActionLink(url, "Details", new { Id = item.Id })
+			=Html.ActionLink("[edit]", "Edit", new { Id = item.Id })
+			=Html.ActionLink("[destory]", "Destroy", new { Id = item.Id })
+
+			%input{id=urlid type="hidden" value=url}
+
+			%object {id=copyid classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="14" height="14"}
+				%param {name="movie" value="/scripts/clippy.swf?v5"}
+				%param {name="allowScriptAccess" value="always"} 
+				%param {name="quality" value="high"}
+				%param {name="scale" value="noscale"}
+				%param {NAME="FlashVars" value=flashvars} 
+				%param {name="bgcolor" value="#FFFFFF"}
+				%param {name="wmode" value="opaque"}
+				%embed {src="/scripts/clippy.swf?v5" width="14" height="14" name=copyid quality="high" allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" FlashVars=flashvars bgcolor="#FFFFFF" wmode="opaque"}

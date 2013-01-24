@@ -1,0 +1,29 @@
+﻿%script{type="text/javascript" src="/scripts/jquery-ui-1.8.4.custom.min.js"}
+%script{type="text/javascript" src="/scripts/sessions.js"}
+
+.two-columns
+	.sidebar
+		-Html.RenderAction("Featured","Sponsors")
+
+	.main-column
+		%h2 Sessions
+		.groupby
+			=Html.RouteLink("By Level", "Session_Index", new {controller="Session", action="Index", groupBy="Level"}, new {@class="group-btn"})
+			=Html.RouteLink("By Track", "Session_Index", new {controller="Session", action="Index", groupBy="Track"}, new {@class="group-btn"})
+			=Html.RouteLink("By Room", "Session_Index", new {controller="Session", action="Index", groupBy="Room"}, new {@class="group-btn"})
+		#tabs
+			%ul
+				-foreach (var group in ViewData.Model)
+					-var tabId = "#tab-" + BlueSpire.Web.Mvc.Infrastructure.ExtensionMethods.DeriveLookupName(group.Key);
+					%li
+						%a{href=tabId} =group.Key
+			-foreach (var group in ViewData.Model)
+				-var tabId = "tab-" + BlueSpire.Web.Mvc.Infrastructure.ExtensionMethods.DeriveLookupName(group.Key);
+				%div{id=tabId}
+					-foreach(var session in group.Value)
+						.session{title=Html.Encode(session.Abstract)}
+							%h4
+								=Html.ActionLink(session.Title, "Details", new {controller="Session", lookupName=session.LookupName})
+							.session-speaker by
+								-if(session.Speaker != null)
+									=Html.ActionLink(session.Speaker.Name, "Details",new {controller="speakers", lookupName=session.Speaker.LookupName})
