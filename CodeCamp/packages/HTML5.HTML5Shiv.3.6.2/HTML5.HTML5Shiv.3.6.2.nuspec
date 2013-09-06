@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HTML5.HTML5Shiv</id>
+    <version>3.6.2</version>
+    <title>HTML5.HTML5Shiv</title>
+    <authors>Alexander Farkas</authors>
+    <owners>Alexander Farkas</owners>
+    <projectUrl>https://github.com/MLaritz/html5shiv</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The HTML5 Shiv enables use of HTML5 sectioning elements in legacy Internet Explorer and provides basic HTML5 styling for Internet Explorer 6-9, Safari 4.x (and iPhone 3.x), and Firefox 3.x.</description>
+    <releaseNotes />
+    <copyright />
+    <language />
+  </metadata>
+</package>
