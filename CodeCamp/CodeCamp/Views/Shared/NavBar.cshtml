@@ -1,6 +1,7 @@
-﻿<div class="navbar-wrapper">
+﻿@using CodeCamp.Domain
+@using CodeCamp.Infrastructure
+<div class="navbar-wrapper">
     <div class="container">
-
         <div class="navbar-custom navbar navbar-inverse navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -20,10 +21,43 @@
                         <li><a href="#">Sessions</a></li>
                         <li><a href="#">Sponsors</a></li>
                         <li><a href="#">Location</a></li>
+                        
+                        @if(State.UserIsLoggedIn()) {
+                        <li class="btn-group">
+                            <a href="#" class="avatar dropdown-toggle" data-toggle="dropdown">
+                                <img title="@State.User.Name" src="@State.GetUserAvatarLink()">
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#"><span class="glyphicon glyphicon-star"></span> My Account</a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="glyphicon glyphicon-registration-mark"></span> Register</a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
+                                </li>
+                                
+                                @if(State.UserIsAdmin()) {
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#"><span class="glyphicon glyphicon-wrench"></span> Admin</a>
+                                    </li>    
+                                }
+
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+                        } else {
+                            <li><a href="#">Login/Register</a></li>
+                        }
                     </ul>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

@@ -34,8 +34,8 @@ body {
 .navbar-custom .navbar-brand span {
   margin-left: 48px;
   font-size: 28px;
-  -webkit-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  -webkit-text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
 }
 .navbar-custom .navbar-brand:hover,
 .navbar-custom .navbar-brand:focus {
@@ -51,6 +51,8 @@ body {
 .navbar-custom .navbar-nav > li > a {
   color: #ffffff;
   border-left: 1px solid #00182b;
+  -webkit-text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
 }
 .navbar-custom .navbar-nav > li > a:hover,
 .navbar-custom .navbar-nav > li > a:focus {
@@ -137,6 +139,21 @@ body {
 }
 .navbar-custom .navbar-link:hover {
   color: #c0c0c0;
+}
+.navbar-custom .navbar-nav > li > a.avatar {
+  padding: 8px 16px;
+  border-right: none;
+  position: relative;
+  left: 32px;
+}
+.navbar-custom .navbar-nav > li > a.avatar img {
+  border-radius: 4px;
+  border: 1px solid white;
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+.navbar-custom .navbar-nav > li.btn-group > ul.dropdown-menu {
+  left: -47px;
 }
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */

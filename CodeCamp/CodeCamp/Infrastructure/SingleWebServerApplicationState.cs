@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using CodeCamp.Domain;
 using CodeCamp.Domain.Infrastructure;
 using CodeCamp.Domain.Model;
@@ -11,7 +12,16 @@ namespace CodeCamp.Infrastructure {
             this.bus = bus;
         }
 
-        public User User { get; private set; }
+        public User User {
+            get {
+                return new User {
+                    Name = "Rob Eisenberg",
+                    Roles = {Roles.User, Roles.Admin},
+                    Email = "rob@bluespire.com",
+                    TwitterHandle = "EisenbergEffect"
+                };
+            }
+        }
         public Domain.Model.CodeCamp CodeCamp { get; private set; }
 
         public string Environment {
