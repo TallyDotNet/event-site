@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
+using CodeCamp.Infrastructure.Logging;
 using CodeCamp.Infrastructure.Models;
 
 namespace CodeCamp.App_Start {
@@ -18,6 +19,7 @@ namespace CodeCamp.App_Start {
         }
 
         static void RegisterApplicationComponents(ContainerBuilder builder) {
+            builder.RegisterModule<NLogModule>();
             builder.RegisterType<PageInfo>().InstancePerHttpRequest();
         }
 

@@ -47,7 +47,13 @@
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="le_nlog">
+      <HintPath>..\packages\le_nlog.2.2.0\lib\Net40\le_nlog.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.1.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -122,6 +128,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Controllers\BaseController.cs" />
+    <Compile Include="Infrastructure\Logging\LogModule.cs" />
+    <Compile Include="Infrastructure\Logging\NLogModule.cs" />
     <Compile Include="Infrastructure\Models\PageInfo.cs" />
     <Compile Include="Infrastructure\Views\BaseView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
