@@ -1,6 +1,0 @@
-﻿.speaker-sessions 
-	%h2 Sessions
-	%ul 
-	-foreach(var session in ViewData.Model)
-		%li
-			=Html.ActionLink(session.Title, "Details", new {controller="Session", lookupName=session.LookupName})
