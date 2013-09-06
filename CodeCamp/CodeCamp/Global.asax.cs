@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCamp.App_Start;
+using CodeCamp.Infrastructure.Controllers;
 using NLog;
 
 namespace CodeCamp {
@@ -30,6 +31,8 @@ namespace CodeCamp {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 
             Log.Info("Tally Code Camp - Started");
         }

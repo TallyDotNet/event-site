@@ -6,6 +6,7 @@ namespace CodeCamp.App_Start {
     public class RouteConfig {
         public static void RegisterRoutes(RouteCollection routes) {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
             routes.MapRoute(
                 name: "Default",
@@ -17,6 +18,12 @@ namespace CodeCamp.App_Start {
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new {id = RouteParameter.Optional}
+                );
+
+            routes.MapRoute(
+                "NotFound",
+                "{*url}",
+                new {controller = "Error", action = "Error", errorCode = 404, message = "Not Found"}
                 );
         }
     }

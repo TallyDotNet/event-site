@@ -1,0 +1,25 @@
+﻿@using CodeCamp.ViewModels
+@using NLog
+
+@if (Model is ErrorOutput) {
+    var viewModel = (ErrorOutput)Model;
+    <div>
+        <h1>@viewModel.Title</h1>
+        <span>@viewModel.Subtitle1<br />@viewModel.Subtitle2</span>
+        <div></div>
+    </div>
+}
+else if(Model is HandleErrorInfo) {
+    var info = (HandleErrorInfo)Model;
+    LogManager.GetLogger(typeof(HandleErrorInfo).FullName).Error(info.Exception);
+    <div>
+        <h1>Unknown Error</h1>
+        <span>Something unexpected has happened.<br />If the problem persists, please contact us.</span>
+    </div>
+}
+else {
+    <div>
+        <h1>Unknown Error</h1>
+        <span>Something unexpected has happened.<br />If the problem persists, please contact us.</span>
+    </div>
+}
