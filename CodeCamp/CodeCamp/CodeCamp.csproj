@@ -133,7 +133,7 @@
   <ItemGroup>
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Model\Roles.cs" />
-    <Compile Include="Infrastructure\BundleConfig.cs" />
+    <Compile Include="Infrastructure\Views\BundleConfig.cs" />
     <Compile Include="Infrastructure\IoC\ContainerConfig.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -151,10 +151,10 @@
     <Compile Include="Infrastructure\Controllers\BaseController.cs" />
     <Compile Include="Infrastructure\Controllers\ControllerFactory.cs" />
     <Compile Include="Infrastructure\Controllers\LowLevelController.cs" />
-    <Compile Include="Infrastructure\CookieTempDataProvider.cs" />
+    <Compile Include="Infrastructure\Controllers\CookieTempDataProvider.cs" />
     <Compile Include="Infrastructure\Logging\LogModule.cs" />
     <Compile Include="Infrastructure\Logging\NLogModule.cs" />
-    <Compile Include="Infrastructure\Models\PageInfo.cs" />
+    <Compile Include="Infrastructure\Views\ViewInfo.cs" />
     <Compile Include="Infrastructure\SingleWebServerApplicationState.cs" />
     <Compile Include="Infrastructure\Views\BaseView.cs" />
     <Compile Include="Domain\Model\CodeCamp.cs" />

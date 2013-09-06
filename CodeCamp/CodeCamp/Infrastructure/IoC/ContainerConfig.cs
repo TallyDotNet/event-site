@@ -5,7 +5,7 @@ using Autofac.Integration.Mvc;
 using CodeCamp.Domain;
 using CodeCamp.Domain.Infrastructure;
 using CodeCamp.Infrastructure.Logging;
-using CodeCamp.Infrastructure.Models;
+using CodeCamp.Infrastructure.Views;
 
 namespace CodeCamp.Infrastructure.IoC {
     public class ContainerConfig {
@@ -22,7 +22,7 @@ namespace CodeCamp.Infrastructure.IoC {
 
         static void RegisterApplicationComponents(ContainerBuilder builder) {
             builder.RegisterModule<NLogModule>();
-            builder.RegisterType<PageInfo>().InstancePerHttpRequest();
+            builder.RegisterType<ViewInfo>().InstancePerHttpRequest();
             builder.RegisterType<SingleWebServerApplicationState>().As<IApplicationState>().InstancePerHttpRequest();
             builder.RegisterType<DefaultApplicationBus>().As<IApplicationBus>().SingleInstance();
         }

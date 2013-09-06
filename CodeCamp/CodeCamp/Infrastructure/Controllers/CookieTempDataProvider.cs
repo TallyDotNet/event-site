@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CodeCamp.Infrastructure {
+namespace CodeCamp.Infrastructure.Controllers {
     public class CookieTempDataProvider : ITempDataProvider {
         const string CookieName = "TempData";
         readonly IFormatter formatter;
