@@ -3,8 +3,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using CodeCamp.App_Start;
+using CodeCamp.Infrastructure;
 using CodeCamp.Infrastructure.Controllers;
+using CodeCamp.Infrastructure.Filters;
+using CodeCamp.Infrastructure.IoC;
+using CodeCamp.Infrastructure.Routing;
 using NLog;
 
 namespace CodeCamp {

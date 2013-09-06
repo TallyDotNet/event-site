@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using CodeCamp.Controllers;
+using CodeCamp.Domain;
+using CodeCamp.Domain.Infrastructure;
 using CodeCamp.Infrastructure.Models;
 using CodeCamp.ViewModels;
 using NLog;
@@ -11,9 +13,13 @@ namespace CodeCamp.Infrastructure.Controllers {
 
         public PageInfo Info { get; private set; }
         public Logger Log { get; set; }
+        public IApplicationState State { get; private set; }
+        public IApplicationBus Bus { get; private set; }
 
         protected LowLevelController() {
             Info = DependencyResolver.Current.GetService<PageInfo>();
+            State = DependencyResolver.Current.GetService<IApplicationState>();
+            Bus = DependencyResolver.Current.GetService<IApplicationBus>();
         }
 
         protected override ITempDataProvider CreateTempDataProvider() {

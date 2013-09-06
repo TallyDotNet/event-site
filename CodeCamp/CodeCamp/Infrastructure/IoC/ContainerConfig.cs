@@ -2,10 +2,12 @@
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
+using CodeCamp.Domain;
+using CodeCamp.Domain.Infrastructure;
 using CodeCamp.Infrastructure.Logging;
 using CodeCamp.Infrastructure.Models;
 
-namespace CodeCamp.App_Start {
+namespace CodeCamp.Infrastructure.IoC {
     public class ContainerConfig {
         public static void Configure() {
             var builder = new ContainerBuilder();
@@ -21,6 +23,8 @@ namespace CodeCamp.App_Start {
         static void RegisterApplicationComponents(ContainerBuilder builder) {
             builder.RegisterModule<NLogModule>();
             builder.RegisterType<PageInfo>().InstancePerHttpRequest();
+            builder.RegisterType<SingleWebServerApplicationState>().As<IApplicationState>().InstancePerHttpRequest();
+            builder.RegisterType<DefaultApplicationBus>().As<IApplicationBus>().SingleInstance();
         }
 
         static void RegisterMVCComponents(ContainerBuilder builder) {

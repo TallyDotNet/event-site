@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Optimization;
 
-namespace CodeCamp.App_Start {
+namespace CodeCamp.Infrastructure {
     public class BundleConfig {
         public static void RegisterBundles(BundleCollection bundles) {
             bundles.IgnoreList.Clear();
