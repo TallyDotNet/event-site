@@ -17,6 +17,7 @@ namespace CodeCamp.App_Start {
                 new StyleBundle("~/Content/css")
                     .Include("~/Content/styles/ie10mobile.css")
                     .Include("~/Content/bootstrap/bootstrap.min.css")
+                    .Include("~/Content/styles/site.min.css")
                 );
         }
 
