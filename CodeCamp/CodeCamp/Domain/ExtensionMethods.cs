@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CodeCamp.Domain.Model;
 
 namespace CodeCamp.Domain {
@@ -13,6 +14,12 @@ namespace CodeCamp.Domain {
 
         public static bool RunningInProduction(this IApplicationState state) {
             return string.Compare(state.Environment, "production", StringComparison.OrdinalIgnoreCase) == 0;
+        }
+
+        public static void Apply<T>(this IEnumerable<T> enumerable, Action<T> action) {
+            foreach(var item in enumerable) {
+                action(item);
+            }
         }
     }
 }

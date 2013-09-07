@@ -24,7 +24,7 @@ namespace CodeCamp.Infrastructure.IoC {
             builder.RegisterModule<NLogModule>();
             builder.RegisterType<ViewInfo>().InstancePerHttpRequest();
             builder.RegisterType<SingleWebServerApplicationState>().As<IApplicationState>().InstancePerHttpRequest();
-            builder.RegisterType<DefaultApplicationBus>().As<IApplicationBus>().SingleInstance();
+            builder.RegisterType<DefaultApplicationBus>().As<IApplicationBus>().InstancePerHttpRequest();
         }
 
         static void RegisterMVCComponents(ContainerBuilder builder) {

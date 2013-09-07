@@ -1,5 +1,5 @@
 ﻿namespace CodeCamp.Domain.Model {
-    public class CodeCamp {
+    public class ScheduledEvent {
         public string Id { get; set; }
         public int Number { get; set; }
         public string Year { get; set; }

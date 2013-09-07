@@ -159,8 +159,8 @@
     <Compile Include="Infrastructure\Views\ViewInfo.cs" />
     <Compile Include="Infrastructure\SingleWebServerApplicationState.cs" />
     <Compile Include="Infrastructure\Views\BaseView.cs" />
-    <Compile Include="Domain\Model\CodeCamp.cs" />
-    <Compile Include="Domain\Model\Registration.cs" />
+    <Compile Include="Domain\Model\ScheduledEvent.cs" />
+    <Compile Include="Domain\Model\EventRegistration.cs" />
     <Compile Include="Domain\Model\Session.cs" />
     <Compile Include="Domain\Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

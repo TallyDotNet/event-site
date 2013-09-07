@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace CodeCamp.Domain.Model {
-    public class Registration {
+    public class EventRegistration {
         public DateTimeOffset RegisteredOn { get; set; }
     }
 }

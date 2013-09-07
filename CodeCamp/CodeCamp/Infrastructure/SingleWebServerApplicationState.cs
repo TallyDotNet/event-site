@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using CodeCamp.Domain;
 using CodeCamp.Domain.Infrastructure;
 using CodeCamp.Domain.Model;
@@ -22,12 +21,11 @@ namespace CodeCamp.Infrastructure {
                 };
             }
         }
-        public Domain.Model.CodeCamp CodeCamp { get; private set; }
+
+        public ScheduledEvent CurrentEvent { get; private set; }
 
         public string Environment {
-            get {
-                return ConfigurationManager.AppSettings["Environment"];
-            }
+            get { return ConfigurationManager.AppSettings["Environment"]; }
         }
     }
 }
