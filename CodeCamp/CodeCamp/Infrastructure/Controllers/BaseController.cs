@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using CodeCamp.Domain.Infrastructure;
 using Raven.Client;
 
 namespace CodeCamp.Infrastructure.Controllers {
@@ -24,6 +25,11 @@ namespace CodeCamp.Infrastructure.Controllers {
             } finally {
                 DocSession.Dispose();
             }
+        }
+
+        protected CommandExecutor<TResult> Execute<TResult>(ICommand<TResult> command)
+            where TResult : CommandResponse, new() {
+            return new CommandExecutor<TResult>(this, command);
         }
     }
 }

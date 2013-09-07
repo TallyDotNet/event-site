@@ -18,11 +18,11 @@ namespace CodeCamp.Domain.Infrastructure {
             return result.Status == CommandResponseStatus.Success;
         }
 
-        public static bool NotFound(this CommandResponse result) {
+        public static bool WasNotFound(this CommandResponse result) {
             return result.Status == CommandResponseStatus.NotFound;
         }
 
-        public static bool Forbidden(this CommandResponse result) {
+        public static bool WasForbidden(this CommandResponse result) {
             return result.Status == CommandResponseStatus.Forbidden;
         }
     }
