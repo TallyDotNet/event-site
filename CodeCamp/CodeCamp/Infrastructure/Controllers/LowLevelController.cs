@@ -8,7 +8,7 @@ using CodeCamp.ViewModels;
 using NLog;
 
 namespace CodeCamp.Infrastructure.Controllers {
-    public class LowLevelController : Controller {
+    public abstract class LowLevelController : Controller {
         static readonly ITempDataProvider CookieTempData = new CookieTempDataProvider();
 
         public ViewInfo ViewInfo { get; private set; }
