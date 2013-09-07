@@ -5,5 +5,6 @@
         public string Year { get; set; }
         public Venue Venue { get; set; }
         public bool IsCurrent { get; set; }
+        public bool IsSessionSubmissionOpen { get; set; }
     }
 }

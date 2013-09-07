@@ -134,6 +134,7 @@
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Model\Roles.cs" />
     <Compile Include="Infrastructure\ExtensionMethods.cs" />
+    <Compile Include="Infrastructure\Filters\LoggedInAttribute.cs" />
     <Compile Include="Infrastructure\Views\BundleConfig.cs" />
     <Compile Include="Infrastructure\IoC\ContainerConfig.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
