@@ -143,8 +143,6 @@ body {
 .navbar-custom .navbar-nav > li > a.avatar {
   padding: 8px 16px;
   border-right: none;
-  position: relative;
-  left: 32px;
 }
 .navbar-custom .navbar-nav > li > a.avatar img {
   border-radius: 4px;
@@ -153,7 +151,7 @@ body {
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
 }
 .navbar-custom .navbar-nav > li.btn-group > ul.dropdown-menu {
-  left: -47px;
+  left: -78px;
 }
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
