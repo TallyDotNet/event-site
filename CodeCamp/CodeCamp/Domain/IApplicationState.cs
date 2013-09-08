@@ -3,7 +3,10 @@
 namespace CodeCamp.Domain {
     public interface IApplicationState {
         User User { get; }
-        ScheduledEvent CurrentEvent { get; }
+        ScheduledEvent UpcomingEvent { get; }
         string Environment { get; }
+
+        void Login(User user, bool persist);
+        void Logout();
     }
 }

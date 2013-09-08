@@ -5,11 +5,13 @@ using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using CodeCamp.Domain;
 using CodeCamp.Domain.Infrastructure;
+using CodeCamp.Infrastructure.Authentication;
 using CodeCamp.Infrastructure.Data;
 using CodeCamp.Infrastructure.Logging;
 using CodeCamp.Infrastructure.Views;
 using Raven.Client;
 using Raven.Client.Document;
+using SimpleAuthentication.Mvc;
 
 namespace CodeCamp.Infrastructure.IoC {
     public class ContainerConfig {
@@ -30,11 +32,8 @@ namespace CodeCamp.Infrastructure.IoC {
             builder.RegisterType<SingleWebServerApplicationState>().As<IApplicationState>().InstancePerHttpRequest();
             builder.RegisterType<DefaultApplicationBus>().As<IApplicationBus>().InstancePerHttpRequest();
             builder.Register(x => RavenDBConfig.CreateDocumentStore()).As<IDocumentStore>().SingleInstance();
-            builder.Register(x => x.Resolve<IDocumentStore>().OpenSession()).As<IDocumentSession>().InstancePerHttpRequest()
-                .OnRelease(x => {
-                    x.SaveChanges();
-                    x.Dispose();
-                });
+            builder.Register(x => x.Resolve<IDocumentStore>().OpenSession()).As<IDocumentSession>().InstancePerHttpRequest();
+            builder.RegisterType<AuthenticationCallbackProvider>().As<IAuthenticationCallbackProvider>();
         }
 
         static void RegisterMVCComponents(ContainerBuilder builder) {

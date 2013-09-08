@@ -12,20 +12,21 @@ namespace CodeCamp.Infrastructure {
         }
 
         public User User {
-            get {
-                return new User {
-                    Name = "Rob Eisenberg",
-                    Roles = {Roles.User, Roles.Admin},
-                    Email = "rob@bluespire.com",
-                    TwitterHandle = "EisenbergEffect"
-                };
-            }
+            get { return null; }
         }
 
-        public ScheduledEvent CurrentEvent { get; private set; }
+        public ScheduledEvent UpcomingEvent { get; private set; }
 
         public string Environment {
             get { return ConfigurationManager.AppSettings["Environment"]; }
+        }
+
+        public void Login(User user, bool persist) {
+            throw new System.NotImplementedException();
+        }
+
+        public void Logout() {
+            throw new System.NotImplementedException();
         }
     }
 }
