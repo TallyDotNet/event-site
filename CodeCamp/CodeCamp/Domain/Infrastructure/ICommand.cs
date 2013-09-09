@@ -11,9 +11,9 @@ namespace CodeCamp.Domain.Infrastructure {
 
     public abstract class Command<TResponse> : ICommand<TResponse> where TResponse : Result, new() {
         protected Logger Log { get; set; }
-        protected IApplicationBus Bus { get; set; }
-        protected IApplicationState State { get; set; }
-        protected IDocumentSession DocSession { get; set; }
+        public IApplicationBus Bus { get; set; }
+        public IApplicationState State { get; set; }
+        public IDocumentSession DocSession { get; set; }
 
         protected Command() {
             Log = LogManager.GetLogger(GetType().FullName);
@@ -24,7 +24,7 @@ namespace CodeCamp.Domain.Infrastructure {
         public TResponse Process() {
             try {
                 var initialCheck = Validate(this);
-                return initialCheck.Failed() ? initialCheck : Process();
+                return initialCheck.Failed() ? initialCheck : Execute();
             } catch(Exception e) {
                 Log.Error(e);
                 var result = new TResponse();

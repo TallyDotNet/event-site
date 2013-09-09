@@ -11,8 +11,8 @@ namespace CodeCamp.Infrastructure.Controllers {
     public abstract class LowLevelController : Controller {
         static readonly ITempDataProvider CookieTempData = new CookieTempDataProvider();
 
-        public ViewInfo ViewInfo { get; private set; }
         public Logger Log { get; set; }
+        public ViewInfo ViewInfo { get; private set; }
         public IApplicationState State { get; private set; }
         public IApplicationBus Bus { get; private set; }
 

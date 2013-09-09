@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using CodeCamp.Infrastructure.Controllers;
+using CodeCamp.Infrastructure.Filters;
 using CodeCamp.ViewModels.Account;
 
 namespace CodeCamp.Controllers {
@@ -17,6 +18,12 @@ namespace CodeCamp.Controllers {
                     return Redirect(input.ReturnUrl);
                 })
                 .OnFailure(x => View(input));
+        }
+
+        [LoggedIn]
+        public ActionResult Logout() {
+            State.Logout();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

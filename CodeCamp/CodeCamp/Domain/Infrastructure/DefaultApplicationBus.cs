@@ -2,9 +2,9 @@
 
 namespace CodeCamp.Domain.Infrastructure {
     public class DefaultApplicationBus : IApplicationBus {
-        readonly IContainer container;
+        readonly IComponentContext container;
 
-        public DefaultApplicationBus(IContainer container) {
+        public DefaultApplicationBus(IComponentContext container) {
             this.container = container;
         }
 

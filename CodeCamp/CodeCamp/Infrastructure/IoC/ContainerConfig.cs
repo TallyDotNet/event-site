@@ -32,6 +32,7 @@ namespace CodeCamp.Infrastructure.IoC {
             builder.Register(x => x.Resolve<IDocumentStore>().OpenSession()).As<IDocumentSession>().InstancePerHttpRequest();
             builder.RegisterType<AuthenticationCallbackProvider>().As<IAuthenticationCallbackProvider>();
             builder.RegisterType<DefaultSecurityEncoder>().As<ISecurityEncoder>().SingleInstance();
+            builder.RegisterType<SimpleAuthenticationController>().As<SimpleAuthenticationController>().InstancePerHttpRequest();
         }
 
         static void RegisterMVCComponents(ContainerBuilder builder) {

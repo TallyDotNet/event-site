@@ -4,4 +4,37 @@
     ViewInfo.Title = "Create Account";
 }
 
-<h2>Create Account</h2>
+<hgroup class="title">
+    <h1>@ViewInfo.Title</h1>
+    <h2>Associate your @Model.ProviderDisplayName account.</h2>
+</hgroup>
+
+@using (Html.BeginForm("Create", "Account", new { Model.ReturnUrl, Model.Persist })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Association Form</legend>
+        <p>
+            You've successfully authenticated with <strong>@Model.ProviderDisplayName</strong>.
+            Please enter a user name and email for this site below and click the Confirm button to finish
+            logging in.
+        </p>
+        <ol>
+            <li class="username">
+                @Html.LabelFor(m => m.Username)
+                @Html.TextBoxFor(m => m.Username)
+                @Html.ValidationMessageFor(m => m.Username)
+            </li>
+            <li class="email">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </li>
+        </ol>
+
+        @Html.HiddenFor(m => m.ExternalLoginData)
+
+        <input type="submit" value="Confirm" />
+    </fieldset>
+}

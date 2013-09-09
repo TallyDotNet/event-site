@@ -39,13 +39,14 @@ namespace CodeCamp.Infrastructure.Authentication {
             }
 
             return new ViewResult {
-                ViewName = "~/Views/Account/Create",
+                ViewName = "~/Views/Account/Create.cshtml",
                 ViewData = new ViewDataDictionary(new CreateAccountViewModel {
                     Email = userInfo.Email,
                     Username = userInfo.UserName,
                     ReturnUrl = model.ReturnUrl,
                     ExternalLoginData = securityEncoder.SerializeOAuthProviderUserId(authInfo.ProviderName, userInfo.Id),
-                    Persist = true
+                    Persist = true,
+                    ProviderDisplayName = authInfo.ProviderName
                 })
             };
         }

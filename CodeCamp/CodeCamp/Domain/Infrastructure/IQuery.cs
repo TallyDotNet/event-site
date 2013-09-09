@@ -8,9 +8,9 @@ namespace CodeCamp.Domain.Infrastructure {
 
     public abstract class Query<TResult> : IQuery<TResult> {
         protected Logger Log { get; set; }
-        protected IApplicationBus Bus { get; set; }
-        protected IApplicationState State { get; set; }
-        protected IDocumentSession DocSession { get; set; }
+        public IApplicationBus Bus { get; set; }
+        public IApplicationState State { get; set; }
+        public IDocumentSession DocSession { get; set; }
 
         protected Query() {
             Log = LogManager.GetLogger(GetType().FullName);
