@@ -1,8 +1,7 @@
 ﻿namespace CodeCamp.Domain.Model {
-    public class ScheduledEvent {
+    public class Event {
         public string Id { get; set; }
-        public int Number { get; set; }
-        public string Year { get; set; }
+        public string Name { get; set; }
         public Venue Venue { get; set; }
         public bool IsCurrent { get; set; }
         public bool IsSessionSubmissionOpen { get; set; }

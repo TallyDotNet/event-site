@@ -158,6 +158,7 @@
     <Compile Include="Domain\Commands\CreateAccount.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Infrastructure\ISecurityEncoder.cs" />
+    <Compile Include="Domain\Infrastructure\Reference.cs" />
     <Compile Include="Domain\Infrastructure\SlugConverter.cs" />
     <Compile Include="Domain\Model\Roles.cs" />
     <Compile Include="Domain\Queries\UserViaProvider.cs" />
@@ -193,7 +194,7 @@
     <Compile Include="Infrastructure\Views\ViewInfo.cs" />
     <Compile Include="Infrastructure\SingleWebServerApplicationState.cs" />
     <Compile Include="Infrastructure\Views\BaseView.cs" />
-    <Compile Include="Domain\Model\ScheduledEvent.cs" />
+    <Compile Include="Domain\Model\Event.cs" />
     <Compile Include="Domain\Model\EventRegistration.cs" />
     <Compile Include="Domain\Model\Session.cs" />
     <Compile Include="Domain\Model\User.cs" />
