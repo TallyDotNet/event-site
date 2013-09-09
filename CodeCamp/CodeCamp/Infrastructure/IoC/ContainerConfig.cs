@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using System.Web.Mvc;
 using Autofac;
-using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using CodeCamp.Domain;
 using CodeCamp.Domain.Infrastructure;
@@ -10,7 +9,6 @@ using CodeCamp.Infrastructure.Data;
 using CodeCamp.Infrastructure.Logging;
 using CodeCamp.Infrastructure.Views;
 using Raven.Client;
-using Raven.Client.Document;
 using SimpleAuthentication.Mvc;
 
 namespace CodeCamp.Infrastructure.IoC {

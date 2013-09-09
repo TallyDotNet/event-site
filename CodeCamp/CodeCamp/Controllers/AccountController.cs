@@ -11,7 +11,12 @@ namespace CodeCamp.Controllers {
 
         [HttpPost]
         public ActionResult Create(CreateAccountViewModel input) {
-            return View();
+            return Execute(input)
+                .OnSuccess(x => {
+                    State.Login(x.Subject, input.Persist);
+                    return Redirect(input.ReturnUrl);
+                })
+                .OnFailure(x => View(input));
         }
     }
 }

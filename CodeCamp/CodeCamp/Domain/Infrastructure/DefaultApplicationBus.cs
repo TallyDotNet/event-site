@@ -10,7 +10,7 @@ namespace CodeCamp.Domain.Infrastructure {
             this.docSession = docSession;
         }
 
-        public T Execute<T>(ICommand<T> command) where T : CommandResponse {
+        public T Execute<T>(ICommand<T> command) where T : Result {
             return command.Execute(this, state, docSession);
         }
 

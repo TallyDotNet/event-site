@@ -5,7 +5,7 @@ using CodeCamp.Infrastructure.Results;
 
 namespace CodeCamp.Infrastructure.Controllers {
     public class CommandExecutor<TResult>
-        where TResult : CommandResponse, new() {
+        where TResult : Result, new() {
         readonly BaseController controller;
         readonly ICommand<TResult> command;
         Func<TResult, ActionResult> onFailure;

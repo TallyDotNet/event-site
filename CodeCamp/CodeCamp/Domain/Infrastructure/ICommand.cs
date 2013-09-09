@@ -5,11 +5,11 @@ using NLog;
 using Raven.Client;
 
 namespace CodeCamp.Domain.Infrastructure {
-    public interface ICommand<out TResponse> where TResponse : CommandResponse {
+    public interface ICommand<out TResponse> where TResponse : Result {
         TResponse Execute(IApplicationBus bus, IApplicationState state, IDocumentSession docSession);
     }
 
-    public abstract class Command<TResponse> : ICommand<TResponse> where TResponse : CommandResponse, new() {
+    public abstract class Command<TResponse> : ICommand<TResponse> where TResponse : Result, new() {
         protected Logger Log { get; private set; }
         protected IApplicationBus Bus { get; private set; }
         protected IApplicationState State { get; private set; }
@@ -32,6 +32,48 @@ namespace CodeCamp.Domain.Infrastructure {
                 result.WithErrorMessage("An unexpected error occurred. Please try again later.");
                 return result;
             }
+        }
+
+        protected TResponse NotFound() {
+            return Result.NotFound<TResponse>();
+        }
+
+        protected TResponse Forbidden() {
+            return Result.Forbidden<TResponse>();
+        }
+
+        protected TResponse PropertyError(string property, string message) {
+            var result = new TResponse();
+            result.WithError(property, message);
+            return result;
+        }
+
+        protected TResponse Error(string message) {
+            var result = new TResponse();
+            result.WithErrorMessage(message);
+            return result;
+        }
+
+        protected TResponse ErrorFormat(string messageFormat, params object[] args) {
+            var result = new TResponse();
+            result.WithErrorMessage(string.Format(messageFormat, args));
+            return result;
+        }
+
+        protected TResponse Success(string messageFormat) {
+            var result = new TResponse();
+            result.WithMessage(messageFormat);
+            return result;
+        }
+
+        protected TResponse SuccessFormat(string messageFormat, params object[] args) {
+            var result = new TResponse();
+            result.WithMessage(string.Format(messageFormat, args));
+            return result;
+        }
+
+        protected DateTimeOffset Now() {
+            return DateTimeOffset.Now;
         }
 
         TResponse Validate(object instance) {

@@ -28,7 +28,7 @@ namespace CodeCamp.Infrastructure.Controllers {
         }
 
         protected CommandExecutor<TResult> Execute<TResult>(ICommand<TResult> command)
-            where TResult : CommandResponse, new() {
+            where TResult : Result, new() {
             return new CommandExecutor<TResult>(this, command);
         }
     }

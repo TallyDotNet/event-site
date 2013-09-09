@@ -1,9 +1,9 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using CodeCamp.Domain;
 using CodeCamp.Domain.Infrastructure;
 using CodeCamp.Domain.Queries;
+using CodeCamp.ViewModels;
 using CodeCamp.ViewModels.Account;
 using SimpleAuthentication.Mvc;
 
@@ -18,26 +18,45 @@ namespace CodeCamp.Infrastructure.Authentication {
         }
 
         public ActionResult Process(HttpContextBase context, AuthenticateCallbackData model) {
-            var userInfo = model.AuthenticatedClient.UserInformation;
-            var user = bus.Query(new UserWithEmail(userInfo.Email));
+            var authInfo = model.AuthenticatedClient;
+            var userInfo = authInfo.UserInformation;
 
+            var user = bus.Query(new UserViaProvider(authInfo.ProviderName, userInfo.Id));
             if(user != null) {
                 state.Login(user, true);
                 return new RedirectResult(model.ReturnUrl);
             }
 
+            if(!string.IsNullOrEmpty(userInfo.Email)) {
+                user = bus.Query(new UserWithEmail(userInfo.Email));
+                if(user != null) {
+                    user.AddOAuthAccount(authInfo.ProviderName, userInfo.Id);
+                    state.Login(user, true);
+                    return new RedirectResult(model.ReturnUrl);
+                }
+            }
+
             return new ViewResult {
-                ViewName = "Create",
+                ViewName = "~/Views/Account/Create",
                 ViewData = new ViewDataDictionary(new CreateAccountViewModel {
                     Email = userInfo.Email,
                     Username = userInfo.UserName,
-                    ReturnUrl = model.ReturnUrl
+                    ReturnUrl = model.ReturnUrl,
+                    ExternalLoginData = Security.SerializeOAuthProviderUserId(authInfo.ProviderName, userInfo.Id),
+                    Persist = true
                 })
             };
         }
 
         public ActionResult OnRedirectToAuthenticationProviderError(HttpContextBase context, string errorMessage) {
-            throw new NotImplementedException();
+            return new ViewResult {
+                ViewName = "Error",
+                ViewData = new ViewDataDictionary(new ErrorOutput {
+                    ErrorCode = "500",
+                    Message = errorMessage,
+                    Url = context.Request.Url.OriginalString
+                })
+            };
         }
     }
 }

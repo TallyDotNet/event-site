@@ -63,14 +63,17 @@
     <Reference Include="Raven.Client.Lightweight">
       <HintPath>..\packages\RavenDB.Client.2.0.2330\lib\net40\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp">
+    <Reference Include="RestSharp, Version=104.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleAuthentication.Core">
+    <Reference Include="SimpleAuthentication.Core, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\SimpleAuthentication.Core.0.3.5\lib\net40\SimpleAuthentication.Core.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleAuthentication.Mvc">
-      <HintPath>..\packages\SimpleAuthentication.Mvc.0.3.5\lib\net40\SimpleAuthentication.Mvc.dll</HintPath>
+    <Reference Include="SimpleAuthentication.Mvc, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SimpleAuthentication.Mvc.0.3.4\lib\net40\SimpleAuthentication.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -142,7 +145,8 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="WebActivatorEx">
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebActivatorEx.2.0.3\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
@@ -153,7 +157,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
+    <Compile Include="Domain\Infrastructure\Security.cs" />
+    <Compile Include="Domain\Infrastructure\SlugConverter.cs" />
     <Compile Include="Domain\Model\Roles.cs" />
+    <Compile Include="Domain\Queries\UserViaProvider.cs" />
+    <Compile Include="Domain\Queries\UserWithUsername.cs" />
     <Compile Include="Infrastructure\Authentication\AuthenticationCallbackProvider.cs" />
     <Compile Include="Infrastructure\Controllers\CommandExecutor.cs" />
     <Compile Include="Domain\Queries\UserWithEmail.cs" />
@@ -166,7 +174,7 @@
     <Compile Include="Infrastructure\IoC\ContainerConfig.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Domain\Infrastructure\CommandResponse.cs" />
+    <Compile Include="Domain\Infrastructure\Result.cs" />
     <Compile Include="Domain\Infrastructure\DefaultApplicationBus.cs" />
     <Compile Include="Domain\Infrastructure\IApplicationBus.cs" />
     <Compile Include="Domain\IApplicationState.cs" />
@@ -240,6 +248,7 @@
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
     <Content Include="Views\Shared\_DefaultLayout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
