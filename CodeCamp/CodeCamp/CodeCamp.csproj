@@ -155,7 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
+    <Compile Include="Domain\Commands\RegisterForCurrentEvent.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Infrastructure\ISecurityEncoder.cs" />
     <Compile Include="Domain\Infrastructure\Reference.cs" />
@@ -250,7 +252,9 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModels\Register\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

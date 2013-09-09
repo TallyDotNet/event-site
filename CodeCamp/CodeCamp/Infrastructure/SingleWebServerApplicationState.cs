@@ -52,7 +52,7 @@ namespace CodeCamp.Infrastructure {
             }
         }
 
-        public Event UpcomingEvent { get; private set; }
+        public Event CurrentEvent { get; private set; }
 
         public string Environment {
             get { return ConfigurationManager.AppSettings["Environment"]; }

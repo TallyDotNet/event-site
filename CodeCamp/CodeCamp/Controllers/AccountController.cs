@@ -15,7 +15,12 @@ namespace CodeCamp.Controllers {
             return Execute(input)
                 .OnSuccess(x => {
                     State.Login(x.Subject, input.Persist);
-                    return Redirect(input.ReturnUrl); //TODO: go to registration
+
+                    if(State.CurrentEvent != null) {
+                        return RedirectToAction("Index", "Register");
+                    }
+
+                    return RedirectToAction("Profile", "Account");
                 })
                 .OnFailure(x => View(input));
         }
