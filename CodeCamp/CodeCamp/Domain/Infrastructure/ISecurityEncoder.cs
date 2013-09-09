@@ -3,10 +3,15 @@ using System.IO;
 using System.Web.Security;
 
 namespace CodeCamp.Domain.Infrastructure {
-    public static class Security  {
+    public interface ISecurityEncoder {
+        string SerializeOAuthProviderUserId(string providerName, string providerUserId);
+        bool TryDeserializeOAuthProviderUserId(string protectedData, out string providerName, out string providerUserId);
+    }
+
+    public class DefaultSecurityEncoder : ISecurityEncoder  {
         static readonly byte[] Padding = {0x85, 0xC5, 0x65, 0x72};
 
-        public static string SerializeOAuthProviderUserId(string providerName, string providerUserId) {
+        public string SerializeOAuthProviderUserId(string providerName, string providerUserId) {
             using(var ms = new MemoryStream())
             using(var bw = new BinaryWriter(ms)) {
                 bw.Write(providerName);
@@ -19,7 +24,7 @@ namespace CodeCamp.Domain.Infrastructure {
             }
         }
 
-        public static bool TryDeserializeOAuthProviderUserId(string protectedData, out string providerName, out string providerUserId) {
+        public bool TryDeserializeOAuthProviderUserId(string protectedData, out string providerName, out string providerUserId) {
             providerName = null;
             providerUserId = null;
 

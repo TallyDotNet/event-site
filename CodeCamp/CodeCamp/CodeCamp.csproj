@@ -157,11 +157,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
-    <Compile Include="Domain\Infrastructure\Security.cs" />
+    <Compile Include="Domain\Infrastructure\ISecurityEncoder.cs" />
     <Compile Include="Domain\Infrastructure\SlugConverter.cs" />
     <Compile Include="Domain\Model\Roles.cs" />
     <Compile Include="Domain\Queries\UserViaProvider.cs" />
-    <Compile Include="Domain\Queries\UserWithUsername.cs" />
     <Compile Include="Infrastructure\Authentication\AuthenticationCallbackProvider.cs" />
     <Compile Include="Infrastructure\Controllers\CommandExecutor.cs" />
     <Compile Include="Domain\Queries\UserWithEmail.cs" />

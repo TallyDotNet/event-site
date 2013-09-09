@@ -1,21 +1,21 @@
-﻿using Raven.Client;
+﻿using Autofac;
 
 namespace CodeCamp.Domain.Infrastructure {
     public class DefaultApplicationBus : IApplicationBus {
-        readonly IApplicationState state;
-        readonly IDocumentSession docSession;
+        readonly IContainer container;
 
-        public DefaultApplicationBus(IApplicationState state, IDocumentSession docSession) {
-            this.state = state;
-            this.docSession = docSession;
+        public DefaultApplicationBus(IContainer container) {
+            this.container = container;
         }
 
         public T Execute<T>(ICommand<T> command) where T : Result {
-            return command.Execute(this, state, docSession);
+            container.InjectProperties(command);
+            return command.Process();
         }
 
         public TResult Query<TResult>(IQuery<TResult> query) {
-            return query.Execute(this, state, docSession);
+            container.InjectProperties(query);
+            return query.Process();
         }
     }
 }

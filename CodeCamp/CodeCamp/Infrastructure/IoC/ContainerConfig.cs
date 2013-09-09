@@ -19,7 +19,6 @@ namespace CodeCamp.Infrastructure.IoC {
             RegisterMVCComponents(builder);
             RegisterApplicationComponents(builder);
 
-            //Plug into MVC
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));    
         }
@@ -32,6 +31,7 @@ namespace CodeCamp.Infrastructure.IoC {
             builder.Register(x => RavenDBConfig.CreateDocumentStore()).As<IDocumentStore>().SingleInstance();
             builder.Register(x => x.Resolve<IDocumentStore>().OpenSession()).As<IDocumentSession>().InstancePerHttpRequest();
             builder.RegisterType<AuthenticationCallbackProvider>().As<IAuthenticationCallbackProvider>();
+            builder.RegisterType<DefaultSecurityEncoder>().As<ISecurityEncoder>().SingleInstance();
         }
 
         static void RegisterMVCComponents(ContainerBuilder builder) {

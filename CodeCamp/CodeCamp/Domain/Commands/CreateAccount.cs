@@ -7,11 +7,6 @@ using CodeCamp.Domain.Queries;
 
 namespace CodeCamp.Domain.Commands {
     public class CreateAccount : Command<Result<User>> {
-        static readonly string[] ForbiddenUserSlugs = {
-            "admin", "administrator", "developer",
-            "support", "owner", "siteowner", "site-owner", "bin"
-        };
-
         [Required]
         [StringLength(16, MinimumLength = 6)]
         public string Username { get; set; }
@@ -23,10 +18,12 @@ namespace CodeCamp.Domain.Commands {
         [Required]
         public string ExternalLoginData { get; set; }
 
+        public ISecurityEncoder SecurityEncoder { get; set; }
+
         protected override Result<User> Execute() {
             string providerName, providerUserId;
 
-            if(!Security.TryDeserializeOAuthProviderUserId(ExternalLoginData, out providerName, out providerUserId)) {
+            if(!SecurityEncoder.TryDeserializeOAuthProviderUserId(ExternalLoginData, out providerName, out providerUserId)) {
                 return Error("Invalid external login data provided.");
             }
 
@@ -64,6 +61,11 @@ namespace CodeCamp.Domain.Commands {
             return Result.Of(user)
                 .WithMessage("Your account has been successfully created.");
         }
+
+        static readonly string[] ForbiddenUserSlugs = {
+            "admin", "administrator", "developer",
+            "support", "owner", "siteowner", "site-owner", "bin"
+        };
 
         bool prohibitSlug(string slug) {
             if(string.IsNullOrWhiteSpace(slug)) {

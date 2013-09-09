@@ -3,21 +3,20 @@ using Raven.Client;
 
 namespace CodeCamp.Domain.Infrastructure {
     public interface IQuery<out TResult> {
-        TResult Execute(IApplicationBus bus, IApplicationState state, IDocumentSession docSession);
+        TResult Process();
     }
 
     public abstract class Query<TResult> : IQuery<TResult> {
-        protected Logger Log { get; private set; }
-        protected IApplicationBus Bus { get; private set; }
-        protected IApplicationState State { get; private set; }
-        protected IDocumentSession DocSession { get; private set; }
+        protected Logger Log { get; set; }
+        protected IApplicationBus Bus { get; set; }
+        protected IApplicationState State { get; set; }
+        protected IDocumentSession DocSession { get; set; }
 
-        public TResult Execute(IApplicationBus bus, IApplicationState state, IDocumentSession docSession) {
+        protected Query() {
             Log = LogManager.GetLogger(GetType().FullName);
-            Bus = bus;
-            State = state;
-            DocSession = docSession;
+        }
 
+        public TResult Process() {
             return Execute();
         }
 

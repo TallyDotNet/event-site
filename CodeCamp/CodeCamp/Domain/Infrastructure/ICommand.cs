@@ -6,26 +6,25 @@ using Raven.Client;
 
 namespace CodeCamp.Domain.Infrastructure {
     public interface ICommand<out TResponse> where TResponse : Result {
-        TResponse Execute(IApplicationBus bus, IApplicationState state, IDocumentSession docSession);
+        TResponse Process();
     }
 
     public abstract class Command<TResponse> : ICommand<TResponse> where TResponse : Result, new() {
-        protected Logger Log { get; private set; }
-        protected IApplicationBus Bus { get; private set; }
-        protected IApplicationState State { get; private set; }
-        protected IDocumentSession DocSession { get; private set; }
+        protected Logger Log { get; set; }
+        protected IApplicationBus Bus { get; set; }
+        protected IApplicationState State { get; set; }
+        protected IDocumentSession DocSession { get; set; }
+
+        protected Command() {
+            Log = LogManager.GetLogger(GetType().FullName);
+        }
 
         protected abstract TResponse Execute();
 
-        public TResponse Execute(IApplicationBus bus, IApplicationState state, IDocumentSession docSession) {
+        public TResponse Process() {
             try {
-                Log = LogManager.GetLogger(GetType().FullName);
-                Bus = bus;
-                State = state;
-                DocSession = docSession;
-
                 var initialCheck = Validate(this);
-                return initialCheck.Failed() ? initialCheck : Execute();
+                return initialCheck.Failed() ? initialCheck : Process();
             } catch(Exception e) {
                 Log.Error(e);
                 var result = new TResponse();

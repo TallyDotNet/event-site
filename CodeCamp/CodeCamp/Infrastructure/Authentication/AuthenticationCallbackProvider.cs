@@ -11,10 +11,12 @@ namespace CodeCamp.Infrastructure.Authentication {
     public class AuthenticationCallbackProvider : IAuthenticationCallbackProvider {
         readonly IApplicationState state;
         readonly IApplicationBus bus;
+        readonly ISecurityEncoder securityEncoder;
 
-        public AuthenticationCallbackProvider(IApplicationState state, IApplicationBus bus) {
+        public AuthenticationCallbackProvider(IApplicationState state, IApplicationBus bus, ISecurityEncoder securityEncoder) {
             this.state = state;
             this.bus = bus;
+            this.securityEncoder = securityEncoder;
         }
 
         public ActionResult Process(HttpContextBase context, AuthenticateCallbackData model) {
@@ -42,7 +44,7 @@ namespace CodeCamp.Infrastructure.Authentication {
                     Email = userInfo.Email,
                     Username = userInfo.UserName,
                     ReturnUrl = model.ReturnUrl,
-                    ExternalLoginData = Security.SerializeOAuthProviderUserId(authInfo.ProviderName, userInfo.Id),
+                    ExternalLoginData = securityEncoder.SerializeOAuthProviderUserId(authInfo.ProviderName, userInfo.Id),
                     Persist = true
                 })
             };
