@@ -12,12 +12,12 @@ namespace CodeCamp.Domain.Queries {
         }
 
         protected override User Execute() {
-            return DocSession.Query<User, Index>()
+            return DocSession.Query<User, UserWithEmailIndex>()
                 .SingleOrDefault(x => x.Email == email);
         }
 
-        public class Index : AbstractIndexCreationTask<User> {
-            public Index() {
+        public class UserWithEmailIndex : AbstractIndexCreationTask<User> {
+            public UserWithEmailIndex() {
                 Map = users =>
                     from user in users
                     select new {user.Email};
