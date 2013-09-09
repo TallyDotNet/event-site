@@ -4,17 +4,22 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using CodeCamp.Domain;
+using CodeCamp.Domain.Infrastructure;
 using CodeCamp.Domain.Model;
+using CodeCamp.Domain.Queries;
 using Raven.Client;
 
 namespace CodeCamp.Infrastructure {
     public class SingleWebServerApplicationState : IApplicationState {
         const string CurrentUserKey = "CurrentUserKey";
+        const string CurrentRegistrationStatusKey = "CurrentRegistrationStatusKey";
 
+        readonly IApplicationBus bus;
         readonly IDocumentSession docSession;
         readonly HttpContextBase httpContext;
 
-        public SingleWebServerApplicationState(IDocumentSession docSession, HttpContextBase httpContext) {
+        public SingleWebServerApplicationState(IApplicationBus bus, IDocumentSession docSession, HttpContextBase httpContext) {
+            this.bus = bus;
             this.docSession = docSession;
             this.httpContext = httpContext;
         }
@@ -49,6 +54,27 @@ namespace CodeCamp.Infrastructure {
                 } catch {
                     return null;
                 }
+            }
+        }
+
+        public RegistrationStatus RegistrationStatus {
+            get {
+                if(CurrentEvent == null || User == null) {
+                    return RegistrationStatus.NoEventScheduled;
+                }
+
+                var existing = httpContext.Session[CurrentRegistrationStatusKey];
+
+                if(existing == null) {
+                    var status = bus.Query(new IsUserRegisteredForCurrentEvent());
+                    httpContext.Session[CurrentRegistrationStatusKey] = status;
+                    return status;
+                }
+
+                return (RegistrationStatus)existing;
+            }
+            set {
+                httpContext.Session[CurrentRegistrationStatusKey] = value;
             }
         }
 

@@ -163,6 +163,8 @@
     <Compile Include="Domain\Infrastructure\Reference.cs" />
     <Compile Include="Domain\Infrastructure\SlugConverter.cs" />
     <Compile Include="Domain\Model\Roles.cs" />
+    <Compile Include="Domain\Model\RegistrationStatus.cs" />
+    <Compile Include="Domain\Queries\IsUserRegisteredForCurrentEvent.cs" />
     <Compile Include="Domain\Queries\UserViaProvider.cs" />
     <Compile Include="Infrastructure\Authentication\AuthenticationCallbackProvider.cs" />
     <Compile Include="Infrastructure\Controllers\CommandExecutor.cs" />

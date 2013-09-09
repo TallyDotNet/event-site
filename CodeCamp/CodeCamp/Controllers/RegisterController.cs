@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using CodeCamp.Domain.Commands;
 using CodeCamp.Infrastructure.Controllers;
 using CodeCamp.Infrastructure.Filters;
 
@@ -11,9 +12,9 @@ namespace CodeCamp.Controllers {
         }
 
         [HttpPost]
-        public ActionResult Current() {
-            //TODO: redirect to update profile
-            return View();
+        public ActionResult Index(RegisterForCurrentEvent input) {
+            return Execute(input)
+                .Always(x => RedirectToAction("Index", "Account"));
         }
     }
 }

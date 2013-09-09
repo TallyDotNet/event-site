@@ -1,7 +1,9 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using CodeCamp.Domain;
 using CodeCamp.Domain.Infrastructure;
+using CodeCamp.Domain.Model;
 using CodeCamp.Domain.Queries;
 using CodeCamp.ViewModels;
 using CodeCamp.ViewModels.Account;
@@ -26,6 +28,11 @@ namespace CodeCamp.Infrastructure.Authentication {
             var user = bus.Query(new UserViaProvider(authInfo.ProviderName, userInfo.Id));
             if(user != null) {
                 state.Login(user, true);
+
+                if(state.RegistrationStatus == RegistrationStatus.NotRegistered) {
+                    return RedirectToRegistrationPage();
+                }
+
                 return new RedirectResult(model.ReturnUrl);
             }
 
@@ -33,7 +40,13 @@ namespace CodeCamp.Infrastructure.Authentication {
                 user = bus.Query(new UserWithEmail(userInfo.Email));
                 if(user != null) {
                     user.AddOAuthAccount(authInfo.ProviderName, userInfo.Id);
+
                     state.Login(user, true);
+
+                    if(state.RegistrationStatus == RegistrationStatus.NotRegistered) {
+                        return RedirectToRegistrationPage();
+                    }
+
                     return new RedirectResult(model.ReturnUrl);
                 }
             }
@@ -60,6 +73,15 @@ namespace CodeCamp.Infrastructure.Authentication {
                     Url = context.Request.Url.OriginalString
                 })
             };
+        }
+
+        ActionResult RedirectToRegistrationPage() {
+            var values = new RouteValueDictionary();
+
+            values["controller"] = "Register";
+            values["action"] = "Index";
+
+            return new RedirectToRouteResult(values);
         }
     }
 }

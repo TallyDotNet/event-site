@@ -6,6 +6,12 @@ using CodeCamp.ViewModels.Account;
 namespace CodeCamp.Controllers {
     public class AccountController : BaseController {
         [HttpGet]
+        [LoggedInAttribute]
+        public ActionResult Index() {
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult Login() {
             return View();
         }
@@ -20,7 +26,7 @@ namespace CodeCamp.Controllers {
                         return RedirectToAction("Index", "Register");
                     }
 
-                    return RedirectToAction("Profile", "Account");
+                    return RedirectToAction("Index", "Account");
                 })
                 .OnFailure(x => View(input));
         }
