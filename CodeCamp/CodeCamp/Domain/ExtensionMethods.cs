@@ -22,8 +22,16 @@ namespace CodeCamp.Domain {
                    && state.CurrentEvent.IsSessionSubmissionOpen;
         }
 
+        public static bool EventScheduled(this IApplicationState state) {
+            return state != null;
+        }
+
         public static bool NoEventScheduled(this IApplicationState state) {
             return state.CurrentEvent == null;
+        }
+
+        public static bool RegisteredForEvent(this IApplicationState state) {
+            return state.RegistrationStatus == RegistrationStatus.Registered;
         }
 
         public static void Apply<T>(this IEnumerable<T> enumerable, Action<T> action) {

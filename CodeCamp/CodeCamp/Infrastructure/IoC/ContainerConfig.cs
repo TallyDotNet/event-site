@@ -25,14 +25,20 @@ namespace CodeCamp.Infrastructure.IoC {
 
         static void RegisterApplicationComponents(ContainerBuilder builder) {
             builder.RegisterModule<NLogModule>();
+            
             builder.RegisterType<ViewInfo>().InstancePerHttpRequest();
+            
             builder.RegisterType<SingleWebServerApplicationState>().As<IApplicationState>().InstancePerHttpRequest();
             builder.RegisterType<DefaultApplicationBus>().As<IApplicationBus>().InstancePerHttpRequest();
+            
             builder.Register(x => RavenDBConfig.CreateDocumentStore()).As<IDocumentStore>().SingleInstance();
             builder.Register(x => x.Resolve<IDocumentStore>().OpenSession()).As<IDocumentSession>().InstancePerHttpRequest();
+            
             builder.RegisterType<AuthenticationCallbackProvider>().As<IAuthenticationCallbackProvider>();
-            builder.RegisterType<DefaultSecurityEncoder>().As<ISecurityEncoder>().SingleInstance();
             builder.RegisterType<SimpleAuthenticationController>().As<SimpleAuthenticationController>().InstancePerHttpRequest();
+            
+            builder.RegisterType<DefaultSecurityEncoder>().As<ISecurityEncoder>().SingleInstance();
+            builder.RegisterType<DefaultSlugConverter>().As<ISlugConverter>().SingleInstance();
         }
 
         static void RegisterMVCComponents(ContainerBuilder builder) {

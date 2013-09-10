@@ -5,14 +5,18 @@ using System.Text.RegularExpressions;
 using Raven.Client;
 
 namespace CodeCamp.Domain.Infrastructure {
-    public static class SlugConverter {
-        public static string ToUrlSafeFile(string fileName) {
+    public interface ISlugConverter {
+        string ToSlug(string title);
+    }
+
+    public class DefaultSlugConverter : ISlugConverter {
+        public string ToUrlSafeFile(string fileName) {
             fileName = RemoveDiacritics(fileName);
             fileName = ReplaceNonWordWithDashes(fileName, true);
             return fileName.Trim(' ', '-');
         }
 
-        public static string UniquifySlug<T>(IDocumentSession session, string slug, Func<string, string> getId)
+        public string UniquifySlug<T>(IDocumentSession session, string slug, Func<string, string> getId)
             where T : class {
             var id = getId(slug);
             var exisiting = session.Load<T>(id);
@@ -29,7 +33,7 @@ namespace CodeCamp.Domain.Infrastructure {
             return slug;
         }
 
-        public static string ToSlug(string title) {
+        public string ToSlug(string title) {
             // 2 - Strip diacritical marks using Michael Kaplan's function or equivalent
             title = RemoveDiacritics(title);
 
@@ -45,7 +49,7 @@ namespace CodeCamp.Domain.Infrastructure {
             return title;
         }
 
-        public static string ToCaseSensitiveSlug(string title) {
+        public string ToCaseSensitiveSlug(string title) {
             title = RemoveDiacritics(title);
             title = ReplaceNonWordWithDashes(title);
             return title.Trim(' ', '-');
@@ -58,7 +62,7 @@ namespace CodeCamp.Domain.Infrastructure {
         /// <param name = "value">The string to normalize.</param>
         /// <returns>A string where all characters are part of the basic English ANSI encoding.</returns>
         /// <seealso cref = "http://stackoverflow.com/questions/249087/how-do-i-remove-diacritics-accents-from-a-string-in-net" />
-        static string RemoveDiacritics(string value) {
+        string RemoveDiacritics(string value) {
             var stFormD = value.Normalize(NormalizationForm.FormD);
             var sb = new StringBuilder();
 
@@ -72,7 +76,7 @@ namespace CodeCamp.Domain.Infrastructure {
             return (sb.ToString().Normalize(NormalizationForm.FormC));
         }
 
-        static string ReplaceNonWordWithDashes(string title, bool doNotReplacePeriod = false) {
+        string ReplaceNonWordWithDashes(string title, bool doNotReplacePeriod = false) {
             // Remove Apostrophe Tags
             title = Regex.Replace(title, "[’'“”\"&]{1,}", "", RegexOptions.None);
 

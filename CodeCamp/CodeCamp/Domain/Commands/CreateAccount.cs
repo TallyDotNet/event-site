@@ -20,6 +20,8 @@ namespace CodeCamp.Domain.Commands {
 
         public ISecurityEncoder SecurityEncoder { get; set; }
 
+        public ISlugConverter SlugConverter { get; set; }
+
         protected override Result<User> Execute() {
             string providerName, providerUserId;
 

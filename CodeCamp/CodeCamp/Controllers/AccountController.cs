@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using CodeCamp.Domain.Model;
+using CodeCamp.Domain;
 using CodeCamp.Domain.Queries;
 using CodeCamp.Infrastructure.Controllers;
 using CodeCamp.Infrastructure.Filters;
@@ -12,7 +12,7 @@ namespace CodeCamp.Controllers {
         public ActionResult Index() {
             var vm = new IndexViewModel();
 
-            if(State.RegistrationStatus == RegistrationStatus.Registered) {
+            if(State.RegisteredForEvent()) {
                 vm.SubmittedSessions = Bus.Query(new SubmittedSessions());
             }
 
@@ -25,7 +25,7 @@ namespace CodeCamp.Controllers {
             return Execute(input)
                 .OnSuccess(x => RedirectToAction("Index"))
                 .OnFailure(x => {
-                    if(State.RegistrationStatus == RegistrationStatus.Registered) {
+                    if(State.RegisteredForEvent()) {
                         input.SubmittedSessions = Bus.Query(new SubmittedSessions());
                     }
 
@@ -44,7 +44,7 @@ namespace CodeCamp.Controllers {
                 .OnSuccess(x => {
                     State.Login(x.Subject, input.Persist);
 
-                    if(State.CurrentEvent != null) {
+                    if(State.EventScheduled()) {
                         return RedirectToAction("Index", "Register");
                     }
 

@@ -167,7 +167,7 @@
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Infrastructure\ISecurityEncoder.cs" />
     <Compile Include="Domain\Infrastructure\Reference.cs" />
-    <Compile Include="Domain\Infrastructure\SlugConverter.cs" />
+    <Compile Include="Domain\Infrastructure\ISlugConverter.cs" />
     <Compile Include="Domain\Model\Roles.cs" />
     <Compile Include="Domain\Model\RegistrationStatus.cs" />
     <Compile Include="Domain\Queries\IsUserRegisteredForCurrentEvent.cs" />
