@@ -256,6 +256,8 @@
     <Content Include="Views\Account\Create.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Register\NoEventScheduled.cshtml" />
+    <Content Include="Views\Register\AlreadyRegistered.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Register\" />

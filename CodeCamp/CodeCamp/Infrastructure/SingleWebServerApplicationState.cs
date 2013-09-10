@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
@@ -84,7 +85,9 @@ namespace CodeCamp.Infrastructure {
                     Id = "events/code-camp-9",
                     Name = "Code Camp 9",
                     IsCurrent = true,
-                    IsSessionSubmissionOpen = true
+                    IsSessionSubmissionOpen = true,
+                    Start = DateTimeOffset.Parse("11/9/2013"),
+                    End = DateTimeOffset.Parse("11/9/2013")
                 };
             }
         }

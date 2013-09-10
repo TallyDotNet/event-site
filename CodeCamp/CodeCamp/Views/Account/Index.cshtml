@@ -1,4 +1,5 @@
-﻿@model CodeCamp.Domain.Commands.UpdateProfile
+﻿@using CodeCamp.Domain.Model
+@model CodeCamp.Domain.Commands.UpdateProfile
 
 @{
     ViewInfo.Title = "My Account";
@@ -7,24 +8,99 @@
 <div class="jumbotron">
     <h1>My Account</h1>
     <p class="lead">Update your profile, set your preferences and submit sessions.</p>
-    <p>
-        <a class="btn btn-lg btn-success" href="#">Submit Session</a>
-        <a class="btn btn-lg btn-success" href="#">Sponsor Us</a>
-    </p>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">Profile</div>
-  <div class="panel-body">
-    Panel content
-  </div>
-</div>
+<div class="row">
+    <div class="col-md-3">
+        <div role="complementary">
+            @if(State.RegistrationStatus == RegistrationStatus.NotRegistered) {
+                <div class="text-center">
+                    <a href="@Url.Action("Index", "Register")" class="btn btn-lg btn-success">
+                        Register for <br/>
+                        @State.CurrentEvent.Name <br/>
+                        Now!
+                    </a>
+                </div>
+            }
+            
+            @if(State.RegistrationStatus == RegistrationStatus.Registered) {
+                <ul class="sidenav nav">
+                    <li class="active">Sessions</li>
+                </ul>
+            }
+        </div>
+    </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Preferences</h3>
-  </div>
-  <div class="panel-body">
-    Panel content
-  </div>
+    <div class="col-md-9" role="main">
+        <form class="form-horizontal" role="form">
+            <div class="panel panel-default">
+                <div class="panel-heading">About Me</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="Name" class="col-lg-2 control-label">Name</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Title" class="col-lg-2 control-label">Title</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Title" name="Title" placeholder="Title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Company" class="col-lg-2 control-label">Company</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Company" name="Company" placeholder="Company">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="TelephoneNumber" class="col-lg-2 control-label">Phone Number</label>
+                        <div class="col-lg-10">
+                            <input type="tel" class="form-control" id="TelephoneNumber" name="TelephoneNumber" placeholder="Telephone Number">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Bio" class="col-lg-2 control-label">Bio</label>
+                        <div class="col-lg-10">
+                            <textarea rows="4" class="form-control" id="Bio" name="Bio" placeholder="Bio"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My Preferences</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> List In Attendee Directory
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Receive Email
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-lg-offset-10 col-lg-2">
+                    <button type="submit" class="btn btn-lg btn-success" style="width: 100%">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
