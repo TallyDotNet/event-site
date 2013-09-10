@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using CodeCamp.Domain.Commands;
 using CodeCamp.Infrastructure.Controllers;
 using CodeCamp.Infrastructure.Filters;
 using CodeCamp.ViewModels.Account;
@@ -6,9 +7,15 @@ using CodeCamp.ViewModels.Account;
 namespace CodeCamp.Controllers {
     public class AccountController : BaseController {
         [HttpGet]
-        [LoggedInAttribute]
+        [LoggedIn]
         public ActionResult Index() {
-            return View();
+            return View(new UpdateProfile(State.User));
+        }
+
+        [HttpPost]
+        [LoggedIn]
+        public ActionResult Index(UpdateProfile input) {
+            return Execute(input).Always(x => View(input));
         }
 
         [HttpGet]

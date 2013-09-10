@@ -1,4 +1,5 @@
 ﻿@using CodeCamp.Domain
+@using CodeCamp.Domain.Model
 @using CodeCamp.Infrastructure
 <div class="navbar-wrapper">
     <div class="container" style="padding: 0">
@@ -10,7 +11,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#" style="margin-left: 0">
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")" style="margin-left: 0">
                         <img src="~/Content/images/logo.gif" title="Tallahasee Code Camp"/>
                         <span>Tallahassee Code Camp</span>
                     </a>
@@ -30,14 +31,20 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#"><span class="glyphicon glyphicon-star"></span> My Account</a>
+                                    <a href="@Url.Action("Index", "Account")"><span class="glyphicon glyphicon-star"></span> My Account</a>
                                 </li>
-                                <li>
-                                    <a href="#"><span class="glyphicon glyphicon-registration-mark"></span> Register</a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
-                                </li>
+                                
+                                @if(State.RegistrationStatus == RegistrationStatus.NotRegistered) {
+                                    <li>
+                                        <a href="@Url.Action("Index", "Register")"><span class="glyphicon glyphicon-registration-mark"></span> Register</a>
+                                    </li>
+                                }
+                                
+                                @if(State.RegistrationStatus != RegistrationStatus.NoEventScheduled) {
+                                    <li>
+                                        <a href="#"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
+                                    </li>
+                                }
                                 
                                 @if(State.UserIsAdmin()) {
                                     <li class="divider"></li>
@@ -47,6 +54,7 @@
                                 }
 
                                 <li class="divider"></li>
+
                                 <li>
                                     <a href="@Url.Action("LogOut", "Account")"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                                 </li>

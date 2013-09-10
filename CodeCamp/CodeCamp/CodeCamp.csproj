@@ -158,6 +158,7 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
     <Compile Include="Domain\Commands\RegisterForCurrentEvent.cs" />
+    <Compile Include="Domain\Commands\UpdateProfile.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Infrastructure\ISecurityEncoder.cs" />
     <Compile Include="Domain\Infrastructure\Reference.cs" />
@@ -253,6 +254,8 @@
     <Content Include="Views\Shared\_DefaultLayout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Register\" />

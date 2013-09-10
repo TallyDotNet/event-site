@@ -1,0 +1,14 @@
+﻿@model dynamic
+
+@{
+    ViewInfo.Title = "Register for " + State.CurrentEvent.Name;
+}
+
+<h2>You are not yet registered for @State.CurrentEvent.Name.</h2>
+<h3>Would you like to register now?</h3>
+
+<form method="POST" action="@Url.Action("Index", "Register")">
+    <button class="btn">YES! Register me now please.</button>
+</form>
+
+<button class="btn">No thank you.</button>
