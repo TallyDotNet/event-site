@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using CodeCamp.Domain.Commands;
+using CodeCamp.Domain.Model;
 using CodeCamp.Infrastructure.Controllers;
 using CodeCamp.Infrastructure.Filters;
 
@@ -8,7 +10,16 @@ namespace CodeCamp.Controllers {
     public class RegisterController : BaseController {
         [HttpGet]
         public ActionResult Index() {
-            return View();
+            switch(State.RegistrationStatus) {
+                case RegistrationStatus.NoEventScheduled:
+                    return View("NoEventScheduled");
+                case RegistrationStatus.NotRegistered:
+                    return View();
+                case RegistrationStatus.Registered:
+                    return View("AlreadyRegistered");
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         [HttpPost]
