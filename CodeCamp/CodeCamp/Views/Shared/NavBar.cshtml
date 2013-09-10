@@ -40,7 +40,7 @@
                                     </li>
                                 }
                                 
-                                @if(State.RegistrationStatus != RegistrationStatus.NoEventScheduled) {
+                                @if(State.CanSubmitSessions()) {
                                     <li>
                                         <a href="#"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
                                     </li>
@@ -48,6 +48,7 @@
                                 
                                 @if(State.UserIsAdmin()) {
                                     <li class="divider"></li>
+                                    
                                     <li>
                                         <a href="#"><span class="glyphicon glyphicon-wrench"></span> Admin</a>
                                     </li>    

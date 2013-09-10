@@ -16,6 +16,12 @@ namespace CodeCamp.Domain {
             return string.Compare(state.Environment, "production", StringComparison.OrdinalIgnoreCase) == 0;
         }
 
+        public static bool CanSubmitSessions(this IApplicationState state) {
+            return state.UserIsLoggedIn()
+                   && state.RegistrationStatus != RegistrationStatus.NoEventScheduled
+                   && state.CurrentEvent.IsSessionSubmissionOpen;
+        }
+
         public static void Apply<T>(this IEnumerable<T> enumerable, Action<T> action) {
             foreach(var item in enumerable) {
                 action(item);

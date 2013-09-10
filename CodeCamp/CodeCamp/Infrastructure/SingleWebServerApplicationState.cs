@@ -78,7 +78,16 @@ namespace CodeCamp.Infrastructure {
             }
         }
 
-        public Event CurrentEvent { get; private set; }
+        public Event CurrentEvent {
+            get {
+                return new Event {
+                    Id = "events/code-camp-9",
+                    Name = "Code Camp 9",
+                    IsCurrent = true,
+                    IsSessionSubmissionOpen = true
+                };
+            }
+        }
 
         public string Environment {
             get { return ConfigurationManager.AppSettings["Environment"]; }

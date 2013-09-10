@@ -16,7 +16,7 @@ namespace CodeCamp.Domain.Commands {
                             Id =  State.CurrentEvent.Id,
                             Name = State.CurrentEvent.Name
                         },
-                        User = {
+                        User = new Reference {
                             Id = State.User.Id,
                             Name = State.User.Username
                         },
