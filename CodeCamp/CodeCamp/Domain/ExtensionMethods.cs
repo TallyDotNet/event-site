@@ -22,6 +22,10 @@ namespace CodeCamp.Domain {
                    && state.CurrentEvent.IsSessionSubmissionOpen;
         }
 
+        public static bool NoEventScheduled(this IApplicationState state) {
+            return state.CurrentEvent == null;
+        }
+
         public static void Apply<T>(this IEnumerable<T> enumerable, Action<T> action) {
             foreach(var item in enumerable) {
                 action(item);

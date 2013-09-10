@@ -1,6 +1,6 @@
 ﻿namespace CodeCamp.Domain.Model {
     public static class Roles {
-        public static string User = "user";
-        public static string Admin = "admin";
+        public const string User = "user";
+        public const string Admin = "admin";
     }
 }
