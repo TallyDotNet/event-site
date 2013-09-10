@@ -163,7 +163,7 @@
     <Compile Include="Controllers\SponsorsController.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
     <Compile Include="Domain\Commands\RegisterForCurrentEvent.cs" />
-    <Compile Include="Domain\Commands\UpdateProfile.cs" />
+    <Compile Include="Domain\Commands\UpdateAccount.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Infrastructure\ISecurityEncoder.cs" />
     <Compile Include="Domain\Infrastructure\Reference.cs" />

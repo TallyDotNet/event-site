@@ -6,12 +6,12 @@ using CodeCamp.Domain;
 
 namespace CodeCamp.Infrastructure.Filters {
     public class LoggedInAttribute : AuthorizeAttribute {
-        protected override bool AuthorizeCore(HttpContextBase httpContext) {
-            var state = DependencyResolver.Current.GetService<IApplicationState>();
+        public IApplicationState State { get; set; }
 
-            if(state.UserIsLoggedIn()) {
+        protected override bool AuthorizeCore(HttpContextBase httpContext) {
+            if(State.UserIsLoggedIn()) {
                 var roles = splitString(Roles);
-                return !roles.Any() || roles.Any(x => state.User.Roles.Contains(x));
+                return !roles.Any() || roles.Any(x => State.User.Roles.Contains(x));
             }
 
             return false;

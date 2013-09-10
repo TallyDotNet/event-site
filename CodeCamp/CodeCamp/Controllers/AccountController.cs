@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using CodeCamp.Domain.Commands;
 using CodeCamp.Domain.Model;
 using CodeCamp.Domain.Queries;
 using CodeCamp.Infrastructure.Controllers;
@@ -22,8 +21,16 @@ namespace CodeCamp.Controllers {
 
         [HttpPost]
         [LoggedIn]
-        public ActionResult Index(UpdateProfile input) {
-            return Execute(input).Always(x => View(input));
+        public ActionResult Index(IndexViewModel input) {
+            return Execute(input)
+                .OnSuccess(x => RedirectToAction("Index"))
+                .OnFailure(x => {
+                    if(State.RegistrationStatus == RegistrationStatus.Registered) {
+                        input.SubmittedSessions = Bus.Query(new SubmittedSessions());
+                    }
+
+                    return View(input);
+                });
         }
 
         [HttpGet]
