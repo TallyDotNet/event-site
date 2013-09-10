@@ -83,6 +83,14 @@
             <div class="alert alert-danger fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <span>@Result.Message</span>
+                
+                @if(Result.Details.Count > 0) {
+                    <ul>
+                        @foreach(var detail in Result.Details) {
+                            <li>@detail.Description</li>
+                        }
+                    </ul>
+                }
             </div>
         }  
     </div>

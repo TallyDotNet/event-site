@@ -179,6 +179,13 @@ body {
 .sidenav li.active {
   font-weight: bold;
 }
+.field-validation-error {
+  color: #b94a48;
+}
+.login-buttons a {
+  margin: 8px;
+  width: 100%;
+}
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 /* Carousel base class */
