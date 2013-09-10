@@ -156,6 +156,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
     <Compile Include="Domain\Commands\RegisterForCurrentEvent.cs" />
     <Compile Include="Domain\Commands\UpdateProfile.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Domain\Model\Roles.cs" />
     <Compile Include="Domain\Model\RegistrationStatus.cs" />
     <Compile Include="Domain\Queries\IsUserRegisteredForCurrentEvent.cs" />
+    <Compile Include="Domain\Queries\SubmittedSessions.cs" />
     <Compile Include="Domain\Queries\UserViaProvider.cs" />
     <Compile Include="Infrastructure\Authentication\AuthenticationCallbackProvider.cs" />
     <Compile Include="Infrastructure\Controllers\CommandExecutor.cs" />
@@ -205,6 +207,7 @@
     <Compile Include="Domain\Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\CreateAccountViewModel.cs" />
+    <Compile Include="ViewModels\Account\IndexViewModel.cs" />
     <Compile Include="ViewModels\ErrorOutput.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +261,7 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Register\NoEventScheduled.cshtml" />
     <Content Include="Views\Register\AlreadyRegistered.cshtml" />
+    <Content Include="Views\Sessions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Register\" />

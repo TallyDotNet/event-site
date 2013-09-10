@@ -1,5 +1,6 @@
-﻿@using CodeCamp.Domain.Model
-@model CodeCamp.Domain.Commands.UpdateProfile
+﻿@using CodeCamp.Domain
+@using CodeCamp.Domain.Model
+@model CodeCamp.ViewModels.Account.IndexViewModel
 
 @{
     ViewInfo.Title = "My Account";
@@ -24,9 +25,23 @@
             }
             
             @if(State.RegistrationStatus == RegistrationStatus.Registered) {
-                <ul class="sidenav nav">
-                    <li class="active">Sessions</li>
-                </ul>
+                if(Model.SubmittedSessions.Any()) {
+                    <ul class="sidenav nav">
+                        <li class="active">Sessions</li>
+                    
+                        @foreach(var session in Model.SubmittedSessions) {
+                            <li>@session.Name</li>
+                        }
+                    </ul>
+                }else if(State.CanSubmitSessions()) {
+                    <div class="text-center">
+                        <a href="@Url.Action("Create", "Sessions")" class="btn btn-lg btn-success">
+                            Submit a Session for <br/>
+                            @State.CurrentEvent.Name <br/>
+                            Now!
+                        </a>
+                    </div>
+                }
             }
         </div>
     </div>

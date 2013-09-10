@@ -20,7 +20,7 @@
                 <div class="navbar-collapse collapse pull-right" style="padding: 0">
                     <ul class="nav navbar-nav">
                         <li><a href="#">Speakers</a></li>
-                        <li><a href="#">Sessions</a></li>
+                        <li><a href="@Url.Action("Index", "Sessions")">Sessions</a></li>
                         <li><a href="#">Sponsors</a></li>
                         <li><a href="#">Location</a></li>
                         
@@ -43,7 +43,7 @@
                                 
                                     @if(State.CanSubmitSessions()) {
                                         <li>
-                                            <a href="#"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
+                                            <a href="@Url.Action("Create", "Sessions")"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
                                         </li>
                                     }
                                 
