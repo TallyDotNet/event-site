@@ -271,7 +271,7 @@
     <Content Include="Views\Shared\NoEventScheduled.cshtml" />
     <Content Include="Views\Register\AlreadyRegistered.cshtml" />
     <Content Include="Views\Sessions\Index.cshtml" />
-    <Content Include="Views\Sessions\Create.cshtml" />
+    <Content Include="Views\Sessions\Submit.cshtml" />
     <Content Include="Views\Speakers\Index.cshtml" />
     <Content Include="Views\Sponsors\Index.cshtml" />
     <Content Include="Views\Location\Index.cshtml" />

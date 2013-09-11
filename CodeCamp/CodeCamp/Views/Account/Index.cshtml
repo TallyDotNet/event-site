@@ -48,14 +48,14 @@
                     </ul>
                 
                     <div class="text-center">
-                        <a href="@Url.Action("Create", "Sessions")" class="btn btn-lg btn-success">
+                        <a href="@Url.Action("Submit", "Sessions")" class="btn btn-lg btn-success">
                             Submit Another Session <br/>
                             for @State.CurrentEvent.Name
                         </a>
                     </div>
                 }else if(State.CanSubmitSessions()) {
                     <div class="text-center">
-                        <a href="@Url.Action("Create", "Sessions")" class="btn btn-lg btn-success">
+                        <a href="@Url.Action("Submit", "Sessions")" class="btn btn-lg btn-success">
                             Submit a Session for <br/>
                             @State.CurrentEvent.Name <br/>
                             Now!

@@ -20,7 +20,7 @@ namespace CodeCamp.Controllers {
 
         [HttpGet]
         [LoggedIn]
-        public ActionResult Create() {
+        public ActionResult Submit() {
             if(State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
@@ -30,7 +30,7 @@ namespace CodeCamp.Controllers {
 
         [HttpPost]
         [LoggedIn]
-        public ActionResult Create(SubmitSession input) {
+        public ActionResult Submit(SubmitSession input) {
             return Execute(input)
                 .OnSuccess(x => {
                     DocSession.SaveChanges();

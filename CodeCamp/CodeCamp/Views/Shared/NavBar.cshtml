@@ -32,7 +32,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="@Url.Action("Index", "Account")"><span class="glyphicon glyphicon-star"></span> My Account</a>
+                                        <a href="@Url.Action("Index", "Account")"><span class="glyphicon glyphicon-home"></span> My Account</a>
                                     </li>
                                 
                                     @if(State.RegistrationStatus == RegistrationStatus.NotRegistered) {
@@ -43,7 +43,7 @@
                                 
                                     @if(State.CanSubmitSessions()) {
                                         <li>
-                                            <a href="@Url.Action("Create", "Sessions")"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
+                                            <a href="@Url.Action("Submit", "Sessions")"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
                                         </li>
                                     }
                                 
