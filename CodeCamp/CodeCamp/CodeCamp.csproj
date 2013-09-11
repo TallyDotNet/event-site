@@ -163,6 +163,7 @@
     <Compile Include="Controllers\SponsorsController.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
     <Compile Include="Domain\Commands\RegisterForCurrentEvent.cs" />
+    <Compile Include="Domain\Commands\SubmitSession.cs" />
     <Compile Include="Domain\Commands\UpdateAccount.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Infrastructure\ISecurityEncoder.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Domain\Infrastructure\ISlugConverter.cs" />
     <Compile Include="Domain\Model\Roles.cs" />
     <Compile Include="Domain\Model\RegistrationStatus.cs" />
+    <Compile Include="Domain\Model\SessionStatus.cs" />
     <Compile Include="Domain\Queries\IsUserRegisteredForCurrentEvent.cs" />
     <Compile Include="Domain\Queries\SubmittedSessions.cs" />
     <Compile Include="Domain\Queries\UserViaProvider.cs" />
@@ -180,6 +182,7 @@
     <Compile Include="Infrastructure\Data\RavenDBConfig.cs" />
     <Compile Include="Infrastructure\ExtensionMethods.cs" />
     <Compile Include="Infrastructure\Filters\LoggedInAttribute.cs" />
+    <Compile Include="Infrastructure\Helpers\ExtensionMethods.cs" />
     <Compile Include="Infrastructure\Results\JsonNetResult.cs" />
     <Compile Include="Infrastructure\Views\BundleConfig.cs" />
     <Compile Include="Infrastructure\IoC\ContainerConfig.cs" />

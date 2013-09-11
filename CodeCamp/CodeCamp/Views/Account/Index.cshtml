@@ -30,7 +30,20 @@
                         <li class="active">Sessions</li>
                     
                         @foreach(var session in Model.SubmittedSessions) {
-                            <li>@session.Name</li>
+                            <li>
+                                @session.Name
+                                @switch(@session.Status) {
+                                    case SessionStatus.PendingApproval:
+                                        <span style="color: #428bca" class="glyphicon glyphicon-question-sign pull-right" title="Pending Approval"></span>
+                                        break;
+                                    case SessionStatus.Approved:
+                                    <span style="color: #5cb85c" class="glyphicon glyphicon-thumbs-up pull-right" title="Approved"></span>
+                                        break;
+                                    case SessionStatus.Rejected:
+                                    <span style="color: #d9534f" class="glyphicon glyphicon-thumbs-down pull-right" title="Rejected"></span>
+                                        break;
+                                }
+                            </li>
                         }
                     </ul>
                 }else if(State.CanSubmitSessions()) {

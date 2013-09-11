@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using CodeCamp.Domain;
+using CodeCamp.Domain.Commands;
 using CodeCamp.Infrastructure.Controllers;
 using CodeCamp.Infrastructure.Filters;
 
@@ -23,7 +24,18 @@ namespace CodeCamp.Controllers {
                 return View("NoEventScheduled");
             }
 
-            return View();
+            return View(new SubmitSession());
+        }
+
+        [HttpPost]
+        [LoggedIn]
+        public ActionResult Create(SubmitSession input) {
+            return Execute(input)
+                .OnSuccess(x => {
+                    DocSession.SaveChanges();
+                    return RedirectToAction("Index", "Account");
+                })
+                .OnFailure(x => View(input));
         }
     }
 }

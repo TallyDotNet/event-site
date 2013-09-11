@@ -10,6 +10,6 @@ namespace CodeCamp.Domain.Model {
         public Reference Event { get; set; }
         public Reference Submitter { get; set; }
         public DateTimeOffset SubmittedOn { get; set; }
-        //TODO: Status
+        public SessionStatus Status { get; set; }
     }
 }

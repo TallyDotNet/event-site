@@ -1,8 +1,61 @@
-﻿@{
+﻿@using CodeCamp.Infrastructure.Helpers
+@model CodeCamp.Domain.Commands.SubmitSession
+@{
     ViewInfo.Title = "Submit Session";
 }
 
 <div class="jumbotron">
     <h1>Submit Session</h1>
     <p class="lead">Just provide us with a few details below, and you're on your way.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div role="complementary">
+            <ul class="sidenav nav">
+                <li class="active">Some Thoughts...</li>
+                    
+                <li>Tell us what you want to talk about.</li>
+                <li>This will be the actual abstract that will be listed on the site.</li>
+                <li>You can propose as many sessions as you like.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-9" role="main">
+        <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Create", "Sessions")">
+            <div class="panel panel-default">
+                <div class="panel-heading">About Me</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="Name" class="col-lg-2 control-label">Name</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Name" value="@Model.Name">
+                            @Html.ValidationMessageFor(x => x.Name)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Level" class="col-lg-2 control-label">Level</label>
+                        <div class="col-lg-10">
+                            @Html.DropDownListFor(model => model.Level, @Model.Level.ToSelectList(), new { @class="form-control" })
+                            @Html.ValidationMessageFor(x => x.Level)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="col-lg-2 control-label">Description</label>
+                        <div class="col-lg-10">
+                            <textarea rows="4" class="form-control" id="Description" name="Description" placeholder="Description">@Model.Description</textarea>
+                            @Html.ValidationMessageFor(x => x.Description)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-lg-offset-10 col-lg-2">
+                    <button type="submit" class="btn btn-lg btn-success" style="width: 100%">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
