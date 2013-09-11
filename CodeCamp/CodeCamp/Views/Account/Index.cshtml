@@ -37,15 +37,22 @@
                                         <span style="color: #428bca" class="glyphicon glyphicon-question-sign pull-right" title="Pending Approval"></span>
                                         break;
                                     case SessionStatus.Approved:
-                                    <span style="color: #5cb85c" class="glyphicon glyphicon-thumbs-up pull-right" title="Approved"></span>
+                                        <span style="color: #5cb85c" class="glyphicon glyphicon-thumbs-up pull-right" title="Approved"></span>
                                         break;
                                     case SessionStatus.Rejected:
-                                    <span style="color: #d9534f" class="glyphicon glyphicon-thumbs-down pull-right" title="Rejected"></span>
+                                        <span style="color: #d9534f" class="glyphicon glyphicon-thumbs-down pull-right" title="Rejected"></span>
                                         break;
                                 }
                             </li>
                         }
                     </ul>
+                
+                    <div class="text-center">
+                        <a href="@Url.Action("Create", "Sessions")" class="btn btn-lg btn-success">
+                            Submit Another Session <br/>
+                            for @State.CurrentEvent.Name
+                        </a>
+                    </div>
                 }else if(State.CanSubmitSessions()) {
                     <div class="text-center">
                         <a href="@Url.Action("Create", "Sessions")" class="btn btn-lg btn-success">

@@ -1,20 +1,21 @@
 ﻿using System.Web.Mvc;
 using CodeCamp.Domain;
 using CodeCamp.Domain.Commands;
+using CodeCamp.Domain.Queries;
 using CodeCamp.Infrastructure.Controllers;
 using CodeCamp.Infrastructure.Filters;
 
 namespace CodeCamp.Controllers {
     public class SessionsController : BaseController {
         [HttpGet]
-        public ActionResult Index() {
+        public ActionResult Index(int page = 1) {
             if(State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
 
-            //TODO: paginated events list
+            var data = Bus.Query(new SessionSummaryPage(page));
 
-            return View();
+            return View(data);
         }
 
         [HttpGet]

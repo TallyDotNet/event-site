@@ -167,12 +167,14 @@
     <Compile Include="Domain\Commands\UpdateAccount.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Infrastructure\ISecurityEncoder.cs" />
+    <Compile Include="Domain\Infrastructure\Page.cs" />
     <Compile Include="Domain\Infrastructure\Reference.cs" />
     <Compile Include="Domain\Infrastructure\ISlugConverter.cs" />
     <Compile Include="Domain\Model\Roles.cs" />
     <Compile Include="Domain\Model\RegistrationStatus.cs" />
     <Compile Include="Domain\Model\SessionStatus.cs" />
     <Compile Include="Domain\Queries\IsUserRegisteredForCurrentEvent.cs" />
+    <Compile Include="Domain\Queries\SessionSummaryPage.cs" />
     <Compile Include="Domain\Queries\SubmittedSessions.cs" />
     <Compile Include="Domain\Queries\UserViaProvider.cs" />
     <Compile Include="Infrastructure\Authentication\AuthenticationCallbackProvider.cs" />
@@ -180,7 +182,7 @@
     <Compile Include="Domain\Queries\UserWithEmail.cs" />
     <Compile Include="Infrastructure\Data\Serialization.cs" />
     <Compile Include="Infrastructure\Data\RavenDBConfig.cs" />
-    <Compile Include="Infrastructure\ExtensionMethods.cs" />
+    <Compile Include="Infrastructure\Avatar.cs" />
     <Compile Include="Infrastructure\Filters\LoggedInAttribute.cs" />
     <Compile Include="Infrastructure\Helpers\ExtensionMethods.cs" />
     <Compile Include="Infrastructure\Results\JsonNetResult.cs" />

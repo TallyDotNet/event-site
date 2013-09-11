@@ -1,4 +1,8 @@
-﻿@{
+﻿@using CodeCamp.Domain
+@using CodeCamp.Domain.Model
+@using CodeCamp.Infrastructure
+@model CodeCamp.Domain.Infrastructure.Page<CodeCamp.Domain.Queries.SessionSummaryPage.Summary>
+@{
     ViewInfo.Title = "Sessions";
 }
 
@@ -6,3 +10,54 @@
     <h1>Sessions</h1>
     <p class="lead">Browse and submit sessions for @State.CurrentEvent.Name.</p>
 </div>
+
+<ul class="media-list">
+    @foreach(var summary in Model.Items) {
+        <li class="media">
+            <a class="pull-left" href="#">
+                <img class="media-object avatar" src="@Avatar.GetUrl(summary.SubmitterEmail, 128)" alt="@summary.SubmitterName">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">@summary.Name</h4>
+                <div class="description">@summary.Description</div>
+                <div>
+                    <div class="presenter">Presented by <a href="#">@summary.SubmitterName</a></div>
+                    
+                    @if(State.UserIsAdmin()) {
+                        <div class="pull-right">
+                            @if(summary.Status == SessionStatus.PendingApproval) {
+                                <button class="btn btn-success">Approve</button>
+                                <button class="btn btn-danger">Reject</button>
+                            } else {
+                                switch(@summary.Status) {
+                                    case SessionStatus.Approved:
+                                        <span class="label-success">Approved</span>
+                                        break;
+                                    case SessionStatus.Rejected:
+                                        <span class="label-danger">Rejected</span>
+                                        break;
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+
+@if(Model.HasMultiplePages) {
+    <ul class="pager">
+        @if(Model.HasPreviousPage) {
+            <li>
+                <a href="@Url.Action("Index", "Sessions", new{ page = Model.PreviousPage })">Previous</a>
+            </li>
+        }
+        
+        @if(Model.HasNextPage) {
+            <li>
+                <a href="@Url.Action("Index", "Sessions", new{ page = Model.NextPage })">Next</a>
+            </li>
+        }
+    </ul>    
+}

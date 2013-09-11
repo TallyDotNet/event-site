@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using CodeCamp.Domain;
 
 namespace CodeCamp.Infrastructure {
-    public static class ExtensionMethods {
-        public static string GetUserAvatarLink(this IApplicationState state, int size = 32) {
-            if(state.UserIsLoggedIn()) {
-                var emailHash = CalculateEmailHash(state.User.Email);
-                return string.Format("https://secure.gravatar.com/avatar/{0}?s={1}&d={2}", emailHash, size, "mm");
-            }
-
-            return "#";
+    public static class Avatar {
+        public static string GetUrl(string email, int size = 32) {
+            var emailHash = CalculateEmailHash(email);
+            return string.Format("https://secure.gravatar.com/avatar/{0}?s={1}&d={2}", emailHash, size, "mm");
         }
 
         static string CalculateEmailHash(string email) {

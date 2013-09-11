@@ -27,7 +27,7 @@
                         @if(State.UserIsLoggedIn()) {
                             <li class="btn-group">
                                 <a href="#" class="avatar dropdown-toggle" data-toggle="dropdown">
-                                    <img title="@State.User.Username" src="@State.GetUserAvatarLink()">
+                                    <img title="@State.User.Username" src="@Avatar.GetUrl(State.User.Email)">
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
