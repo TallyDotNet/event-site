@@ -9,9 +9,12 @@ using Raven.Client.Linq;
 namespace CodeCamp.Domain.Queries {
     public class SessionSummaryPage : Query<Page<SessionSummaryPage.Summary>> {
         const int PageSize = 25;
+
+        readonly string eventId;
         int page;
 
-        public SessionSummaryPage(int page) {
+        public SessionSummaryPage(string eventId, int page) {
+            this.eventId = eventId;
             this.page = page;
         }
 
@@ -23,7 +26,8 @@ namespace CodeCamp.Domain.Queries {
             var pageIndex = page - 1;
             RavenQueryStatistics statistics;
 
-            var query = DocSession.Query<Session, SessionSummaryPageIndex>();
+            var query = DocSession.Query<Session, SessionSummaryPageIndex>()
+                .Where(x => x.Event.Id == eventId);
 
             if(!State.UserIsAdmin()) {
                 query = query.Where(x => x.Status == SessionStatus.Approved);
@@ -50,6 +54,7 @@ namespace CodeCamp.Domain.Queries {
             public string SubmitterName { get; set; }
             public string SubmitterEmail { get; set; }
             public SessionStatus Status { get; set; }
+            public string Event_Id { get; set; }
         }
 
         public class SessionSummaryPageIndex : AbstractIndexCreationTask<Session, Summary> {
@@ -64,7 +69,8 @@ namespace CodeCamp.Domain.Queries {
                         SubmitterId = session.Submitter.Id,
                         SubmitterName = string.IsNullOrEmpty(submitter.Profile.Name) ? submitter.Username : submitter.Profile.Name,
                         SubmitterEmail = submitter.Email,
-                        Status = session.Status
+                        Status = session.Status,
+                        Event_Id = session.Event.Id
                     };
 
                 Store(x => x.SubmitterId, FieldStorage.Yes);

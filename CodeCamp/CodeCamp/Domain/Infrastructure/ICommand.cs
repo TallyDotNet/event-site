@@ -11,6 +11,8 @@ namespace CodeCamp.Domain.Infrastructure {
     }
 
     public abstract class Command<TResponse> : ICommand<TResponse> where TResponse : Result, new() {
+        string restrictedRole;
+
         protected Logger Log { get; set; }
         public IApplicationBus Bus { get; set; }
         public IApplicationState State { get; set; }
@@ -28,6 +30,12 @@ namespace CodeCamp.Domain.Infrastructure {
 
         public TResponse Process() {
             try {
+                if(!string.IsNullOrEmpty(restrictedRole)) {
+                    if(!State.UserIsLoggedIn() || !CurrentUser.InRole(restrictedRole)) {
+                        return Forbidden();
+                    }
+                }
+
                 var initialCheck = Validate(this);
                 return initialCheck.Failed() ? initialCheck : Execute();
             } catch(Exception e) {
@@ -80,6 +88,10 @@ namespace CodeCamp.Domain.Infrastructure {
             return DateTimeOffset.Now;
         }
 
+        protected void RestrictToRole(string role) {
+            restrictedRole = role;
+        }
+
         TResponse Validate(object instance) {
             var results = new List<ValidationResult>();
 
@@ -93,6 +105,12 @@ namespace CodeCamp.Domain.Infrastructure {
             results.Apply(x => result.WithError(x));
 
             return result;
+        }
+
+        public abstract class AdminOnly : Command<TResponse> {
+            protected AdminOnly() {
+                RestrictToRole(Roles.Admin);
+            }
         }
     }
 }

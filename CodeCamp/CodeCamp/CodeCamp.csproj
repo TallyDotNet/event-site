@@ -161,6 +161,7 @@
     <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="Controllers\SponsorsController.cs" />
+    <Compile Include="Domain\Commands\ChangeSessionStatus.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
     <Compile Include="Domain\Commands\RegisterForCurrentEvent.cs" />
     <Compile Include="Domain\Commands\SubmitSession.cs" />

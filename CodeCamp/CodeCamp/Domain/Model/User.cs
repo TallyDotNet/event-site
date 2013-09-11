@@ -22,6 +22,10 @@ namespace CodeCamp.Domain.Model {
             return this;
         }
 
+        public bool InRole(string role) {
+            return Roles.Contains(role);
+        }
+
         public User AddRole(string role) {
             if(!Roles.Contains(role)) {
                 Roles.Add(role);
