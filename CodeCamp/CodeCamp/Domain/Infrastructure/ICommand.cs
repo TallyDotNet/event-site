@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using CodeCamp.Domain.Model;
 using NLog;
 using Raven.Client;
 
@@ -14,6 +15,10 @@ namespace CodeCamp.Domain.Infrastructure {
         public IApplicationBus Bus { get; set; }
         public IApplicationState State { get; set; }
         public IDocumentSession DocSession { get; set; }
+
+        protected User CurrentUser {
+            get { return State.User; }
+        }
 
         protected Command() {
             Log = LogManager.GetLogger(GetType().FullName);

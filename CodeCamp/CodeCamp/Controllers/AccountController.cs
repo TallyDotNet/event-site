@@ -16,7 +16,7 @@ namespace CodeCamp.Controllers {
                 vm.SubmittedSessions = Bus.Query(new SubmittedSessions());
             }
 
-            return View(vm);
+            return View(vm.WithUser(CurrentUser));
         }
 
         [HttpPost]

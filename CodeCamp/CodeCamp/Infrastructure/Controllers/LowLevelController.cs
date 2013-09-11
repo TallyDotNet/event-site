@@ -3,6 +3,7 @@ using System.Web.Routing;
 using CodeCamp.Controllers;
 using CodeCamp.Domain;
 using CodeCamp.Domain.Infrastructure;
+using CodeCamp.Domain.Model;
 using CodeCamp.Infrastructure.Views;
 using CodeCamp.ViewModels;
 using NLog;
@@ -15,6 +16,10 @@ namespace CodeCamp.Infrastructure.Controllers {
         public ViewInfo ViewInfo { get; private set; }
         public IApplicationState State { get; private set; }
         public IApplicationBus Bus { get; private set; }
+
+        protected User CurrentUser {
+            get { return State.User; }
+        }
 
         protected LowLevelController() {
             ViewInfo = DependencyResolver.Current.GetService<ViewInfo>();
