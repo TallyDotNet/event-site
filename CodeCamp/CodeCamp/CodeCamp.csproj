@@ -155,7 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
@@ -164,6 +163,8 @@
     <Compile Include="Controllers\SponsorsController.cs" />
     <Compile Include="Domain\Commands\ChangeSessionStatus.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
+    <Compile Include="Domain\Commands\CreateOrUpdateEvent.cs" />
+    <Compile Include="Domain\Commands\MakeEventCurrent.cs" />
     <Compile Include="Domain\Commands\RegisterForCurrentEvent.cs" />
     <Compile Include="Domain\Commands\SubmitSession.cs" />
     <Compile Include="Domain\Commands\UpdateAccount.cs" />
@@ -279,6 +280,8 @@
     <Content Include="Views\Sponsors\Index.cshtml" />
     <Content Include="Views\Location\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Events\CreateOrUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Register\" />

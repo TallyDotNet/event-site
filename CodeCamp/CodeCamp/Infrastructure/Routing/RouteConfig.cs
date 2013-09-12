@@ -9,6 +9,11 @@ namespace CodeCamp.Infrastructure.Routing {
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
             routes.MapRoute(
+                "Slugged",
+                "{controller}/{slug}/{action}"
+                );
+
+            routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",
                 new {controller = "Home", action = "Index", id = UrlParameter.Optional}

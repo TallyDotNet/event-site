@@ -35,8 +35,12 @@ namespace CodeCamp.Domain.Model {
             return this;
         }
 
-        public static string IdFrom(string userSlug) {
-            return "users/" + userSlug.ToLower();
+        public static string IdFrom(string slug) {
+            if(string.IsNullOrEmpty(slug)) {
+                return null;
+            }
+
+            return "users/" + slug.ToLower();
         }
 
         public class OAuthAccount {

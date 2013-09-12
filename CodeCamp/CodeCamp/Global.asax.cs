@@ -8,6 +8,7 @@ using CodeCamp.Infrastructure.Controllers;
 using CodeCamp.Infrastructure.Filters;
 using CodeCamp.Infrastructure.IoC;
 using CodeCamp.Infrastructure.Routing;
+using CodeCamp.Infrastructure.Views;
 using NLog;
 
 namespace CodeCamp {
