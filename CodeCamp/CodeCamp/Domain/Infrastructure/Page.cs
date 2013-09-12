@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Raven.Client;
+using Raven.Client.Linq;
 
 namespace CodeCamp.Domain.Infrastructure {
     public class Page {
+        public static int Size = 25;
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
 
@@ -25,6 +29,16 @@ namespace CodeCamp.Domain.Infrastructure {
             get {
                 return TotalPages > 1;
             }
+        }
+
+        public static IQueryable<T> Transform<T>(IRavenQueryable<T> query, ref int page, out RavenQueryStatistics statistics) {
+            if(page < 1) {
+                page = 1;
+            }
+
+            return query.Statistics(out statistics)
+                .Skip((page - 1)*Size)
+                .Take(Size);
         }
     }
 

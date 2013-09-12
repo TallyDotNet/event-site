@@ -8,8 +8,6 @@ using Raven.Client.Linq;
 
 namespace CodeCamp.Domain.Queries {
     public class SessionSummaryPage : Query<Page<SessionSummaryPage.Summary>> {
-        const int PageSize = 25;
-
         readonly string eventId;
         int page;
 
@@ -19,11 +17,6 @@ namespace CodeCamp.Domain.Queries {
         }
 
         protected override Page<Summary> Execute() {
-            if(page < 1) {
-                page = 1;
-            }
-
-            var pageIndex = page - 1;
             RavenQueryStatistics statistics;
 
             var query = DocSession.Query<Session, SessionSummaryPageIndex>()
@@ -33,15 +26,12 @@ namespace CodeCamp.Domain.Queries {
                 query = query.Where(x => x.Status == SessionStatus.Approved);
             }
 
-            query.Statistics(out statistics);
-
-            var paged = query.Skip(pageIndex*PageSize)
-                .Take(PageSize)
+            var paged = Page.Transform(query, ref page, out statistics)
                 .AsProjection<Summary>();
 
             return new Page<Summary> {
                 CurrentPage = page,
-                TotalPages = statistics.TotalResults/PageSize,
+                TotalPages = statistics.TotalResults/Page.Size,
                 Items = paged.ToArray()
             };
         }
