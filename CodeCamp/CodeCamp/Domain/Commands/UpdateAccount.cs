@@ -28,16 +28,18 @@ namespace CodeCamp.Domain.Commands {
         public bool ReceiveEmail { get; set; }
 
         protected override Result Execute() {
-            CurrentUser.Email = Email;
+            var user = DocSession.Load<User>(CurrentUser.Id);
 
-            CurrentUser.Profile.Name = Name;
-            CurrentUser.Profile.Company = Company;
-            CurrentUser.Profile.Title = Title;
-            CurrentUser.Profile.TelephoneNumber = TelephoneNumber;
-            CurrentUser.Profile.Bio = Bio;
+            CurrentUser.Email = user.Email = Email;
 
-            CurrentUser.Preferences.ListInAttendeeDirectory = ListInAttendeeDirectory;
-            CurrentUser.Preferences.ReceiveEmail = ReceiveEmail;
+            CurrentUser.Profile.Name = user.Profile.Name = Name;
+            CurrentUser.Profile.Company = user.Profile.Company = Company;
+            CurrentUser.Profile.Title = user.Profile.Title = Title;
+            CurrentUser.Profile.TelephoneNumber = user.Profile.TelephoneNumber = TelephoneNumber;
+            CurrentUser.Profile.Bio = user.Profile.Bio = Bio;
+
+            CurrentUser.Preferences.ListInAttendeeDirectory = user.Preferences.ListInAttendeeDirectory = ListInAttendeeDirectory;
+            CurrentUser.Preferences.ReceiveEmail = user.Preferences.ReceiveEmail = ReceiveEmail;
 
             return Success("Your account has been successfully updated.");
         }

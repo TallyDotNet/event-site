@@ -27,8 +27,7 @@ namespace CodeCamp.Domain.Queries {
                     from registration in eventRegistrations
                     select new {
                         User_Id = registration.User.Id,
-                        Event_Id = registration.Event.Id,
-                        IsSpeaker = registration.IsSpeaker
+                        Event_Id = registration.Event.Id
                     };
             }
         }

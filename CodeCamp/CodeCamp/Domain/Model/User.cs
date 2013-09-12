@@ -23,6 +23,10 @@ namespace CodeCamp.Domain.Model {
             return this;
         }
 
+        public string GetDisplayName() {
+            return string.IsNullOrEmpty(Profile.Name) ? Username : Profile.Name;
+        }
+
         public bool InRole(string role) {
             return Roles.Contains(role);
         }
