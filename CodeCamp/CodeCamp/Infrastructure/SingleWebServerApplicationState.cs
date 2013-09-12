@@ -14,6 +14,7 @@ namespace CodeCamp.Infrastructure {
     public class SingleWebServerApplicationState : IApplicationState {
         const string CurrentUserKey = "CurrentUserKey";
         const string CurrentRegistrationStatusKey = "CurrentRegistrationStatusKey";
+        const string CurrentEventKey = "CurrentEventKey";
 
         readonly IApplicationBus bus;
         readonly IDocumentSession docSession;
@@ -81,15 +82,15 @@ namespace CodeCamp.Infrastructure {
 
         public Event CurrentEvent {
             get {
-                return new Event {
-                    Id = "events/code-camp-9",
-                    Name = "Code Camp 9",
-                    IsCurrent = true,
-                    IsSessionSubmissionOpen = true,
-                    Start = DateTimeOffset.Parse("11/9/2013"),
-                    End = DateTimeOffset.Parse("11/9/2013")
-                };
+                var currentEvent = httpContext.Application.Get(CurrentEventKey) as Event;
+                if(currentEvent == null) {
+                    currentEvent = bus.Query(new CurrentEvent());
+                    httpContext.Application.Set(CurrentEventKey, currentEvent);
+                }
+
+                return currentEvent;
             }
+            set { httpContext.Application.Set(CurrentEventKey, value); }
         }
 
         public string Environment {

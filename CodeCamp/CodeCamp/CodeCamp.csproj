@@ -156,6 +156,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SessionsController.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Domain\Model\Roles.cs" />
     <Compile Include="Domain\Model\RegistrationStatus.cs" />
     <Compile Include="Domain\Model\SessionStatus.cs" />
+    <Compile Include="Domain\Queries\CurrentEvent.cs" />
     <Compile Include="Domain\Queries\IsUserRegisteredForCurrentEvent.cs" />
     <Compile Include="Domain\Queries\SessionSummaryPage.cs" />
     <Compile Include="Domain\Queries\SubmittedSessions.cs" />

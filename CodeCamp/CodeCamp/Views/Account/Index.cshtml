@@ -1,5 +1,6 @@
 ﻿@using CodeCamp.Domain
 @using CodeCamp.Domain.Model
+@using CodeCamp.Infrastructure
 @model CodeCamp.ViewModels.Account.IndexViewModel
 
 @{
@@ -14,6 +15,11 @@
 <div class="row">
     <div class="col-md-3">
         <div role="complementary">
+            <div class="text-center">
+                <img class="avatar" src="@Avatar.GetUrl(State.User.Email, 256)" alt="@State.User.Username">
+                <a class="btn btn-default btn-sm change-avatar" href="https://en.gravatar.com/">Change Avatar</a>
+            </div>
+
             @if(State.RegistrationStatus == RegistrationStatus.NotRegistered) {
                 <div class="text-center">
                     <a href="@Url.Action("Index", "Register")" class="btn btn-lg btn-success">

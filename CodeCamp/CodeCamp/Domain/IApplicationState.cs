@@ -3,7 +3,7 @@
 namespace CodeCamp.Domain {
     public interface IApplicationState {
         User User { get; }
-        Event CurrentEvent { get; }
+        Event CurrentEvent { get; set; }
         RegistrationStatus RegistrationStatus { get; set; }
 
         string Environment { get; }

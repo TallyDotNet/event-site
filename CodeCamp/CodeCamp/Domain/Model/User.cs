@@ -9,6 +9,7 @@ namespace CodeCamp.Domain.Model {
         public UserPreferences Preferences { get; private set; }
         public IList<string> Roles { get; private set; }
         public IList<OAuthAccount> OAuthAccounts { get; private set; }
+        //TODO: UserStatus
 
         public User() {
             Profile = new UserProfile();
