@@ -187,7 +187,7 @@ body {
   width: 100%;
 }
 li.media {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid lightgray;
   padding-bottom: 16px;
 }
 li.media .media-body {
@@ -197,13 +197,6 @@ li.media .presenter {
   font-style: italic;
   margin-top: 4px;
 }
-li.media img {
-  margin: 6px 16px 6px 6px;
-  border-radius: 4px;
-  border: 1px solid white;
-  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
-}
 img.avatar {
   width: 100%;
   border-radius: 4px;
@@ -211,6 +204,14 @@ img.avatar {
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
   margin-bottom: 8px;
+}
+li.media img.avatar {
+  width: 128px;
+  margin: 6px 16px 6px 6px;
+  border-radius: 4px;
+  border: 1px solid white;
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
 }
 a.change-avatar {
   width: 100%;

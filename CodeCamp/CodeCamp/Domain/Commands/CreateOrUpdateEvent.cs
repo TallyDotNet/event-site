@@ -42,6 +42,10 @@ namespace CodeCamp.Domain.Commands {
                 toSave.Venue = Event.Venue; 
             }
 
+            if(toSave.IsCurrent) {
+                State.ChangeCurrentEvent(toSave);
+            }
+
             return SuccessFormat("\"{0}\" was successfully {1}.", toSave.Name, isNew ? "created" : "updated")
                 .WithSubject(toSave);
         }

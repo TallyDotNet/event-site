@@ -48,7 +48,7 @@ namespace CodeCamp.Controllers {
         [HttpPost]
         public ActionResult MakeCurrent(string slug) {
             return Execute(new MakeEventCurrent(Event.IdFrom(slug)))
-                .Always(x => RedirectToAction("Index"));
+                .Always(x => RedirectToAction("Edit", new { slug }));
         }
     }
 }

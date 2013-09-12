@@ -28,9 +28,7 @@
                         Now!
                     </a>
                 </div>
-            }
-            
-            @if(State.RegistrationStatus == RegistrationStatus.Registered) {
+            } else if(State.RegistrationStatus == RegistrationStatus.Registered) {
                 if(Model.SubmittedSessions.Any()) {
                     <ul class="sidenav nav">
                         <li class="active">Sessions</li>
@@ -52,14 +50,9 @@
                             </li>
                         }
                     </ul>
-                
-                    <div class="text-center">
-                        <a href="@Url.Action("Submit", "Sessions")" class="btn btn-lg btn-success">
-                            Submit Another Session <br/>
-                            for @State.CurrentEvent.Name
-                        </a>
-                    </div>
-                }else if(State.CanSubmitSessions()) {
+                }
+
+                if(State.CanSubmitSessions()) {
                     <div class="text-center">
                         <a href="@Url.Action("Submit", "Sessions")" class="btn btn-lg btn-success">
                             Submit a Session for <br/>

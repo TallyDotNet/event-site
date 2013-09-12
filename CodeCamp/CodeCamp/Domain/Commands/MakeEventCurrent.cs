@@ -25,7 +25,7 @@ namespace CodeCamp.Domain.Commands {
                 return Error("The event must have a name.");
             }
 
-            newCurrent.IsCurrent = true;
+            State.ChangeCurrentEvent(newCurrent);
 
             return SuccessFormat("\"{0}\" is now the current event.", newCurrent.Name);
         }

@@ -61,14 +61,19 @@ namespace CodeCamp.Infrastructure {
 
         public RegistrationStatus RegistrationStatus {
             get {
-                if(CurrentEvent == null || User == null) {
+                if(CurrentEvent == null) {
                     return RegistrationStatus.NoEventScheduled;
+                }
+
+                if(User == null) {
+                    return RegistrationStatus.NotRegistered;
                 }
 
                 var existing = httpContext.Session[CurrentRegistrationStatusKey];
 
                 if(existing == null) {
-                    var status = bus.Query(new IsUserRegisteredForCurrentEvent());
+                    var reg = bus.Query(new GetUserRegistration(CurrentEvent.Id, User.Id));
+                    var status = reg != null ? RegistrationStatus.Registered : RegistrationStatus.NotRegistered;
                     httpContext.Session[CurrentRegistrationStatusKey] = status;
                     return status;
                 }
@@ -90,7 +95,12 @@ namespace CodeCamp.Infrastructure {
 
                 return currentEvent;
             }
-            set { httpContext.Application.Set(CurrentEventKey, value); }
+        }
+
+        public void ChangeCurrentEvent(Event currentEvent) {
+            currentEvent.IsCurrent = true;
+            httpContext.Application.Set(CurrentEventKey, currentEvent);
+            httpContext.Session.Remove(CurrentRegistrationStatusKey);
         }
 
         public string Environment {

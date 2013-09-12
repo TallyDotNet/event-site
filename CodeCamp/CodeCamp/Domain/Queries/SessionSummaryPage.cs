@@ -61,12 +61,12 @@ namespace CodeCamp.Domain.Queries {
             public SessionSummaryPageIndex() {
                 Map = sessions =>
                     from session in sessions
-                    let submitter = LoadDocument<User>(session.Submitter.Id)
+                    let submitter = LoadDocument<User>(session.User.Id)
                     select new Summary {
                         Id = session.Id,
                         Name = session.Name,
                         Description = session.Description,
-                        SubmitterId = session.Submitter.Id,
+                        SubmitterId = session.User.Id,
                         SubmitterName = string.IsNullOrEmpty(submitter.Profile.Name) ? submitter.Username : submitter.Profile.Name,
                         SubmitterEmail = submitter.Email,
                         Status = session.Status,

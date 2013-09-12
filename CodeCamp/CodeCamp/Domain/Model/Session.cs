@@ -8,7 +8,7 @@ namespace CodeCamp.Domain.Model {
         public string Description { get; set; }
         public AudienceLevel Level { get; set; }
         public Reference Event { get; set; }
-        public Reference Submitter { get; set; }
+        public Reference User { get; set; }
         public DateTimeOffset SubmittedOn { get; set; }
         public SessionStatus Status { get; set; }
     }

@@ -28,7 +28,7 @@ namespace CodeCamp.Domain.Commands {
                     Id = State.CurrentEvent.Id,
                     Name = State.CurrentEvent.Name
                 },
-                Submitter = new Reference {
+                User = new Reference {
                     Id = CurrentUser.Id,
                     Name = CurrentUser.Username
                 },

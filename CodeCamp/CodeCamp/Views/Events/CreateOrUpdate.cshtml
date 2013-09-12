@@ -70,12 +70,6 @@
                 </div>
             </div>
             <div class="pull-right">
-                @if(!isCreate && !Model.Event.IsCurrent) {
-                    <form style="display: inline" method="POST" action="@Url.Action("MakeCurrent", "Events", new { slug = Model.Slug })">
-                        <button class="btn btn-lg btn-success">Approve</button>
-                    </form>
-                }
-
                 @if(isCreate){
                     <button type="submit" class="btn btn-lg btn-success">Save</button>
                 }else{
@@ -83,5 +77,13 @@
                 }
             </div>
         </form>
+        
+        <div class="pull-right">
+            @if(!isCreate && !Model.Event.IsCurrent) {
+                <form style="display: inline; margin-right: 8px" method="POST" action="@Url.Action("MakeCurrent", "Events", new { slug = Model.Slug })">
+                    <button class="btn btn-lg btn-primary">Make Current</button>
+                </form>
+            }
+        </div>
     </div>
 </div>

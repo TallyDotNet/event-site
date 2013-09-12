@@ -6,16 +6,26 @@ using Raven.Client.Indexes;
 
 namespace CodeCamp.Domain.Queries {
     public class SubmittedSessions : Query<IEnumerable<Session>> {
+        string eventId;
+        string userId;
+
+        public SubmittedSessions(string eventId = null, string userId = null) {
+            this.eventId = eventId;
+            this.userId = userId;
+        }
+
         protected override IEnumerable<Session> Execute() {
-            if(!State.UserIsLoggedIn()
-               || State.RegistrationStatus != RegistrationStatus.Registered) {
+            eventId = eventId ?? (State.EventScheduled() ? State.CurrentEvent.Id : null);
+            userId = userId ?? (State.UserIsLoggedIn() ? State.User.Id : null);
+
+            if(string.IsNullOrEmpty(eventId) || string.IsNullOrEmpty(eventId)) {
                 return new List<Session>();
             }
 
             return DocSession.Query<Session, SubmittedSessionsIndex>()
                 .Where(x =>
-                    x.Event.Id == State.CurrentEvent.Id
-                    && x.Submitter.Id == State.User.Id
+                    x.Event.Id == eventId
+                    && x.User.Id == userId
                 );
         }
 
@@ -24,7 +34,7 @@ namespace CodeCamp.Domain.Queries {
                 Map = sessions =>
                     from session in sessions
                     select new {
-                        Submitter_Id = session.Submitter.Id,
+                        User_Id = session.User.Id,
                         Event_Id = session.Event.Id
                     };
             }
