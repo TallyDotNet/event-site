@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
+using System.Security;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
@@ -119,6 +120,10 @@ namespace CodeCamp.Infrastructure {
         }
 
         void SetUser(User user) {
+            if(user.Status == UserStatus.Inactive) {
+                throw new SecurityException("Your account has been disabled.");
+            }
+
             httpContext.Session[CurrentUserKey] = user;
 
             if(httpContext.User != null && httpContext.User.Identity.Name == user.Username) {

@@ -15,17 +15,17 @@ namespace CodeCamp.Domain.Queries {
 
         protected override User Execute() {
             return DocSession.Query<User, UserViaProviderIndex>()
-                .SingleOrDefault(u => u.OAuthAccounts.Any(r => r.Provider == provider && r.ProviderUserId == providerUserId));
+                .SingleOrDefault(u => u.AuthAccounts.Any(r => r.Provider == provider && r.ProviderUserId == providerUserId));
         }
 
         public class UserViaProviderIndex : AbstractIndexCreationTask<User> {
             public UserViaProviderIndex() {
                 Map = users =>
                     from user in users
-                    from account in user.OAuthAccounts
+                    from account in user.AuthAccounts
                     select new {
-                        OAuthAccounts_ProviderUserId = account.ProviderUserId,
-                        OAuthAccounts_Provider = account.Provider
+                        AuthAccounts_ProviderUserId = account.ProviderUserId,
+                        AuthAccounts_Provider = account.Provider
                     };
             }
         }

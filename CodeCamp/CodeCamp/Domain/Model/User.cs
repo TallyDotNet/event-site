@@ -8,18 +8,18 @@ namespace CodeCamp.Domain.Model {
         public UserProfile Profile { get; private set; }
         public UserPreferences Preferences { get; private set; }
         public IList<string> Roles { get; private set; }
-        public IList<OAuthAccount> OAuthAccounts { get; private set; }
-        //TODO: UserStatus
+        public IList<AuthAccount> AuthAccounts { get; private set; }
+        public UserStatus Status { get; set; }
 
         public User() {
             Profile = new UserProfile();
             Preferences = new UserPreferences();
             Roles = new List<string>();
-            OAuthAccounts = new List<OAuthAccount>();
+            AuthAccounts = new List<AuthAccount>();
         }
 
         public User AddOAuthAccount(string providerName, string providerUserId) {
-            OAuthAccounts.Add(new OAuthAccount {Provider = providerName, ProviderUserId = providerUserId});
+            AuthAccounts.Add(new AuthAccount {Provider = providerName, ProviderUserId = providerUserId});
             return this;
         }
 
@@ -51,7 +51,7 @@ namespace CodeCamp.Domain.Model {
             return string.IsNullOrEmpty(userId) ? null : userId.Replace("users/", string.Empty);
         }
 
-        public class OAuthAccount {
+        public class AuthAccount {
             public string Provider { get; set; }
             public string ProviderUserId { get; set; }
         }

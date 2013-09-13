@@ -177,6 +177,7 @@
     <Compile Include="Domain\Model\RegistrationStatus.cs" />
     <Compile Include="Domain\Model\SessionStatus.cs" />
     <Compile Include="Domain\Model\Speaker.cs" />
+    <Compile Include="Domain\Model\UserStatus.cs" />
     <Compile Include="Domain\Queries\CurrentEvent.cs" />
     <Compile Include="Domain\Queries\GetUserRegistration.cs" />
     <Compile Include="Domain\Queries\SessionSummaryPage.cs" />

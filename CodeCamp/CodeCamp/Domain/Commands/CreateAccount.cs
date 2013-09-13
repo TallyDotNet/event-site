@@ -44,6 +44,7 @@ namespace CodeCamp.Domain.Commands {
                 Id = User.IdFrom(slug),
                 Email = Email,
                 Username = Username,
+                Status = UserStatus.Active,
                 Preferences = {
                     ListInAttendeeDirectory = true,
                     ReceiveEmail = true
