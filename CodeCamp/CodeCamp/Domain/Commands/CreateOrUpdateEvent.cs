@@ -38,6 +38,7 @@ namespace CodeCamp.Domain.Commands {
                 toSave.Name = Event.Name;
                 toSave.Start = Event.Start;
                 toSave.End = Event.End;
+                toSave.Description = Event.Description;
                 toSave.IsSessionSubmissionOpen = Event.IsSessionSubmissionOpen;
                 toSave.Venue = Event.Venue; 
             }

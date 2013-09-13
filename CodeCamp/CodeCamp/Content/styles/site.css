@@ -5,9 +5,6 @@ body {
   padding-bottom: 40px;
   color: #5a5a5a;
 }
-/* CUSTOMIZE THE NAVBAR
--------------------------------------------------- */
-/* Special class on .container surrounding .navbar, used for positioning it into place. */
 .navbar-wrapper {
   position: relative;
   z-index: 15;
@@ -163,6 +160,10 @@ body {
 .jumbotron h2 {
   -webkit-text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+.info-icon {
+  font-size: 96px;
+  color: #00467f;
 }
 .sidenav {
   margin-bottom: 30px;
