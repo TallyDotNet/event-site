@@ -13,7 +13,7 @@
 <ul class="media-list">
     @foreach(var speaker in Model.Items) {
         var sessionCount = speaker.Sessions.Count();
-        var listIntro = "Presenting " + sessionCount + "session" + (sessionCount > 1 ? "s" : "") + ":";
+        var listIntro = "Presenting " + sessionCount + " session" + (sessionCount > 1 ? "s" : "") + ":";
         
         <li class="media">
             <a class="pull-left" href="#">

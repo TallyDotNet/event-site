@@ -66,6 +66,7 @@ namespace CodeCamp.Domain.Queries {
                 Store(x => x.SubmitterId, FieldStorage.Yes);
                 Store(x => x.SubmitterName, FieldStorage.Yes);
                 Store(x => x.SubmitterEmail, FieldStorage.Yes);
+                Store(x => x.Event_Id, FieldStorage.Yes);
             }
         }
     }
