@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using CodeCamp.Domain.Infrastructure;
 using CodeCamp.Infrastructure.Results;
-using Raven.Imports.Newtonsoft.Json;
 
 namespace CodeCamp.Infrastructure.Controllers {
     public class CommandExecutor<TResult>
@@ -72,7 +71,7 @@ namespace CodeCamp.Infrastructure.Controllers {
 
                 if(executor.onFailure != null) {
                     if(executor.reportError) {
-                        executor.controller.TempData["Result"] = JsonConvert.SerializeObject(result);
+                        executor.controller.Result = result;
                     }
 
                     return executor.onFailure(result);
@@ -86,7 +85,7 @@ namespace CodeCamp.Infrastructure.Controllers {
             }
 
             if(executor.reportSuccess) {
-                executor.controller.TempData["Result"] = JsonConvert.SerializeObject(result);
+                executor.controller.Result = result;
             }
 
             if(executor.onSuccess != null) {
@@ -95,7 +94,5 @@ namespace CodeCamp.Infrastructure.Controllers {
 
             return new ViewResult();
         }
-
-        public Result Response { get; private set; }
     }
 }

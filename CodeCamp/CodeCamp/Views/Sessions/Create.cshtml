@@ -1,4 +1,6 @@
-﻿@using CodeCamp.Infrastructure.Helpers
+﻿@using CodeCamp.Domain
+@using CodeCamp.Domain.Model
+@using CodeCamp.Infrastructure.Helpers
 @model CodeCamp.Domain.Commands.SubmitSession
 @{
     ViewInfo.Title = "Submit Session";
@@ -23,7 +25,7 @@
     </div>
 
     <div class="col-md-9" role="main">
-        <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Submit", "Sessions")">
+        <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Index", "Sessions", new{ eventSlug = State.CurrentEventSlug() })">
             <div class="panel panel-default">
                 <div class="panel-heading">About Me</div>
                 <div class="panel-body">

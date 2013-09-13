@@ -1,18 +1,21 @@
 ﻿using System.Web.Mvc;
 using CodeCamp.Domain;
+using CodeCamp.Domain.Model;
 using CodeCamp.Infrastructure.Controllers;
 
 namespace CodeCamp.Controllers {
     public class LocationController : BaseController {
         [HttpGet]
-        public ActionResult Index() {
-            if(State.NoEventScheduled()) {
+        public ActionResult Index(string eventSlug) {
+            if(string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
 
-            //TODO: provide venue details
+            var ev = string.IsNullOrEmpty(eventSlug)
+                ? State.CurrentEvent
+                : DocSession.Load<Event>(Event.IdFrom(eventSlug));
 
-            return View();
+            return View(ev);
         }
     }
 }

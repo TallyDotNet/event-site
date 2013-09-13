@@ -2,6 +2,12 @@
 @using CodeCamp.Domain.Infrastructure
 @using CodeCamp.Domain.Model
 @using CodeCamp.Infrastructure
+@{
+    var siteTitle = State.EventScheduled()
+        ? State.CurrentEvent.Name
+        : "Tallahassee Code Camp";
+}
+
 <div class="navbar-wrapper">
     <div class="container" style="padding: 0">
         <div class="navbar-custom navbar navbar-inverse navbar-static-top">
@@ -13,16 +19,16 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="@Url.Action("Index", "Home")" style="margin-left: 0">
-                        <img src="~/Content/images/logo.gif" title="Tallahasee Code Camp"/>
-                        <span>Tallahassee Code Camp</span>
+                        <img src="~/Content/images/logo.gif" title="@siteTitle"/>
+                        <span>@siteTitle</span>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right" style="padding: 0">
                     <ul class="nav navbar-nav">
-                        <li><a href="@Url.Action("Index", "Speakers")">Speakers</a></li>
-                        <li><a href="@Url.Action("Index", "Sessions")">Sessions</a></li>
-                        <li><a href="@Url.Action("Index", "Sponsors")">Sponsors</a></li>
-                        <li><a href="@Url.Action("Index", "Location")">Location</a></li>
+                        <li><a href="@Url.Action("Index", "Speakers", new{eventSlug=State.CurrentEventSlug()})">Speakers</a></li>
+                        <li><a href="@Url.Action("Index", "Sessions", new{eventSlug=State.CurrentEventSlug()})">Sessions</a></li>
+                        <li><a href="@Url.Action("Index", "Sponsors", new{eventSlug=State.CurrentEventSlug()})">Sponsors</a></li>
+                        <li><a href="@Url.Action("Index", "Location", new{eventSlug=State.CurrentEventSlug()})">Location</a></li>
                         
                         @if(State.UserIsLoggedIn()) {
                             <li class="btn-group">
@@ -37,13 +43,13 @@
                                 
                                     @if(State.RegistrationStatus == RegistrationStatus.NotRegistered) {
                                         <li>
-                                            <a href="@Url.Action("Index", "Register")"><span class="glyphicon glyphicon-registration-mark"></span> Register</a>
+                                            <a href="@Url.Action("Create", "Registration", new{eventSlug=State.CurrentEventSlug()})"><span class="glyphicon glyphicon-registration-mark"></span> Register</a>
                                         </li>
                                     }
                                 
                                     @if(State.CanSubmitSessions()) {
                                         <li>
-                                            <a href="@Url.Action("Submit", "Sessions")"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
+                                            <a href="@Url.Action("Create", "Sessions", new{eventSlug=State.CurrentEventSlug()})"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
                                         </li>
                                     }
                                 

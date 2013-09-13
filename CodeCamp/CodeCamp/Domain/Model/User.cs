@@ -47,6 +47,10 @@ namespace CodeCamp.Domain.Model {
             return "users/" + slug.ToLower();
         }
 
+        public static string SlugFromId(string userId) {
+            return string.IsNullOrEmpty(userId) ? null : userId.Replace("users/", string.Empty);
+        }
+
         public class OAuthAccount {
             public string Provider { get; set; }
             public string ProviderUserId { get; set; }

@@ -11,5 +11,21 @@ namespace CodeCamp.Domain.Model {
         public Reference User { get; set; }
         public DateTimeOffset SubmittedOn { get; set; }
         public SessionStatus Status { get; set; }
+
+        public static string IdFrom(string eventSlug, string sessionSlug) {
+            if(string.IsNullOrEmpty(sessionSlug) || string.IsNullOrEmpty(eventSlug)) {
+                return null;
+            }
+
+            return Model.Event.IdFrom(eventSlug) + "/sessions/" + sessionSlug.ToLower();
+        }
+
+        public static string SlugFromId(string id) {
+            if(string.IsNullOrEmpty(id)) {
+                return null;
+            }
+
+            return id.Substring(id.IndexOf("/sessions/") + "/sessions/".Length);
+        }
     }
 }

@@ -11,9 +11,13 @@ namespace CodeCamp.Domain.Commands {
                 case RegistrationStatus.Registered:
                     return Success("You are already registered.");
                 case RegistrationStatus.NotRegistered:
-                    var registration = new EventRegistration {
+                    var registration = new Registration {
+                        Id = Registration.IdFrom(
+                            State.CurrentEventSlug(),
+                            State.UserSlug()
+                            ),
                         Event = new Reference {
-                            Id =  State.CurrentEvent.Id,
+                            Id = State.CurrentEvent.Id,
                             Name = State.CurrentEvent.Name
                         },
                         User = new Reference {

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using CodeCamp.Domain
+@using CodeCamp.Domain.Model
+@{
     ViewInfo.Title = "Register for " + State.CurrentEvent.Name;
 }
 
@@ -8,7 +10,7 @@
 </div>
 
 <div class="row" style="margin: 60px">
-    <form method="POST" action="@Url.Action("Index", "Register")" class="text-center">
+    <form method="POST" action="@Url.Action("Index", "Registration", new{eventSlug=State.CurrentEventSlug()})" class="text-center">
         <a href="@Url.Action("Index", "Account")" class="btn btn-lg btn-danger">No thank you.</a>
         <button type="submit" class="btn btn-lg btn-success">YES! Please register me now.</button>
     </form>

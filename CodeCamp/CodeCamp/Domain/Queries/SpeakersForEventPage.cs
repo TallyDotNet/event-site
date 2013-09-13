@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using CodeCamp.Domain.Infrastructure;
 using CodeCamp.Domain.Model;
@@ -38,7 +37,7 @@ namespace CodeCamp.Domain.Queries {
 
         public class SpeakerPageIndex : AbstractMultiMapIndexCreationTask<Speaker> {
             public SpeakerPageIndex() {
-                AddMap<EventRegistration>(
+                AddMap<Registration>(
                     registrations => 
                         from reg in registrations
                         where reg.IsSpeaker
@@ -48,22 +47,14 @@ namespace CodeCamp.Domain.Queries {
                             Sessions = (IEnumerable)null
                         });
 
-                AddMap<User>(
-                    users => 
-                        from user in users
-                        select new {
-                            user.Id,
-                            EventId = (string)null,
-                            Sessions = (IEnumerable)null
-                        });
-
                 AddMap<Session>(
                     sessions => 
                         from session in sessions
+                        where session.Status == SessionStatus.Approved
                         select new {
                             Id = session.User.Id,
                             EventId = session.Event.Id,
-                            Sessions = new[]{ session },
+                            Sessions = new[]{ session }
                         }
                     );
 
@@ -71,7 +62,7 @@ namespace CodeCamp.Domain.Queries {
                     group result by result.EventId
                     into g
                     select new {
-                        Id = g.Where(x => x != null).Select(x => x.Id).First(),
+                        Id = g.First().Id,
                         EventId = g.Key,
                         Sessions = g.SelectMany(x => x.Sessions)
                     };

@@ -157,7 +157,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
-    <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="Controllers\SponsorsController.cs" />
@@ -192,6 +192,7 @@
     <Compile Include="Infrastructure\Filters\LoggedInAttribute.cs" />
     <Compile Include="Infrastructure\Helpers\ExtensionMethods.cs" />
     <Compile Include="Infrastructure\Results\JsonNetResult.cs" />
+    <Compile Include="Infrastructure\Routing\RouteBuilder.cs" />
     <Compile Include="Infrastructure\Views\BundleConfig.cs" />
     <Compile Include="Infrastructure\IoC\ContainerConfig.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -217,7 +218,7 @@
     <Compile Include="Infrastructure\SingleWebServerApplicationState.cs" />
     <Compile Include="Infrastructure\Views\BaseView.cs" />
     <Compile Include="Domain\Model\Event.cs" />
-    <Compile Include="Domain\Model\EventRegistration.cs" />
+    <Compile Include="Domain\Model\Registration.cs" />
     <Compile Include="Domain\Model\Session.cs" />
     <Compile Include="Domain\Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -272,16 +273,15 @@
     <Content Include="Views\Shared\_DefaultLayout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
-    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Registration\Create.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Shared\NoEventScheduled.cshtml" />
-    <Content Include="Views\Register\AlreadyRegistered.cshtml" />
+    <Content Include="Views\Registration\AlreadyRegistered.cshtml" />
     <Content Include="Views\Sessions\Index.cshtml" />
-    <Content Include="Views\Sessions\Submit.cshtml" />
+    <Content Include="Views\Sessions\Create.cshtml" />
     <Content Include="Views\Speakers\Index.cshtml" />
     <Content Include="Views\Sponsors\Index.cshtml" />
     <Content Include="Views\Location\Index.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Events\CreateOrUpdate.cshtml" />
   </ItemGroup>

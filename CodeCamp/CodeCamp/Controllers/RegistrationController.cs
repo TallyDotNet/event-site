@@ -7,9 +7,9 @@ using CodeCamp.Infrastructure.Filters;
 
 namespace CodeCamp.Controllers {
     [LoggedIn]
-    public class RegisterController : BaseController {
+    public class RegistrationController : BaseController {
         [HttpGet]
-        public ActionResult Index() {
+        public ActionResult Create() {
             switch(State.RegistrationStatus) {
                 case RegistrationStatus.NoEventScheduled:
                     return View("NoEventScheduled");

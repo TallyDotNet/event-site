@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using CodeCamp.Infrastructure;
 using CodeCamp.Infrastructure.Controllers;
 using CodeCamp.Infrastructure.Filters;
 using CodeCamp.Infrastructure.IoC;
@@ -35,8 +34,8 @@ namespace CodeCamp {
             ContainerConfig.Configure();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            new RouteConfig(RouteTable.Routes).Configure();
 
             ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 

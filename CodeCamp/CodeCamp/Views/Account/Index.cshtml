@@ -22,7 +22,7 @@
 
             @if(State.RegistrationStatus == RegistrationStatus.NotRegistered) {
                 <div class="text-center">
-                    <a href="@Url.Action("Index", "Register")" class="btn btn-lg btn-success">
+                    <a href="@Url.Action("Create", "Registration", new{eventSlug=State.CurrentEventSlug()})" class="btn btn-lg btn-success">
                         Register for <br/>
                         @State.CurrentEvent.Name <br/>
                         Now!
@@ -54,7 +54,7 @@
 
                 if(State.CanSubmitSessions()) {
                     <div class="text-center">
-                        <a href="@Url.Action("Submit", "Sessions")" class="btn btn-lg btn-success">
+                        <a href="@Url.Action("Create", "Sessions", new{eventSlug=State.CurrentEventSlug()})" class="btn btn-lg btn-success">
                             Submit a Session for <br/>
                             @State.CurrentEvent.Name <br/>
                             Now!

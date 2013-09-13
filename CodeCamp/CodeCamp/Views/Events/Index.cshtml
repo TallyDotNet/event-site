@@ -50,11 +50,11 @@
                             <div>
                                 <div class="pull-right">
                                     @if(!ev.IsCurrent) {
-                                        <form style="display: inline" method="POST" action="@Url.Action("MakeCurrent", "Events", new { slug = Event.SlugFromId(ev.Id) })">
+                                        <form style="display: inline" method="POST" action="@Url.Action("MakeCurrent", "Events", new { eventSlug = Event.SlugFromId(ev.Id) })">
                                             <button class="btn btn-primary">Make Current</button>
                                         </form>
                                     }
-                                    <a href="@Url.Action("Edit", "Events", new {slug=Event.SlugFromId(ev.Id)})" class="btn btn-success">Edit</a>
+                                    <a href="@Url.Action("Detail", "Events", new {eventSlug=Event.SlugFromId(ev.Id)})" class="btn btn-success">Edit</a>
                                 </div>
                             </div>
                         </div>

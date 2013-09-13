@@ -45,7 +45,7 @@ namespace CodeCamp.Controllers {
                     State.Login(x.Subject, input.Persist);
 
                     if(State.EventScheduled()) {
-                        return RedirectToAction("Index", "Register");
+                        return RedirectToAction("Create", "Registration");
                     }
 
                     return RedirectToAction("Index", "Account");

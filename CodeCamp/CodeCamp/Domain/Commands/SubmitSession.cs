@@ -15,12 +15,22 @@ namespace CodeCamp.Domain.Commands {
         [Required]
         public AudienceLevel Level { get; set; }
 
+        public ISlugConverter SlugConverter { get; set; }
+
         protected override Result Execute() {
             if(!State.RegisteredForEvent()) {
                 return Error("You are not registered for the event. Please register before submitting a session.");
             }
 
+            var slug = SlugConverter.ToSlug(Name);
+            var id = Session.IdFrom(State.CurrentEventSlug(), slug);
+
+            if(DocSession.Load<Session>(id) != null) {
+                return Error("The provided session name is not available.");
+            }
+
             var session = new Session {
+                Id = id,
                 Name = Name,
                 Description = Description,
                 Level = Level,

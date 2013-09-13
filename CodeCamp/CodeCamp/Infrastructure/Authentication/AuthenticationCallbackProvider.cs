@@ -30,10 +30,10 @@ namespace CodeCamp.Infrastructure.Authentication {
                 state.Login(user, true);
 
                 if(state.RegistrationStatus == RegistrationStatus.NotRegistered) {
-                    return RedirectToIndex("Register");
+                    return RedirectToAction("Registration", "Create");
                 }
 
-                return RedirectToIndex("Account");
+                return RedirectToAction("Account");
             }
 
             if(!string.IsNullOrEmpty(userInfo.Email)) {
@@ -44,10 +44,10 @@ namespace CodeCamp.Infrastructure.Authentication {
                     state.Login(user, true);
 
                     if(state.RegistrationStatus == RegistrationStatus.NotRegistered) {
-                        return RedirectToIndex("Register");
+                        return RedirectToAction("Registration", "Create");
                     }
 
-                    return RedirectToIndex("Account");
+                    return RedirectToAction("Account");
                 }
             }
 
@@ -75,11 +75,11 @@ namespace CodeCamp.Infrastructure.Authentication {
             };
         }
 
-        ActionResult RedirectToIndex(string controller) {
+        ActionResult RedirectToAction(string controller, string action = "Index") {
             var values = new RouteValueDictionary();
 
             values["controller"] = controller;
-            values["action"] = "Index";
+            values["action"] = action;
 
             return new RedirectToRouteResult(values);
         }

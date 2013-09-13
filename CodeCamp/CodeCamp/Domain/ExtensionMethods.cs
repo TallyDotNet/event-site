@@ -23,7 +23,7 @@ namespace CodeCamp.Domain {
         }
 
         public static bool EventScheduled(this IApplicationState state) {
-            return state != null;
+            return state.CurrentEvent != null;
         }
 
         public static bool NoEventScheduled(this IApplicationState state) {
@@ -32,6 +32,22 @@ namespace CodeCamp.Domain {
 
         public static bool RegisteredForEvent(this IApplicationState state) {
             return state.RegistrationStatus == RegistrationStatus.Registered;
+        }
+
+        public static string CurrentEventSlug(this IApplicationState state) {
+            if(!state.EventScheduled()) {
+                return null;
+            }
+
+            return Event.SlugFromId(state.CurrentEvent.Id);
+        }
+
+        public static string UserSlug(this IApplicationState state) {
+            if(!state.UserIsLoggedIn()) {
+                return null;
+            }
+
+            return User.SlugFromId(state.User.Id);
         }
 
         public static void Apply<T>(this IEnumerable<T> enumerable, Action<T> action) {

@@ -8,7 +8,7 @@
 
 <div class="jumbotron">
     <h1>Sessions</h1>
-    <p class="lead">Browse and submit sessions for @State.CurrentEvent.Name.</p>
+    <p class="lead">Browse and submit sessions.</p>
 </div>
 
 <ul class="media-list">
@@ -36,17 +36,19 @@
                 </h4>
                 <div class="description">@summary.Description</div>
                 <div>
-                    <div class="presenter">Presented by <a href="#">@summary.SubmitterName</a></div>
+                    <div class="presenter">Presented by @summary.SubmitterName</div>
                     
                     @if(State.UserIsAdmin() && summary.Status == SessionStatus.PendingApproval) {
+                        var parameters = new {eventSlug = Event.SlugFromId(summary.Event_Id), sessionSlug = CodeCamp.Domain.Model.Session.SlugFromId(summary.Id)};
+                        var approveAction = @Url.Action("Approve", "Sessions", parameters);
+                        var rejectAction = @Url.Action("Reject", "Sessions", parameters);
+                        
                         <div class="pull-right">
-                            <form style="display: inline" method="POST" action="@Url.Action("Approve", "Sessions")">
-                                @Html.Hidden("sessionId", summary.Id)
+                            <form style="display: inline" method="POST" action="@approveAction">
                                 <button class="btn btn-success">Approve</button>
                             </form>
                                 
-                            <form style="display: inline" method="POST" action="@Url.Action("Reject", "Sessions")">
-                                @Html.Hidden("sessionId", summary.Id)
+                            <form style="display: inline" method="POST" action="@rejectAction">
                                 <button class="btn btn-danger">Reject</button>
                             </form>
                         </div>
@@ -58,17 +60,19 @@
 </ul>
 
 @if(Model.HasMultiplePages) {
+    var eventSlug = Event.SlugFromId(Model.Items.First().Event_Id);
+
     <ul class="pager">
         @if(Model.HasPreviousPage) {
             <li>
-                <a href="@Url.Action("Index", "Sessions", new{ page = Model.PreviousPage })">Previous</a>
+                <a href="@Url.Action("Index", "Sessions", new {eventSlug, page = Model.PreviousPage})">Previous</a>
             </li>
         }
         
         @if(Model.HasNextPage) {
             <li>
-                <a href="@Url.Action("Index", "Sessions", new{ page = Model.NextPage })">Next</a>
+                <a href="@Url.Action("Index", "Sessions", new {eventSlug, page = Model.NextPage})">Next</a>
             </li>
         }
-    </ul>    
+    </ul>
 }

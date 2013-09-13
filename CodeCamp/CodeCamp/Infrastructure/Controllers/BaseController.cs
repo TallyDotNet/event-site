@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using CodeCamp.Domain.Infrastructure;
 using Raven.Client;
+using Raven.Imports.Newtonsoft.Json;
 
 namespace CodeCamp.Infrastructure.Controllers {
     public abstract class BaseController : LowLevelController {
@@ -25,6 +26,24 @@ namespace CodeCamp.Infrastructure.Controllers {
             } finally {
                 DocSession.Dispose();
             }
+        }
+
+        public Result Result {
+            get {
+                var message = TempData["Result"];
+                if(message != null) {
+                    return JsonConvert.DeserializeObject<Result>(message.ToString());
+                }
+
+                return null;
+            }
+            set {
+                TempData["Result"] = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        protected void DisplayErrorMessage(string message) {
+            Result = Result.ErrorMessage(message);
         }
 
         protected CommandExecutor<TResult> Execute<TResult>(ICommand<TResult> command)

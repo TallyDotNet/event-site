@@ -3,8 +3,8 @@
     var isCreate = string.IsNullOrEmpty(Model.Event.Id);
     var title = isCreate ? "Create Event" : "Edit Event";
     var action = isCreate
-        ? Url.Action("Create", "Events")
-        : Url.Action("Edit", "Events", new {slug = Model.Slug});
+        ? Url.Action("Index", "Events")
+        : Url.Action("Detail", "Events", new {eventSlug = Model.Slug});
     
     ViewInfo.Title = title;
 }
@@ -80,7 +80,7 @@
         
         <div class="pull-right">
             @if(!isCreate && !Model.Event.IsCurrent) {
-                <form style="display: inline; margin-right: 8px" method="POST" action="@Url.Action("MakeCurrent", "Events", new { slug = Model.Slug })">
+                <form style="display: inline; margin-right: 8px" method="POST" action="@Url.Action("MakeCurrent", "Events", new { eventSlug = Model.Slug })">
                     <button class="btn btn-lg btn-primary">Make Current</button>
                 </form>
             }

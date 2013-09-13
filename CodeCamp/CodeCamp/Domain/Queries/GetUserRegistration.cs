@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using CodeCamp.Domain.Infrastructure;
+﻿using CodeCamp.Domain.Infrastructure;
 using CodeCamp.Domain.Model;
-using Raven.Client.Indexes;
 
 namespace CodeCamp.Domain.Queries {
-    public class GetUserRegistration : Query<EventRegistration> {
+    public class GetUserRegistration : Query<Registration> {
         readonly string eventId;
         readonly string userId;
 
@@ -13,23 +11,13 @@ namespace CodeCamp.Domain.Queries {
             this.userId = userId;
         }
 
-        protected override EventRegistration Execute() {
-            return DocSession.Query<EventRegistration, RegistrationByUserAndEvent>()
-                .SingleOrDefault(x =>
-                    x.User.Id == userId
-                    && x.Event.Id == eventId
+        protected override Registration Execute() {
+            return DocSession.Load<Registration>(
+                Registration.IdFrom(
+                    Event.SlugFromId(eventId),
+                    User.SlugFromId(userId)
+                    )
                 );
-        }
-
-        public class RegistrationByUserAndEvent : AbstractIndexCreationTask<EventRegistration> {
-            public RegistrationByUserAndEvent() {
-                Map = eventRegistrations =>
-                    from registration in eventRegistrations
-                    select new {
-                        User_Id = registration.User.Id,
-                        Event_Id = registration.Event.Id
-                    };
-            }
         }
     }
 }
