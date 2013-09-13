@@ -60,6 +60,9 @@
                 <span class="glyphicon glyphicon-info-sign info-icon"></span>
                 <h2>What?</h2>
                 <p>@ev.Description</p>
+                <p>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Sessions", new{eventSlug=State.CurrentEventSlug()})">Peruse Sessions &raquo;</a>
+                </p>
             </div>
 
             <div class="col-lg-4">
@@ -92,6 +95,9 @@
                     } else {
                         <span>at @ev.End.Date.ToLongDateString() at @ev.End.DateTime.ToShortTimeString().</span>
                     }
+                </p>
+                <p>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Location", new{eventSlug=State.CurrentEventSlug()})">See Schedule &raquo;</a>
                 </p>
             </div>
         </div>
