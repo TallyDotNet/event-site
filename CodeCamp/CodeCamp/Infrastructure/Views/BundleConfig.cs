@@ -11,6 +11,7 @@ namespace CodeCamp.Infrastructure.Views {
                 new ScriptBundle("~/Scripts/vendor.js")
                     .Include("~/Scripts/jquery-{version}.js")
                     .Include("~/Scripts/bootstrap.js")
+                    .Include("~/Scripts/behavior.js")
                 );
 
             bundles.Add(

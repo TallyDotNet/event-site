@@ -220,6 +220,17 @@ a.change-avatar {
   border-radius: 0 0 3px 3px;
   font-weight: bold;
 }
+address {
+  margin-bottom: 10px;
+}
+#map {
+  margin-bottom: 64px;
+  position: relative;
+  border-radius: 4px;
+  border: 1px solid white;
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 /* Carousel base class */

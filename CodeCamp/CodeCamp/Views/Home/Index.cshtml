@@ -77,9 +77,8 @@
                     @if(!string.IsNullOrEmpty(venue.Street2)) {
                         <span>@venue.Street2</span><br />
                     }
-                    @venue.City, @venue.StateOrProvince @venue.PostalCode<br />
+                    @venue.City, @venue.StateOrProvince @venue.PostalCode
                 </address>
-
                 <p>
                     <a class="btn btn-default" href="@Url.Action("Index", "Location", new{eventSlug=State.CurrentEventSlug()})">View Map &raquo;</a>
                 </p>
