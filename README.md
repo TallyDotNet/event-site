@@ -26,6 +26,13 @@ _More features coming..._
 * NLog
 * Autofac
 
+## Getting Started
+
+1. In packages/RavenDB.Server.2.0.2330  you will find a ZIP called _RavenDB.Server.2.0.2330.zip_. Extract this directory somewhere outside of the repository.
+2. In the extracted directory, navigate to the _tools_ sub directory.
+3. Start the database by running _Raven.Server.exe_.
+4. Once the database has started, you can run the web application normally from Visual Studio.
+
 ## License
 
 The MIT License

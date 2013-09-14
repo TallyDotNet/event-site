@@ -1,0 +1,103 @@
+﻿@using EventSite.Domain
+@using EventSite.Domain.Infrastructure
+@using EventSite.Domain.Model
+@using EventSite.Infrastructure
+@{
+    var siteTitle = State.EventScheduled()
+        ? State.CurrentEvent.Name
+        : "Tallahassee Code Camp";
+}
+
+<div class="navbar-wrapper">
+    <div class="container" style="padding: 0">
+        <div class="navbar-custom navbar navbar-inverse navbar-static-top">
+            <div class="container" style="padding: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")" style="margin-left: 0">
+                        <img src="~/Content/images/logo.gif" title="@siteTitle"/>
+                        <span>@siteTitle</span>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse pull-right" style="padding: 0">
+                    <ul class="nav navbar-nav">
+                        <li><a href="@Url.Action("Index", "Speakers", new{eventSlug=State.CurrentEventSlug()})">Speakers</a></li>
+                        <li><a href="@Url.Action("Index", "Sessions", new{eventSlug=State.CurrentEventSlug()})">Sessions</a></li>
+                        <li><a href="@Url.Action("Index", "Sponsors", new{eventSlug=State.CurrentEventSlug()})">Sponsors</a></li>
+                        <li><a href="@Url.Action("Index", "Location", new{eventSlug=State.CurrentEventSlug()})">Location</a></li>
+                        
+                        @if(State.UserIsLoggedIn()) {
+                            <li class="btn-group">
+                                <a href="#" class="avatar dropdown-toggle" data-toggle="dropdown">
+                                    <img title="@State.User.Username" src="@Avatar.GetUrl(State.User.Email)">
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="@Url.Action("Index", "Account")"><span class="glyphicon glyphicon-home"></span> My Account</a>
+                                    </li>
+                                
+                                    @if(State.RegistrationStatus == RegistrationStatus.NotRegistered) {
+                                        <li>
+                                            <a href="@Url.Action("Create", "Registration", new{eventSlug=State.CurrentEventSlug()})"><span class="glyphicon glyphicon-registration-mark"></span> Register</a>
+                                        </li>
+                                    }
+                                
+                                    @if(State.CanSubmitSessions()) {
+                                        <li>
+                                            <a href="@Url.Action("Create", "Sessions", new{eventSlug=State.CurrentEventSlug()})"><span class="glyphicon glyphicon-cloud-upload"></span> Submit Session</a>
+                                        </li>
+                                    }
+                                
+                                    @if(State.UserIsAdmin()) {
+                                        <li class="divider"></li>
+                                    
+                                        <li>
+                                            <a href="@Url.Action("Index", "Events")"><span class="glyphicon glyphicon-calendar"></span> Events</a>
+                                        </li>    
+                                    }
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        <a href="@Url.Action("LogOut", "Account")"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        } else {
+                            <li><a href="@Url.Action("Login", "Account")">Login/Register</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if(Result != null) {
+    <div class="container">
+        @if(Result.Succeeded()) {
+            <div class="alert alert-success fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <span>@Result.Message</span>
+            </div>
+        } else {
+            <div class="alert alert-danger fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <span>@Result.Message</span>
+                
+                @if(Result.Details.Count > 0) {
+                    <ul>
+                        @foreach(var detail in Result.Details) {
+                            <li>@detail.Description</li>
+                        }
+                    </ul>
+                }
+            </div>
+        }  
+    </div>
+}
