@@ -173,6 +173,7 @@
     <Compile Include="Domain\Infrastructure\Page.cs" />
     <Compile Include="Domain\Infrastructure\Reference.cs" />
     <Compile Include="Domain\Infrastructure\ISlugConverter.cs" />
+    <Compile Include="Domain\ISettings.cs" />
     <Compile Include="Domain\Model\Roles.cs" />
     <Compile Include="Domain\Model\RegistrationStatus.cs" />
     <Compile Include="Domain\Model\SessionStatus.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="Domain\Model\Registration.cs" />
     <Compile Include="Domain\Model\Session.cs" />
     <Compile Include="Domain\Model\User.cs" />
+    <Compile Include="Infrastructure\WebConfigSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\CreateAccountViewModel.cs" />
     <Compile Include="ViewModels\Account\IndexViewModel.cs" />

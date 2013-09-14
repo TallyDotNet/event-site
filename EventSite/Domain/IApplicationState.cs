@@ -5,8 +5,7 @@ namespace EventSite.Domain {
         User User { get; }
         Event CurrentEvent { get; }
         RegistrationStatus RegistrationStatus { get; set; }
-
-        string Environment { get; }
+        ISettings Settings { get; }
 
         void Login(User user, bool persist);
         void Logout();

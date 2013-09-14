@@ -1,6 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
+﻿using System.Linq;
 using System.Security;
 using System.Security.Principal;
 using System.Web;
@@ -17,11 +15,13 @@ namespace EventSite.Infrastructure {
         const string CurrentRegistrationStatusKey = "CurrentRegistrationStatusKey";
         const string CurrentEventKey = "CurrentEventKey";
 
+        readonly ISettings settings;
         readonly IApplicationBus bus;
         readonly IDocumentSession docSession;
         readonly HttpContextBase httpContext;
 
-        public SingleWebServerApplicationState(IApplicationBus bus, IDocumentSession docSession, HttpContextBase httpContext) {
+        public SingleWebServerApplicationState(ISettings settings, IApplicationBus bus, IDocumentSession docSession, HttpContextBase httpContext) {
+            this.settings = settings;
             this.bus = bus;
             this.docSession = docSession;
             this.httpContext = httpContext;
@@ -98,14 +98,14 @@ namespace EventSite.Infrastructure {
             }
         }
 
+        public ISettings Settings {
+            get { return settings; }
+        }
+
         public void ChangeCurrentEvent(Event currentEvent) {
             currentEvent.IsCurrent = true;
             httpContext.Application.Set(CurrentEventKey, currentEvent);
             httpContext.Session.Remove(CurrentRegistrationStatusKey);
-        }
-
-        public string Environment {
-            get { return ConfigurationManager.AppSettings["Environment"]; }
         }
 
         public void Login(User user, bool persist) {

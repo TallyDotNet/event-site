@@ -13,7 +13,7 @@ namespace EventSite.Domain {
         }
 
         public static bool RunningInProduction(this IApplicationState state) {
-            return string.Compare(state.Environment, "production", StringComparison.OrdinalIgnoreCase) == 0;
+            return string.Compare(state.Settings.Environment, "production", StringComparison.OrdinalIgnoreCase) == 0;
         }
 
         public static bool CanSubmitSessions(this IApplicationState state) {
