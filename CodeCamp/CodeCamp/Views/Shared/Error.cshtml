@@ -1,0 +1,22 @@
+﻿@using CodeCamp.ViewModels
+@using NLog
+
+<div class="jumbotron">
+    @if (Model is ErrorOutput) {
+        var viewModel = (ErrorOutput)Model;
+        <h2>@viewModel.Title</h2>
+        <p class="lead">
+            @viewModel.Subtitle1<br />@viewModel.Subtitle2
+        </p>
+    }
+    else if(Model is HandleErrorInfo) {
+        var info = (HandleErrorInfo)Model;
+        LogManager.GetLogger(typeof(HandleErrorInfo).FullName).Error(info.Exception);
+            <h2>Unknown Error</h2>
+            <p class="lead">Something unexpected has happened.<br />If the problem persists, please contact us.</p>
+    }
+    else {
+        <h2>Unknown Error</h2>
+        <p class="lead">Something unexpected has happened.<br />If the problem persists, please contact us.</p>
+    }
+</div>

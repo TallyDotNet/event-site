@@ -1,0 +1,158 @@
+﻿@using CodeCamp.Domain
+@using CodeCamp.Domain.Model
+@using CodeCamp.Infrastructure
+@model CodeCamp.ViewModels.Account.IndexViewModel
+
+@{
+    ViewInfo.Title = "My Account";
+}
+
+<div class="jumbotron">
+    <h1>My Account</h1>
+    <p class="lead">Update your profile, set your preferences and submit sessions.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div role="complementary">
+            <div class="text-center">
+                <img class="avatar" src="@Avatar.GetUrl(State.User.Email, 256)" alt="@State.User.Username">
+                <a class="btn btn-default btn-sm change-avatar" href="https://en.gravatar.com/">Change Avatar</a>
+            </div>
+
+            @if(State.RegistrationStatus == RegistrationStatus.NotRegistered) {
+                <div class="text-center">
+                    <a href="@Url.Action("Create", "Registration", new{eventSlug=State.CurrentEventSlug()})" class="btn btn-lg btn-success">
+                        Register for <br/>
+                        @State.CurrentEvent.Name <br/>
+                        Now!
+                    </a>
+                </div>
+            } else if(State.RegistrationStatus == RegistrationStatus.Registered) {
+                if(Model.SubmittedSessions.Any()) {
+                    <ul class="sidenav nav">
+                        <li class="active">Sessions</li>
+                    
+                        @foreach(var session in Model.SubmittedSessions) {
+                            <li>
+                                @session.Name
+                                @switch(@session.Status) {
+                                    case SessionStatus.PendingApproval:
+                                        <span style="color: #428bca" class="glyphicon glyphicon-question-sign pull-right" title="Pending Approval"></span>
+                                        break;
+                                    case SessionStatus.Approved:
+                                        <span style="color: #5cb85c" class="glyphicon glyphicon-thumbs-up pull-right" title="Approved"></span>
+                                        break;
+                                    case SessionStatus.Rejected:
+                                        <span style="color: #d9534f" class="glyphicon glyphicon-thumbs-down pull-right" title="Rejected"></span>
+                                        break;
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+
+                if(State.CanSubmitSessions()) {
+                    <div class="text-center">
+                        <a href="@Url.Action("Create", "Sessions", new{eventSlug=State.CurrentEventSlug()})" class="btn btn-lg btn-success">
+                            Submit a Session for <br/>
+                            @State.CurrentEvent.Name <br/>
+                            Now!
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="col-md-9" role="main">
+        <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Index", "Account")">
+            <div class="panel panel-default">
+                <div class="panel-heading">About Me</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="Username" class="col-lg-2 control-label">Username</label>
+                        <div class="col-lg-10">
+                            <p id="Username" class="form-control-static">@State.User.Username</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name" class="col-lg-2 control-label">Name</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Name" value="@Model.Name">
+                            @Html.ValidationMessageFor(x => x.Name)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email" class="col-lg-2 control-label">Email</label>
+                        <div class="col-lg-10">
+                            <input type="email" class="form-control" id="Email" name="Email" placeholder="Email" value="@Model.Email">
+                            @Html.ValidationMessageFor(x => x.Email)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Company" class="col-lg-2 control-label">Company</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Company" name="Company" placeholder="Company" value="@Model.Company">
+                            @Html.ValidationMessageFor(x => x.Company)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Title" class="col-lg-2 control-label">Title</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Title" name="Title" placeholder="Title" value="@Model.Title">
+                            @Html.ValidationMessageFor(x => x.Title)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="TelephoneNumber" class="col-lg-2 control-label">Phone Number</label>
+                        <div class="col-lg-10">
+                            <input type="tel" class="form-control" id="TelephoneNumber" name="TelephoneNumber" placeholder="Telephone Number" value="@Model.TelephoneNumber">
+                            @Html.ValidationMessageFor(x => x.TelephoneNumber)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Bio" class="col-lg-2 control-label">Bio</label>
+                        <div class="col-lg-10">
+                            <textarea rows="4" class="form-control" id="Bio" name="Bio" placeholder="Bio">@Model.Bio</textarea>
+                            @Html.ValidationMessageFor(x => x.Bio)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My Preferences</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.ListInAttendeeDirectory) List In Attendee Directory
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.ReceiveEmail) Receive Email
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-lg-offset-10 col-lg-2">
+                    <button type="submit" class="btn btn-lg btn-success" style="width: 100%">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@using CodeCamp.Domain.Model
+@model CodeCamp.Domain.Infrastructure.Page<Speaker>
+@using CodeCamp.Infrastructure
+@{
+    ViewInfo.Title = "Speakers";
+}
+
+<div class="jumbotron">
+    <h1>Speakers</h1>
+    <p class="lead">Check out who's speaking.</p>
+</div>
+
+<ul class="media-list">
+    @foreach(var speaker in Model.Items) {
+        var sessionCount = speaker.Sessions.Count();
+        var listIntro = "Presenting " + sessionCount + " session" + (sessionCount > 1 ? "s" : "") + ":";
+        
+        <li class="media">
+            <a class="pull-left" href="#">
+                <img class="media-object avatar" src="@Avatar.GetUrl(speaker.User.Email, 128)" alt="@speaker.User.Username">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">@speaker.User.GetDisplayName()</h4>
+                <div class="description">@speaker.User.Profile.Bio</div>
+                <div>
+                    <div class="presenter">@listIntro</div>
+                    <ul>
+                        @foreach(var session in speaker.Sessions) {
+                            <li>@session.Name</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+
+@if(Model.HasMultiplePages) {
+    var eventSlug = Event.SlugFromId(Model.Items.First().EventId);
+    
+    <ul class="pager">
+        @if(Model.HasPreviousPage) {
+            <li>
+                <a href="@Url.Action("Index", "Speakers", new{ eventSlug, page = Model.PreviousPage })">Previous</a>
+            </li>
+        }
+        
+        @if(Model.HasNextPage) {
+            <li>
+                <a href="@Url.Action("Index", "Speakers", new{ eventSlug, page = Model.NextPage })">Next</a>
+            </li>
+        }
+    </ul>    
+}

@@ -1,9 +1,0 @@
-﻿%h2 Choose Template
-%form{method="post"}
-
-	%div
-		%label Your Site's Template
-		= Html.FormField<ChooseTemplate>(x=>x.SelectedTemplate, ViewData.Model.AvailableTemplates)
-	
-	%input {type="submit" value="Next"}
-	= Html.BackButton("Back")

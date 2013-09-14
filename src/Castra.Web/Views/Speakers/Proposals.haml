@@ -1,8 +1,0 @@
-﻿-var proposals = ViewData.Model;
-.speaker-sessions 
-	%h4 Proposals
-	-if(proposals.Count() == 0)
-		None
-	%ul 
-	-foreach(var proposal in proposals)
-		%li =proposal.Title
