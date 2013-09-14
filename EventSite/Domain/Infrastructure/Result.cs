@@ -66,10 +66,10 @@ namespace EventSite.Domain.Infrastructure {
 
         public string Status { get; set; }
         public string Message { get; set; }
-        public IList<CommandResponseDetail> Details { get; private set; }
+        public IList<Detail> Details { get; private set; }
 
         public Result() {
-            Details = new List<CommandResponseDetail>();
+            Details = new List<Detail>();
             Status = ResultStatus.Success;
         }
 
@@ -90,7 +90,7 @@ namespace EventSite.Domain.Infrastructure {
             }
 
             Status = ResultStatus.Failure;
-            Details.Add(new CommandResponseDetail {
+            Details.Add(new Detail {
                 Name = property,
                 Description = message
             });
@@ -170,7 +170,7 @@ namespace EventSite.Domain.Infrastructure {
             return new Result<T>().WithSubject(subject);
         }
 
-        public class CommandResponseDetail {
+        public class Detail {
             public string Name { get; set; }
             public string Description { get; set; }
         }

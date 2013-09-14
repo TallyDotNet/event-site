@@ -45,6 +45,7 @@ namespace EventSite.Domain.Queries {
             public string SubmitterEmail { get; set; }
             public SessionStatus Status { get; set; }
             public string Event_Id { get; set; }
+            public AudienceLevel Level { get; set; }
         }
 
         public class SessionSummaryPageIndex : AbstractIndexCreationTask<Session, Summary> {
@@ -60,6 +61,7 @@ namespace EventSite.Domain.Queries {
                         SubmitterName = string.IsNullOrEmpty(submitter.Profile.Name) ? submitter.Username : submitter.Profile.Name,
                         SubmitterEmail = submitter.Email,
                         Status = session.Status,
+                        Level = session.Level,
                         Event_Id = session.Event.Id
                     };
 
