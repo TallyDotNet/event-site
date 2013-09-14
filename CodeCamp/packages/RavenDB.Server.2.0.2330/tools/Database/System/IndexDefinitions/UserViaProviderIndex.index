@@ -1,0 +1,20 @@
+{
+  "Name": "UserViaProviderIndex",
+  "Map": "docs.Users.SelectMany(user => user.AuthAccounts, (user, account) => new {\r\n    AuthAccounts_ProviderUserId = account.ProviderUserId,\r\n    AuthAccounts_Provider = account.Provider\r\n})",
+  "Maps": [
+    "docs.Users.SelectMany(user => user.AuthAccounts, (user, account) => new {\r\n    AuthAccounts_ProviderUserId = account.ProviderUserId,\r\n    AuthAccounts_Provider = account.Provider\r\n})"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Suggestions": {},
+  "TermVectors": {},
+  "Type": "Map"
+}

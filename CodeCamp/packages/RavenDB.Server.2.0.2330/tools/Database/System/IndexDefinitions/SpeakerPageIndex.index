@@ -1,0 +1,21 @@
+{
+  "Name": "SpeakerPageIndex",
+  "Map": "docs.Registrations.Where(reg => reg.IsSpeaker).Select(reg => new {\r\n    Id = reg.User.Id,\r\n    EventId = reg.Event.Id,\r\n    Sessions = (System.Collections.IEnumerable) null\r\n})",
+  "Maps": [
+    "docs.Registrations.Where(reg => reg.IsSpeaker).Select(reg => new {\r\n    Id = reg.User.Id,\r\n    EventId = reg.Event.Id,\r\n    Sessions = (System.Collections.IEnumerable) null\r\n})",
+    "docs.Sessions.Where(session => session.Status == \"Approved\").Select(session => new {\r\n    Id = session.User.Id,\r\n    EventId = session.Event.Id,\r\n    Sessions = new[] {\r\n        session\r\n    }\r\n})"
+  ],
+  "Reduce": "results.GroupBy(result => result.EventId).Select(g => new {\r\n    Id = DynamicEnumerable.FirstOrDefault(g).Id,\r\n    EventId = g.Key,\r\n    Sessions = g.SelectMany(x => x.Sessions)\r\n})",
+  "TransformResults": null,
+  "IsMapReduce": true,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Suggestions": {},
+  "TermVectors": {},
+  "Type": "MapReduce"
+}

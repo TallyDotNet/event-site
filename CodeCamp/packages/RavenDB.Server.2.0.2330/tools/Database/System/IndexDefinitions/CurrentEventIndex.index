@@ -1,0 +1,20 @@
+{
+  "Name": "CurrentEventIndex",
+  "Map": "docs.Events.Select(ev => new {\r\n    IsCurrent = ev.IsCurrent\r\n})",
+  "Maps": [
+    "docs.Events.Select(ev => new {\r\n    IsCurrent = ev.IsCurrent\r\n})"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Suggestions": {},
+  "TermVectors": {},
+  "Type": "Map"
+}

@@ -1,0 +1,9 @@
+time,logger,level,database,message,exception
+2013-09-14 00:27:46.8184,Raven.Database.Indexing.WorkContext,Debug,<system>,"No work was found, workerWorkCounter: 468, for: ReducingExecuter, will wait for additional work",
+2013-09-14 00:27:46.8184,Raven.Database.Indexing.WorkContext,Debug,,"No work was found, workerWorkCounter: 468, for: IndexingExecuter, will wait for additional work",
+2013-09-14 01:27:46.8198,Raven.Database.Indexing.WorkContext,Debug,<system>,"No work was found, workerWorkCounter: 468, for: ReducingExecuter, will wait for additional work",
+2013-09-14 01:27:46.8198,Raven.Database.Indexing.WorkContext,Debug,,"No work was found, workerWorkCounter: 468, for: IndexingExecuter, will wait for additional work",
+2013-09-14 02:27:46.8220,Raven.Database.Indexing.WorkContext,Debug,<system>,"No work was found, workerWorkCounter: 468, for: ReducingExecuter, will wait for additional work",
+2013-09-14 02:27:46.8480,Raven.Database.Indexing.WorkContext,Debug,,"No work was found, workerWorkCounter: 468, for: IndexingExecuter, will wait for additional work",
+2013-09-14 03:27:46.8403,Raven.Database.Indexing.WorkContext,Debug,<system>,"No work was found, workerWorkCounter: 468, for: ReducingExecuter, will wait for additional work",
+2013-09-14 03:27:46.8539,Raven.Database.Indexing.WorkContext,Debug,,"No work was found, workerWorkCounter: 468, for: IndexingExecuter, will wait for additional work",

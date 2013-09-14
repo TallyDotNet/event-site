@@ -1,0 +1,25 @@
+{
+  "Name": "SessionSummaryPageIndex",
+  "Map": "docs.Sessions.Select(session => new {\r\n    session = session,\r\n    submitter = this.LoadDocument(session.User.Id)\r\n}).Select(this1 => new {\r\n    Id = this1.session.__document_id,\r\n    Name = this1.session.Name,\r\n    Description = this1.session.Description,\r\n    SubmitterId = this1.session.User.Id,\r\n    SubmitterName = String.IsNullOrEmpty(this1.submitter.Profile.Name) ? this1.submitter.Username : this1.submitter.Profile.Name,\r\n    SubmitterEmail = this1.submitter.Email,\r\n    Status = this1.session.Status,\r\n    Event_Id = this1.session.Event.Id\r\n})",
+  "Maps": [
+    "docs.Sessions.Select(session => new {\r\n    session = session,\r\n    submitter = this.LoadDocument(session.User.Id)\r\n}).Select(this1 => new {\r\n    Id = this1.session.__document_id,\r\n    Name = this1.session.Name,\r\n    Description = this1.session.Description,\r\n    SubmitterId = this1.session.User.Id,\r\n    SubmitterName = String.IsNullOrEmpty(this1.submitter.Profile.Name) ? this1.submitter.Username : this1.submitter.Profile.Name,\r\n    SubmitterEmail = this1.submitter.Email,\r\n    Status = this1.session.Status,\r\n    Event_Id = this1.session.Event.Id\r\n})"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {
+    "SubmitterId": "Yes",
+    "SubmitterName": "Yes",
+    "SubmitterEmail": "Yes",
+    "Event_Id": "Yes"
+  },
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Suggestions": {},
+  "TermVectors": {},
+  "Type": "Map"
+}
