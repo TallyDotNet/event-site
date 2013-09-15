@@ -237,6 +237,9 @@
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\images\home\charity.jpg" />
+    <Content Include="Content\images\home\challenge.jpg" />
+    <Content Include="Content\images\home\food.jpg" />
+    <Content Include="Content\images\home\lodging.jpg" />
     <Content Include="Content\images\logo.gif" />
     <Content Include="Content\styles\ie10mobile.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
