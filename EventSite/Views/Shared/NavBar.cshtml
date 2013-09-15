@@ -5,7 +5,7 @@
 @{
     var siteTitle = State.EventScheduled()
         ? State.CurrentEvent.Name
-        : "Tallahassee Code Camp";
+        : State.Settings.Name;
 }
 
 <div class="navbar-wrapper">
