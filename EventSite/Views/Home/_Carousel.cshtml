@@ -1,0 +1,65 @@
+﻿@using EventSite.Domain
+<div id="myCarousel" class="carousel slide">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active">
+            <img class="decorative-image img-responsive" src="~/Content/images/home/carousel/crowd.jpeg" alt="Developers">
+            <div class="container">
+                <div class="carousel-caption" style="margin-bottom: 40px">
+                    <h1>Engaging Community</h1>
+                    <p>Hang out with other local and regional developers, make new friends, establish business connections and have an all around great time.</p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img class="decorative-image" src="~/Content/images/home/carousel/speaker.jpeg" alt="Speakers">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Awesome Speakers</h1>
+                    <p>Come meet and hear presentations from the best speakers in Tallahassee, Florida, and the surrounding states. Enjoy this free oppotutnity to level up your developer skills.</p>
+                    @if(State.EventScheduled()) {
+                        <p>
+                            <a class="btn btn-large btn-primary" href="@Url.Action("Index", "Speakers", new{eventSlug=State.CurrentEventSlug()})">Learn more</a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img class="decorative-image" src="~/Content/images/home/carousel/class.jpeg" alt="Sessions">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Relevant Content</h1>
+                    <p>Attend developer sessions that are relevant to your daily work and that will enhance your career. Learn something new or dig deeper into your current interests.</p>
+                    @if(State.EventScheduled()) {
+                        <p>
+                            <a class="btn btn-large btn-primary" href="@Url.Action("Index", "Sessions", new{eventSlug=State.CurrentEventSlug()})">Learn more</a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img class="decorative-image" src="~/Content/images/home/carousel/vendor.jpeg" alt="Vendors">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Sponsors, Vendors, Recruiters and more...</h1>
+                    <p>Looking to learn about new technology? Trying to find a job? Want to get in touch with local technology companies? This is the place.</p>
+                    @if(State.EventScheduled()) {
+                        <p>
+                            <a class="btn btn-large btn-primary" href="@Url.Action("Index", "Sponsors", new{eventSlug=State.CurrentEventSlug()})">Learn more</a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>

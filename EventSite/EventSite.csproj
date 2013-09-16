@@ -236,10 +236,14 @@
     <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
-    <Content Include="Content\images\home\charity.jpg" />
-    <Content Include="Content\images\home\challenge.jpg" />
-    <Content Include="Content\images\home\food.jpg" />
-    <Content Include="Content\images\home\lodging.jpg" />
+    <Content Include="Content\images\home\carousel\class.jpeg" />
+    <Content Include="Content\images\home\carousel\crowd.jpeg" />
+    <Content Include="Content\images\home\carousel\speaker.jpeg" />
+    <Content Include="Content\images\home\carousel\vendor.jpeg" />
+    <Content Include="Content\images\home\featurette\charity.jpg" />
+    <Content Include="Content\images\home\featurette\challenge.jpg" />
+    <Content Include="Content\images\home\featurette\food.jpg" />
+    <Content Include="Content\images\home\featurette\lodging.jpg" />
     <Content Include="Content\images\logo.gif" />
     <Content Include="Content\styles\ie10mobile.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -292,6 +296,8 @@
     <Content Include="Views\Location\Index.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Events\CreateOrUpdate.cshtml" />
+    <Content Include="Views\Home\_Carousel.cshtml" />
+    <Content Include="Views\Home\_Featurette.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Register\" />
