@@ -40,7 +40,8 @@ namespace EventSite.Domain.Commands {
                 toSave.End = Event.End;
                 toSave.Description = Event.Description;
                 toSave.IsSessionSubmissionOpen = Event.IsSessionSubmissionOpen;
-                toSave.Venue = Event.Venue; 
+                toSave.Venue = Event.Venue;
+                toSave.ScheduleSummary = Event.ScheduleSummary;
             }
 
             if(toSave.IsCurrent) {

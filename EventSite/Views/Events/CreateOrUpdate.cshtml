@@ -77,6 +77,14 @@
                                 @Html.ValidationMessage("Event.Description")
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="ScheduleSummary" class="col-lg-2 control-label">Schedule Summary</label>
+                            <div class="col-lg-10">
+                                <textarea rows="4" class="form-control" id="Event.ScheduleSummary" name="Event.ScheduleSummary" placeholder="Schedule Summary">@Model.Event.ScheduleSummary</textarea>
+                                @Html.ValidationMessage("Event.ScheduleSummary")
+                            </div>
+                        </div>
                     
                         @if(Model.Event.IsCurrent) {
                             <div class="form-group">

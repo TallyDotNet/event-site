@@ -30,6 +30,17 @@
                 <li>@Model.Venue.ParkingInformation</li>
             </ul>
         </div>
+        
+        @if(!string.IsNullOrEmpty(Model.ScheduleSummary)) {
+            <div role="complementary">
+                <ul class="sidenav nav">
+                    <li class="active">Schedule</li>
+                    @foreach(var line in Model.ScheduleSummary.Split('\n')) {
+                        <li>@line</li>
+                    }
+                </ul>
+            </div>
+        }
     </div>
 
     <div class="col-md-9" role="main">
