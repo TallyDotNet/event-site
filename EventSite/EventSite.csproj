@@ -241,7 +241,7 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\images\home\carousel\class.jpeg" />
     <Content Include="Content\images\home\carousel\crowd.jpeg" />
-    <Content Include="Content\images\home\carousel\speaker.jpeg" />
+    <Content Include="Content\images\home\carousel\speaker.jpg" />
     <Content Include="Content\images\home\carousel\vendor.jpeg" />
     <Content Include="Content\images\home\featurette\charity.jpg" />
     <Content Include="Content\images\home\featurette\challenge.jpg" />
