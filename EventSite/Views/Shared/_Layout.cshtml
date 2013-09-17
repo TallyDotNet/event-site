@@ -1,8 +1,17 @@
 ﻿@using System.Web.Optimization
+@using EventSite.Domain
+@{
+    var title = (ViewInfo.Title ?? string.Empty) + " | ";
+    if(State.EventScheduled()) {
+        title += State.CurrentEvent.Name;
+    } else {
+        title += State.Settings.Name;
+    }
+}
 <!DOCTYPE html>
 <html>
     <head>
-        <title>@ViewInfo.Title | Tally Code Camp</title>
+        <title>@title</title>
         
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />

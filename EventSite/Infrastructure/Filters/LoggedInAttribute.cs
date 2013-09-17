@@ -20,8 +20,8 @@ namespace EventSite.Infrastructure.Filters {
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext) {
             filterContext.Result = new RedirectToRouteResult(
                 new RouteValueDictionary {
-                    {"controller", "Home"},
-                    {"action", "Index"},
+                    {"controller", "Account"},
+                    {"action", "Login"},
                     {"returnUrl", filterContext.HttpContext.Request.RawUrl}
                 });
         }
