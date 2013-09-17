@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Awesome Speakers</h1>
-                    <p>Come meet and hear presentations from the best speakers in Tallahassee, Florida, and the surrounding states. Enjoy this free oppotutnity to level up your developer skills.</p>
+                    <p>Come meet and hear presentations from the best speakers in Tallahassee, Florida, and the surrounding states. Enjoy this free opportunity to level up your developer skills.</p>
                     @if(State.EventScheduled()) {
                         <p>
                             <a class="btn btn-large btn-primary" href="@Url.Action("Index", "Speakers", new{eventSlug=State.CurrentEventSlug()})">Learn more</a>
