@@ -154,6 +154,8 @@
   background: #900;
   color: white;
   padding: 5px 60px 20px 60px;
+  -webkit-box-shadow: inset 1px 1px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 1px 1px 30px rgba(0, 0, 0, 0.5);
 }
 .jumbotron h1,
 .jumbotron h2 {
