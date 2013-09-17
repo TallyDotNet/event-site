@@ -1,5 +1,13 @@
-﻿@{
+﻿@using EventSite.Domain
+@{
     ViewInfo.Title = "Login";
+
+    var google = State.RunningInProduction() ? "/authentication/redirect/google" : "/authentication/redirect/fakeGoogle";
+    var facebook = State.RunningInProduction() ? "/authentication/redirect/facebook" : "/authentication/redirect/fakeFacebook";
+    var twitter = State.RunningInProduction() ? "/authentication/redirect/twitter" : "/authentication/redirect/fakeTwitter";
+    var github = State.RunningInProduction() ? "/authentication/redirect/github" : "/authentication/redirect/fakeGithub";
+    var linkedin = State.RunningInProduction() ? "/authentication/redirect/linkedin" : "/authentication/redirect/fakeLinkedIn";
+    var windowsLive = State.RunningInProduction() ? "/authentication/redirect/windowslive" : "/authentication/redirect/fakeWindowsLive";
 }
 
 <div class="jumbotron">
@@ -10,37 +18,37 @@
 <div class="container login-buttons" style="margin: 60px">
     <div class="row">
         <div class="col-md-offset-4 col-md-2">
-            <a class="btn btn-lg btn-default" href="/authentication/redirect/fakeFacebook">
+            <a class="btn btn-lg btn-default" href="@google">
                 Google
             </a> 
         </div>
         <div class="col-md-2">
-            <a class="btn btn-lg btn-default" href="/authentication/redirect/fakeFacebook">
+            <a class="btn btn-lg btn-default" href="@facebook">
                 Facebook
             </a> 
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-2">
-            <a class="btn btn-lg btn-default" href="/authentication/redirect/fakeFacebook">
+            <a class="btn btn-lg btn-default" href="@twitter">
                 Twitter
             </a> 
         </div>
         <div class="col-md-2">
-            <a class="btn btn-lg btn-default" href="/authentication/redirect/fakeFacebook">
+            <a class="btn btn-lg btn-default" href="@github">
                 Github
             </a> 
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-2">
-            <a class="btn btn-lg btn-default" href="/authentication/redirect/fakeFacebook">
+            <a class="btn btn-lg btn-default" href="@linkedin">
                 LinkedIn
             </a> 
         </div>
         <div class="col-md-2">
-            <a class="btn btn-lg btn-default" href="/authentication/redirect/fakeFacebook">
-                MS Live
+            <a class="btn btn-lg btn-default" href="@windowsLive">
+                Windows Live
             </a> 
         </div>
     </div>

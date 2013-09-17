@@ -15,6 +15,8 @@
   background-image: linear-gradient(to bottom, #00467f 0%, #002a4c 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00467f', endColorstr='#ff002a4c', GradientType=0);
+  -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.75);
 }
 .navbar-custom .navbar-brand {
   color: #ffffff;
