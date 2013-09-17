@@ -15,7 +15,7 @@
         <link rel="apple-touch-startup-image" href="~/Content/images/ios-startup-image-portrait.png" media="(orientation:portrait)" />
         <link rel="apple-touch-icon" href="~/Content/images/icon.png"/>
         
-        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/styles/combined")
         
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -34,6 +34,6 @@
     </head>
     <body>
         @RenderBody()
-        @Scripts.Render("~/Scripts/vendor")
+        @Scripts.Render("~/Scripts/combined")
     </body>
 </html>

@@ -8,14 +8,14 @@ namespace EventSite.Infrastructure.Views {
             AddDefaultIgnorePatterns(bundles.IgnoreList);
 
             bundles.Add(
-                new ScriptBundle("~/Scripts/vendor")
+                new ScriptBundle("~/Scripts/combined")
                     .Include("~/Scripts/jquery-{version}.js")
                     .Include("~/Scripts/bootstrap.js")
                     .Include("~/Scripts/behavior.js")
                 );
 
             bundles.Add(
-                new StyleBundle("~/Content/css")
+                new StyleBundle("~/Content/styles/combined")
                     .Include("~/Content/styles/ie10mobile.css")
                     .Include("~/Content/bootstrap/bootstrap.min.css")
                     .Include("~/Content/styles/site.min.css")
