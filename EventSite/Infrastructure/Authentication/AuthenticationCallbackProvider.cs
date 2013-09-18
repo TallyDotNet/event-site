@@ -5,6 +5,7 @@ using EventSite.Domain;
 using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 using EventSite.Domain.Queries;
+using EventSite.Infrastructure.Routing;
 using EventSite.ViewModels;
 using EventSite.ViewModels.Account;
 using SimpleAuthentication.Mvc;
@@ -24,6 +25,7 @@ namespace EventSite.Infrastructure.Authentication {
         public ActionResult Process(HttpContextBase context, AuthenticateCallbackData model) {
             var authInfo = model.AuthenticatedClient;
             var userInfo = authInfo.UserInformation;
+            var returnUrl = RouteHelper.GetReturnUrl(model.ReturnUrl);
 
             var user = bus.Query(new UserViaProvider(authInfo.ProviderName, userInfo.Id));
             if(user != null) {
@@ -33,11 +35,14 @@ namespace EventSite.Infrastructure.Authentication {
                     return RedirectToAction("Registration", "Create");
                 }
 
-                return RedirectToAction("Account");
+                return !string.IsNullOrEmpty(returnUrl)
+                    ? new RedirectResult(returnUrl)
+                    : RedirectToAction("Account");
             }
 
             if(!string.IsNullOrEmpty(userInfo.Email)) {
                 user = bus.Query(new UserWithEmail(userInfo.Email));
+
                 if(user != null) {
                     user.AddOAuthAccount(authInfo.ProviderName, userInfo.Id);
 
@@ -47,7 +52,9 @@ namespace EventSite.Infrastructure.Authentication {
                         return RedirectToAction("Registration", "Create");
                     }
 
-                    return RedirectToAction("Account");
+                    return !string.IsNullOrEmpty(returnUrl)
+                        ? new RedirectResult(returnUrl)
+                        : RedirectToAction("Account");
                 }
             }
 

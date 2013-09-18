@@ -1,8 +1,10 @@
 ﻿using System.Web.Mvc;
 using EventSite.Domain;
+using EventSite.Domain.Commands;
 using EventSite.Domain.Queries;
 using EventSite.Infrastructure.Controllers;
 using EventSite.Infrastructure.Filters;
+using EventSite.Infrastructure.Routing;
 using EventSite.ViewModels.Account;
 
 namespace EventSite.Controllers {
@@ -42,10 +44,22 @@ namespace EventSite.Controllers {
         public ActionResult Create(CreateAccountViewModel input) {
             return Execute(input)
                 .OnSuccess(x => {
+                    var returnUrl = RouteHelper.GetReturnUrl(input.ReturnUrl);
                     State.Login(x.Subject, input.Persist);
 
                     if(State.EventScheduled()) {
-                        return RedirectToAction("Create", "Registration");
+                        return Execute(new RegisterForCurrentEvent())
+                            .OnSuccess(y => {
+                                if(!string.IsNullOrEmpty(returnUrl)) {
+                                    return Redirect(returnUrl);
+                                }
+
+                                return RedirectToAction("Index", "Account");
+                            }).OnFailure(y => RedirectToAction("Index", "Account"));
+                    }
+
+                    if(!string.IsNullOrEmpty(returnUrl)) {
+                        return Redirect(returnUrl);
                     }
 
                     return RedirectToAction("Index", "Account");

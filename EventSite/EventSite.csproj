@@ -198,6 +198,7 @@
     <Compile Include="Infrastructure\Helpers\ExtensionMethods.cs" />
     <Compile Include="Infrastructure\Results\JsonNetResult.cs" />
     <Compile Include="Infrastructure\Routing\RouteBuilder.cs" />
+    <Compile Include="Infrastructure\Routing\RouteHelper.cs" />
     <Compile Include="Infrastructure\Views\BundleConfig.cs" />
     <Compile Include="Infrastructure\IoC\ContainerConfig.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
