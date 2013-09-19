@@ -243,6 +243,15 @@ address {
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
 }
+.modal-footer {
+  margin-top: 0;
+}
+.modal-body h3 {
+  margin: 10px 0 0 0;
+}
+.modal-body .bio {
+  padding-top: 12px;
+}
 /* Carousel base class */
 .carousel {
   margin-bottom: 60px;

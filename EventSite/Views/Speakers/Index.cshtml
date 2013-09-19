@@ -1,6 +1,5 @@
-﻿@using EventSite.Domain.Model
-@model EventSite.Domain.Infrastructure.Page<Speaker>
-@using EventSite.Infrastructure
+﻿@using EventSite.Infrastructure
+@model List<List<EventSite.Domain.Model.Speaker>>
 @{
     ViewInfo.Title = "Speakers";
 }
@@ -10,45 +9,60 @@
     <p class="lead">Check out who's speaking.</p>
 </div>
 
-<ul class="media-list">
-    @foreach(var speaker in Model.Items) {
-        var sessionCount = speaker.Sessions.Count();
-        var listIntro = "Presenting " + sessionCount + " session" + (sessionCount > 1 ? "s" : "") + ":";
-        
-        <li class="media">
-            <a class="pull-left" href="#">
-                <img class="media-object avatar" src="@Avatar.GetUrl(speaker.User.Email, 128)" alt="@speaker.User.Username">
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">@speaker.User.GetDisplayName()</h4>
-                <div class="description">@speaker.User.Profile.Bio</div>
-                <div>
-                    <div class="presenter">@listIntro</div>
-                    <ul>
-                        @foreach(var session in speaker.Sessions) {
-                            <li>@session.Name</li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </li>
-    }
-</ul>
-
-@if(Model.HasMultiplePages) {
-    var eventSlug = Event.SlugFromId(Model.Items.First().EventId);
     
-    <ul class="pager">
-        @if(Model.HasPreviousPage) {
-            <li>
-                <a href="@Url.Action("Index", "Speakers", new{ eventSlug, page = Model.PreviousPage })">Previous</a>
-            </li>
-        }
-        
-        @if(Model.HasNextPage) {
-            <li>
-                <a href="@Url.Action("Index", "Speakers", new{ eventSlug, page = Model.NextPage })">Next</a>
-            </li>
-        }
-    </ul>    
-}
+<div class="container">
+    @foreach(var row in Model) {
+        <div class="row">
+            @foreach(var speaker in row) {
+                var id = speaker.Id.Replace("users/", string.Empty);
+
+                <a data-toggle="modal" href="#@id" class="col-xs-2 col-sm-2 col-md-2">
+                    <img class="avatar img-responsive" src="@Avatar.GetUrl(speaker.User.Email, 128)" alt="@speaker.User.GetDisplayName()" />
+                    <div class="text-center">@speaker.User.GetDisplayName()</div>
+                </a>
+
+                <div class="modal fade" id="@id" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-3 col-sm-3 col-md-3">
+                                        <img class="avatar img-responsive" style="width: auto" src="@Avatar.GetUrl(speaker.User.Email, 128)" alt="@speaker.User.GetDisplayName()">
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8">
+                                        <h3>@speaker.User.GetDisplayName()</h3>
+                                        <div>@speaker.User.GetProfessionalInfo()</div>
+                                    </div>
+                                    <button class="close col-xs-1 col-sm-1 col-md-1" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="row">
+                                    @if(string.IsNullOrEmpty(speaker.User.Profile.Bio)) {
+                                        <div class="col-lg-12 text-center bio">No Bio Available</div>
+                                    } else {
+                                        <div class="col-lg-12 bio">@speaker.User.Profile.Bio</div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <p class="pull-left">PRESENTING</p>
+                                    </div>
+                                </div>
+                                @foreach(var session in speaker.Sessions) {
+                                <div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 text-left">
+                                            <h4>@session.Name</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

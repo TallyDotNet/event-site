@@ -27,6 +27,20 @@ namespace EventSite.Domain.Model {
             return string.IsNullOrEmpty(Profile.Name) ? Username : Profile.Name;
         }
 
+        public string GetProfessionalInfo() {
+            var info = Profile.Title;
+
+            if(!string.IsNullOrEmpty(info)) {
+                if(!string.IsNullOrEmpty(Profile.Company)) {
+                    info += ", " + Profile.Company;
+                }
+            } else {
+                info = Profile.Company;
+            }
+
+            return info;
+        }
+
         public bool InRole(string role) {
             return Roles.Contains(role);
         }
