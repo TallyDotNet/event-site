@@ -59,11 +59,11 @@ namespace EventSite.Domain.Queries {
                     );
 
                 Reduce = results => from result in results
-                    group result by result.EventId
+                    group result by result.EventId + result.Id
                     into g
                     select new {
                         Id = g.First().Id,
-                        EventId = g.Key,
+                        EventId = g.First().EventId,
                         Sessions = g.SelectMany(x => x.Sessions)
                     };
             }
