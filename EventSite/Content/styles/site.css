@@ -252,6 +252,9 @@ address {
 .modal-body .bio {
   padding-top: 12px;
 }
+footer {
+  margin-top: 40px;
+}
 /* Carousel base class */
 .carousel {
   margin-bottom: 60px;
