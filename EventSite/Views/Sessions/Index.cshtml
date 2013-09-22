@@ -50,7 +50,11 @@
                 </h4>
                 <div class="description">@summary.Description</div>
                 <div>
-                    <div class="presenter">Presented by @summary.SubmitterName</div>
+                    @if(summary.Status == SessionStatus.Approved) {
+                        <div class="presenter">Presented by <a href="@Url.Action("Index", "Speakers", new {eventSlug = State.CurrentEventSlug(), speakerSlug = EventSite.Domain.Model.User.SlugFromId(summary.SubmitterId)})">@summary.SubmitterName</a></div>
+                    } else {
+                        <div class="presenter">Presented by @summary.SubmitterName</div>
+                    }
                     
                     @if(State.UserIsAdmin() && summary.Status == SessionStatus.PendingApproval) {
                         var parameters = new {eventSlug = Event.SlugFromId(summary.Event_Id), sessionSlug = EventSite.Domain.Model.Session.SlugFromId(summary.Id)};

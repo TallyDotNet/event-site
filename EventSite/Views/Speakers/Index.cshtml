@@ -1,5 +1,5 @@
 ﻿@using EventSite.Infrastructure
-@model List<List<EventSite.Domain.Model.Speaker>>
+@model EventSite.ViewModels.Speakers.IndexOutput
 @{
     ViewInfo.Title = "Speakers";
 }
@@ -11,17 +11,17 @@
 
     
 <div class="container speakers">
-    @foreach(var row in Model) {
+    @foreach(var row in Model.Speakers) {
         <div class="row">
             @foreach(var speaker in row) {
-                var id = speaker.Id.Replace("users/", string.Empty);
+                var slug = EventSite.Domain.Model.User.SlugFromId(speaker.Id);
 
-                <a data-toggle="modal" href="#@id" class="col-xs-2 col-sm-2 col-md-2">
+                <a data-toggle="modal" href="#@slug" class="col-xs-2 col-sm-2 col-md-2">
                     <img class="avatar img-responsive" src="@Avatar.GetUrl(speaker.User.Email, 128)" alt="@speaker.User.GetDisplayName()" />
                     <div class="text-center">@speaker.User.GetDisplayName()</div>
                 </a>
 
-                <div class="modal fade" id="@id" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="@slug" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-body">
@@ -50,13 +50,13 @@
                                     </div>
                                 </div>
                                 @foreach(var session in speaker.Sessions) {
-                                <div>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 text-left">
-                                            <h4>@session.Name</h4>
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12 text-left">
+                                                <h4>@session.Name</h4>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 }
                             </div>
                         </div>
@@ -66,3 +66,11 @@
         </div>
     }
 </div>
+
+@if(!string.IsNullOrEmpty(Model.ActiveSpeakerSlug)) {
+    <script type="text/javascript">
+        (function (es) {
+            es.activeSpeakerSlug = "@Model.ActiveSpeakerSlug";
+        })(window.EventSite || (window.EventSite = {}));
+    </script>
+}
