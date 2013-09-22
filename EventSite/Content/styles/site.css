@@ -243,6 +243,9 @@ address {
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
 }
+.speakers .row {
+  margin-bottom: 32px;
+}
 .modal-footer {
   margin-top: 0;
 }

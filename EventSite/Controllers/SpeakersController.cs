@@ -21,12 +21,12 @@ namespace EventSite.Controllers {
                 ? State.CurrentEvent.Id
                 : Event.IdFrom(eventSlug);
 
-            var speakers = Bus.Query(new SpeakersForEvent(eventId)).ToArray();
+            var speakers = Bus.Query(new SpeakersForEvent(eventId)).ToList();
             var rows = new List<List<Speaker>>();
 
-            for(var i = 0; i < speakers.Length; i++) {
+            for(var i = 0; i < speakers.Count; i++) {
                 var row = (int) Math.Floor(i/ColumnCount);
-                var column = i - (4*row);
+                var column = i - (ColumnCount * row);
 
                 if(column == 0) {
                     rows.Add(new List<Speaker>());
