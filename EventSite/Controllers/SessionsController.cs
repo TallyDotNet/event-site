@@ -1,11 +1,11 @@
 ﻿using System.Web.Mvc;
-using System.Web.Services.Description;
 using EventSite.Domain;
 using EventSite.Domain.Commands;
 using EventSite.Domain.Model;
 using EventSite.Domain.Queries;
 using EventSite.Infrastructure.Controllers;
 using EventSite.Infrastructure.Filters;
+using EventSite.ViewModels.Sessions;
 
 namespace EventSite.Controllers {
     public class SessionsController : BaseController {
@@ -20,10 +20,14 @@ namespace EventSite.Controllers {
                 : Event.IdFrom(eventSlug);
 
             var data = Bus.Query(new SessionSummaryPage(eventId, page, status));
-            ViewBag.CurrentEventSlug = eventSlug;
-            ViewBag.CurrentStatusFilter = status;
-            
-            return View(data);
+
+            return View(
+                new IndexOutput(
+                    data,
+                    string.IsNullOrEmpty(eventSlug) ? Event.SlugFromId(State.CurrentEvent.Id) : eventSlug,
+                    status
+                    )
+                );
         }
 
         [HttpGet]

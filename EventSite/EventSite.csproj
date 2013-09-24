@@ -236,6 +236,7 @@
     <Compile Include="ViewModels\Account\CreateAccountViewModel.cs" />
     <Compile Include="ViewModels\Account\IndexViewModel.cs" />
     <Compile Include="ViewModels\ErrorOutput.cs" />
+    <Compile Include="ViewModels\Sessions\IndexOutput.cs" />
     <Compile Include="ViewModels\Speakers\IndexOutput.cs" />
   </ItemGroup>
   <ItemGroup>
