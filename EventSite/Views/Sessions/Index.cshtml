@@ -77,6 +77,11 @@
                         <div class="presenter">Presented by @summary.SubmitterName</div>
                     }
                     
+                    @if (State.UserIsAdmin())
+                    {
+                        <div class="presenter">@summary.SubmitterEmail</div>
+                    }
+
                     @if(State.UserIsAdmin() && summary.Status == SessionStatus.PendingApproval) {
                         var parameters = new {eventSlug = Model.EventSlug, sessionSlug = EventSite.Domain.Model.Session.SlugFromId(summary.Id)};
                         var approveAction = @Url.Action("Approve", "Sessions", parameters);
