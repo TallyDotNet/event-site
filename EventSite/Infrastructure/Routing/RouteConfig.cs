@@ -40,10 +40,10 @@ namespace EventSite.Infrastructure.Routing {
                 .HandledBy<SessionsController>(x => x.Create());
 
             RouteFor("events/{eventSlug}/sessions")
-                .HandledBy<SessionsController>(x => x.Index(null, 0));
+                .HandledBy<SessionsController>(x => x.Index(null, 0, null));
 
             RouteFor("sessions")
-                .HandledBy<SessionsController>(x => x.Index(null, 0));
+                .HandledBy<SessionsController>(x => x.Index(null, 0, null));
 
             RouteFor("events/{eventSlug}/registrations/new")
                 .HandledBy<RegistrationController>(x => x.Create());

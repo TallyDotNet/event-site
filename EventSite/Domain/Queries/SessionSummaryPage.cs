@@ -9,10 +9,12 @@ using Raven.Client.Linq;
 namespace EventSite.Domain.Queries {
     public class SessionSummaryPage : Query<Page<SessionSummaryPage.Summary>> {
         readonly string eventId;
+        readonly SessionStatus? status;
         int page;
 
-        public SessionSummaryPage(string eventId, int page) {
+        public SessionSummaryPage(string eventId, int page, SessionStatus? status = null) {
             this.eventId = eventId;
+            this.status = status;
             this.page = page;
         }
 
@@ -22,17 +24,20 @@ namespace EventSite.Domain.Queries {
             var query = DocSession.Query<Session, SessionSummaryPageIndex>()
                 .Where(x => x.Event.Id == eventId);
 
-            if(!State.UserIsAdmin()) {
-                query = query.Where(x => x.Status == SessionStatus.Approved);
-            }
+            var sessionStatusForQuery = State.UserIsAdmin()
+                                            ? status
+                                            : SessionStatus.Approved;
+
+            if (sessionStatusForQuery.HasValue)
+                query = query.Where(s => s.Status == sessionStatusForQuery);
 
             var paged = Page.Transform(query, ref page, out statistics)
-                .AsProjection<Summary>();
+                            .AsProjection<Summary>().ToList();
 
             return new Page<Summary> {
                 CurrentPage = page,
-                TotalPages = statistics.TotalResults/Page.Size,
-                Items = paged.ToArray()
+                TotalPages = Page.CalculatePages(statistics.TotalResults),
+                Items = paged
             };
         }
 

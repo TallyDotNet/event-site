@@ -11,6 +11,24 @@
     <p class="lead">Browse and submit sessions.</p>
 </div>
 
+@{
+    var eventSlug = Event.SlugFromId(Model.Items.First().Event_Id);
+    var currentFilter = Request.QueryString["status"].As<SessionStatus>();
+    
+    if (State.UserIsAdmin())
+    {
+        <div class="page-header">
+            <h4>Approval Status Filter</h4>
+            <ul class="nav nav-pills">
+                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug})">All</a></li>
+                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug, status = SessionStatus.PendingApproval})">Pending Approval</a></li>
+                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug, status = SessionStatus.Rejected})">Rejected</a></li>
+                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug, status = SessionStatus.Approved})">Approved</a></li>
+            </ul>
+        </div>
+    }
+}
+
 <ul class="media-list">
     @foreach(var summary in Model.Items) {
         <li class="media">
@@ -78,7 +96,6 @@
 </ul>
 
 @if(Model.HasMultiplePages) {
-    var eventSlug = Event.SlugFromId(Model.Items.First().Event_Id);
 
     <ul class="pager">
         @if(Model.HasPreviousPage) {

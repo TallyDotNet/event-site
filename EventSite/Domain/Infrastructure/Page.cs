@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Raven.Client;
 using Raven.Client.Linq;
 
 namespace EventSite.Domain.Infrastructure {
     public class Page {
-        public static int Size = 25;
+        public static int Size = 5;
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
 
@@ -29,6 +30,12 @@ namespace EventSite.Domain.Infrastructure {
             get {
                 return TotalPages > 1;
             }
+        }
+
+        public static int CalculatePages(int totalResults)
+        {
+            var floatingPointResult = (decimal)totalResults/Size;
+            return (int)Math.Round(floatingPointResult, MidpointRounding.AwayFromZero);
         }
 
         public static IQueryable<T> Transform<T>(IRavenQueryable<T> query, ref int page, out RavenQueryStatistics statistics) {
