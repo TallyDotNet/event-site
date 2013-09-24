@@ -35,7 +35,7 @@ namespace EventSite.Domain.Infrastructure {
         public static int CalculatePages(int totalResults)
         {
             var floatingPointResult = (decimal)totalResults/Size;
-            return (int)Math.Round(floatingPointResult, MidpointRounding.AwayFromZero);
+            return (int)Math.Ceiling(floatingPointResult);
         }
 
         public static IQueryable<T> Transform<T>(IRavenQueryable<T> query, ref int page, out RavenQueryStatistics statistics) {
