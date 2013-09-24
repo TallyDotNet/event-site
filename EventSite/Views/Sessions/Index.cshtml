@@ -10,21 +10,16 @@
     <h1>Sessions</h1>
     <p class="lead">Browse and submit sessions.</p>
 </div>
-
-@{
-    //TODO: these could both be packaged up into a proper view model
-    var eventSlug = ViewData["currentEventSlug"];
-    var currentFilter = Request.QueryString["status"].As<SessionStatus>();
-    
+@{    
     if (State.UserIsAdmin())
     {
         <div class="page-header">
             <h4>Approval Status Filter</h4>
             <ul class="nav nav-pills">
-                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug})">All</a></li>
-                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug, status = SessionStatus.PendingApproval})">Pending Approval</a></li>
-                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug, status = SessionStatus.Rejected})">Rejected</a></li>
-                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug, status = SessionStatus.Approved})">Approved</a></li>
+                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug = ViewBag.CurrentEventSlug})">All</a></li>
+                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug = ViewBag.CurrentEventSlug, status = SessionStatus.PendingApproval})">Pending Approval</a></li>
+                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug = ViewBag.CurrentEventSlug, status = SessionStatus.Rejected})">Rejected</a></li>
+                <li><a href="@Url.Action("Index", "Sessions", new {eventSlug = ViewBag.CurrentEventSlug, status = SessionStatus.Approved})">Approved</a></li>
             </ul>
         </div>
     }
@@ -101,13 +96,13 @@
     <ul class="pager">
         @if(Model.HasPreviousPage) {
             <li>
-                <a href="@Url.Action("Index", "Sessions", new {eventSlug, page = Model.PreviousPage})">Previous</a>
+                <a href="@Url.Action("Index", "Sessions", new {eventSlug = ViewBag.CurrentEventSlug, status = ViewBag.CurrentStatusFilter, page = Model.PreviousPage})">Previous</a>
             </li>
         }
         
         @if(Model.HasNextPage) {
             <li>
-                <a href="@Url.Action("Index", "Sessions", new {eventSlug, page = Model.NextPage})">Next</a>
+                <a href="@Url.Action("Index", "Sessions", new {eventSlug = ViewBag.CurrentEventSlug, status = ViewBag.CurrentStatusFilter, page = Model.NextPage})">Next</a>
             </li>
         }
     </ul>

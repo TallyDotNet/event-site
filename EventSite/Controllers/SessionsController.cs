@@ -20,8 +20,9 @@ namespace EventSite.Controllers {
                 : Event.IdFrom(eventSlug);
 
             var data = Bus.Query(new SessionSummaryPage(eventId, page, status));
-            ViewData["currentEventSlug"] = eventSlug;
-            //ViewData["currentStatusFilter"] = status.HasValue ? status.Value.ToString("g") : string.Empty;
+            ViewBag.CurrentEventSlug = eventSlug;
+            ViewBag.CurrentStatusFilter = status;
+            
             return View(data);
         }
 
