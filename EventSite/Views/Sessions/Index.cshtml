@@ -12,7 +12,8 @@
 </div>
 
 @{
-    var eventSlug = Event.SlugFromId(Model.Items.First().Event_Id);
+    //TODO: these could both be packaged up into a proper view model
+    var eventSlug = ViewData["currentEventSlug"];
     var currentFilter = Request.QueryString["status"].As<SessionStatus>();
     
     if (State.UserIsAdmin())

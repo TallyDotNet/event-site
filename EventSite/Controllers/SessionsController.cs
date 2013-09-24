@@ -10,7 +10,7 @@ using EventSite.Infrastructure.Filters;
 namespace EventSite.Controllers {
     public class SessionsController : BaseController {
         [HttpGet]
-        public ActionResult Index(string eventSlug = null, int page = 1, SessionStatus? sessionStatusFilter = null) {
+        public ActionResult Index(string eventSlug = null, int page = 1, SessionStatus? status = null) {
             if(string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
@@ -19,8 +19,9 @@ namespace EventSite.Controllers {
                 ? State.CurrentEvent.Id
                 : Event.IdFrom(eventSlug);
 
-            var data = Bus.Query(new SessionSummaryPage(eventId, page, sessionStatusFilter));
-            
+            var data = Bus.Query(new SessionSummaryPage(eventId, page, status));
+            ViewData["currentEventSlug"] = eventSlug;
+            //ViewData["currentStatusFilter"] = status.HasValue ? status.Value.ToString("g") : string.Empty;
             return View(data);
         }
 
