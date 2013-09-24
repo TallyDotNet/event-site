@@ -6,7 +6,7 @@ using Raven.Client.Linq;
 
 namespace EventSite.Domain.Infrastructure {
     public class Page {
-        public static int Size = 5;
+        public static int Size = 25;
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
 
