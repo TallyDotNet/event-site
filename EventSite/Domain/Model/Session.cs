@@ -27,5 +27,22 @@ namespace EventSite.Domain.Model {
 
             return id.Substring(id.IndexOf("/sessions/") + "/sessions/".Length);
         }
+
+        public static SessionStatus[] GetAllowedStatusTransitions(SessionStatus currentStatus)
+        {
+            switch (currentStatus)
+            {
+                case SessionStatus.Approved:
+                    return new[] {SessionStatus.Rejected};
+                case SessionStatus.Deleted:
+                    return new[] {SessionStatus.Rejected, SessionStatus.Approved};
+                case SessionStatus.PendingApproval:
+                    return new[] {SessionStatus.Approved, SessionStatus.Rejected};
+                case SessionStatus.Rejected:
+                    return new[] {SessionStatus.Deleted, SessionStatus.Approved};
+                default:
+                    throw new InvalidOperationException("Unexpected session status: " + currentStatus);
+            }
+        }
     }
 }
