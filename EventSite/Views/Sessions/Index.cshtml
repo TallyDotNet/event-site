@@ -82,19 +82,31 @@
                         <div class="presenter">@summary.SubmitterEmail</div>
                     }
 
-                    @if(State.UserIsAdmin() && summary.Status == SessionStatus.PendingApproval) {
+                    @if(State.UserIsAdmin()) {
                         var parameters = new {eventSlug = Model.EventSlug, sessionSlug = EventSite.Domain.Model.Session.SlugFromId(summary.Id)};
                         var approveAction = @Url.Action("Approve", "Sessions", parameters);
                         var rejectAction = @Url.Action("Reject", "Sessions", parameters);
+                        var deleteAction = @Url.Action("Delete", "Sessions", parameters);
+                        var allowedStatuses = EventSite.Domain.Model.Session.GetAllowedStatusTransitions(summary.Status);
                         
                         <div class="pull-right">
-                            <form style="display: inline" method="POST" action="@approveAction">
+                            @if (allowedStatuses.Any(s => s == SessionStatus.Approved)){
+                             <form style="display: inline" method="POST" action="@approveAction">
                                 <button class="btn btn-success">Approve</button>
-                            </form>
+                            </form>   
+                            }
                                 
+                            @if (allowedStatuses.Any(s => s == SessionStatus.Rejected)){
                             <form style="display: inline" method="POST" action="@rejectAction">
                                 <button class="btn btn-danger">Reject</button>
-                            </form>
+                            </form>    
+                            }
+                            
+                            @if (allowedStatuses.Any(s => s == SessionStatus.Deleted)) {
+                             <form style="display: inline" method="POST" action="@deleteAction">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>   
+                            }
                         </div>
                     }
                 </div>

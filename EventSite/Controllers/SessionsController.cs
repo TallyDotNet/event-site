@@ -68,18 +68,26 @@ namespace EventSite.Controllers {
         [HttpPost]
         [LoggedIn(Roles = Roles.Admin)]
         public ActionResult Approve(string eventSlug, string sessionSlug) {
-            var sessionId = Domain.Model.Session.IdFrom(eventSlug, sessionSlug);
-
-            return Execute(new ChangeSessionStatus(sessionId, SessionStatus.Approved))
-                .Always(x => RedirectToAction("Index"));
+            return ChangeSessionStatus(eventSlug, sessionSlug, SessionStatus.Approved);
         }
 
         [HttpPost]
         [LoggedIn(Roles = Roles.Admin)]
         public ActionResult Reject(string eventSlug, string sessionSlug) {
+            return ChangeSessionStatus(eventSlug, sessionSlug, SessionStatus.Rejected);
+        }
+
+        [HttpPost]
+        [LoggedIn(Roles = Roles.Admin)]
+        public ActionResult Delete(string eventSlug, string sessionSlug) {
+            return ChangeSessionStatus(eventSlug, sessionSlug, SessionStatus.Deleted);
+        }
+
+        private ActionResult ChangeSessionStatus(string eventSlug, string sessionSlug, SessionStatus newStatus)
+        {
             var sessionId = Domain.Model.Session.IdFrom(eventSlug, sessionSlug);
 
-            return Execute(new ChangeSessionStatus(sessionId, SessionStatus.Rejected))
+            return Execute(new ChangeSessionStatus(sessionId, newStatus))
                 .Always(x => RedirectToAction("Index"));
         }
     }
