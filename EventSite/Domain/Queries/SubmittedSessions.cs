@@ -23,10 +23,11 @@ namespace EventSite.Domain.Queries {
             }
 
             return DocSession.Query<Session, SubmittedSessionsIndex>()
-                .Where(x =>
-                    x.Event.Id == eventId
-                    && x.User.Id == userId
-                );
+                             .Where(x =>
+                                    x.Event.Id == eventId
+                                    && x.User.Id == userId
+                                    && x.Status != SessionStatus.Deleted
+                ).ToList();
         }
 
         public class SubmittedSessionsIndex : AbstractIndexCreationTask<Session> {
@@ -35,7 +36,8 @@ namespace EventSite.Domain.Queries {
                     from session in sessions
                     select new {
                         User_Id = session.User.Id,
-                        Event_Id = session.Event.Id
+                        Event_Id = session.Event.Id,
+                        Status  = session.Status
                     };
             }
         }
