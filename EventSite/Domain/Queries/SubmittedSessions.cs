@@ -27,7 +27,7 @@ namespace EventSite.Domain.Queries {
                                     x.Event.Id == eventId
                                     && x.User.Id == userId
                                     && x.Status != SessionStatus.Deleted
-                ).ToList();
+                );
         }
 
         public class SubmittedSessionsIndex : AbstractIndexCreationTask<Session> {
