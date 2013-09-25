@@ -1,0 +1,10 @@
+﻿@using EventSite.Domain.Model
+@model EventSite.Domain.WorkItems.SendSessionStatusChangeEmail
+Dear @Model.ToName,
+@if(Model.SessionStatus == SessionStatus.Approved) {
+<text>We are happy to inform you that your session, "@Model.SessionName", which you recently submitted to @Model.EventName, has been approved. Thank you for your willingness to present and we look forward to seeing you @Model.EventDate.</text>
+} else {
+<text>We regretfully must inform you that your session, "@Model.SessionName", which you recently submitted to @Model.EventName, has not been approved. Thank you for your submission. If you have any questions, please feel free to contact us.</text>
+}
+Sincerely,
+The @Model.EventName Team

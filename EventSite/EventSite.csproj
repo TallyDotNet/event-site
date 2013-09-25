@@ -177,6 +177,7 @@
     <Compile Include="Domain\Commands\UpdateAccount.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Infrastructure\ISecurityEncoder.cs" />
+    <Compile Include="Domain\Infrastructure\IWork.cs" />
     <Compile Include="Domain\Infrastructure\Page.cs" />
     <Compile Include="Domain\Infrastructure\Reference.cs" />
     <Compile Include="Domain\Infrastructure\ISlugConverter.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Domain\Queries\SpeakersForEvent.cs" />
     <Compile Include="Domain\Queries\SubmittedSessions.cs" />
     <Compile Include="Domain\Queries\UserViaProvider.cs" />
+    <Compile Include="Domain\WorkItems\SendSessionStatusChangeEmail.cs" />
     <Compile Include="Infrastructure\Authentication\AuthenticationCallbackProvider.cs" />
     <Compile Include="Infrastructure\Controllers\CommandExecutor.cs" />
     <Compile Include="Domain\Queries\UserWithEmail.cs" />
@@ -268,6 +270,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\styles\site.less" />
+    <EmbeddedResource Include="EmailTemplates\SessionStatusChange.template" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\behavior.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -280,7 +283,9 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

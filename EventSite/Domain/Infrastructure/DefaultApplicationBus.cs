@@ -17,5 +17,12 @@ namespace EventSite.Domain.Infrastructure {
             container.InjectProperties(query);
             return query.Process();
         }
+
+        public void Enqueue(IWork work) {
+            //we don't care to actually put this on a queue for this simple app right now
+            //so we will just process it immediately
+            container.InjectProperties(work);
+            work.Process(); 
+        }
     }
 }

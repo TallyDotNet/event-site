@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using EventSite.Domain;
 
 namespace EventSite.Infrastructure {
@@ -13,6 +14,30 @@ namespace EventSite.Infrastructure {
 
         public string Owner {
             get { return ConfigurationManager.AppSettings["EventSite.Owner"]; }
+        }
+
+        public string FromEmail {
+            get { return ConfigurationManager.AppSettings["EventSite.FromEmail"]; }
+        }
+
+        public string FromEmailName {
+            get { return ConfigurationManager.AppSettings["EventSite.FromEmailName"]; }
+        }
+
+        public string SmtpHost {
+            get { return ConfigurationManager.AppSettings["Smtp.Host"]; }
+        }
+
+        public int SmtpPort {
+            get { return Convert.ToInt32(ConfigurationManager.AppSettings["Smtp.Port"]); }
+        }
+
+        public string SmtpUsername {
+            get { return ConfigurationManager.AppSettings["Smtp.Username"]; }
+        }
+
+        public string SmtpPassword {
+            get { return ConfigurationManager.AppSettings["Smtp.Password"]; }
         }
     }
 }

@@ -4,12 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
+using EventSite.Domain.Infrastructure;
 using RazorEngine;
 
 namespace EventSite.Domain.Commands {
-    public abstract class SendEmail {
-        public static ConcurrentBag<string> CompiledTemplates = new ConcurrentBag<string>();
-        public static object CompiledTemplatesLock = new object();
+    public abstract class SendEmail : Work {
+        static readonly ConcurrentBag<string> CompiledTemplates = new ConcurrentBag<string>();
+        static readonly object CompiledTemplatesLock = new object();
 
         public string ToName { get; set; }
         public string ToEmail { get; set; }
@@ -17,23 +18,27 @@ namespace EventSite.Domain.Commands {
         public string Subject { get; set; }
         public string Template { get; set; }
 
-        public void Execute() {
+        public override void Process() {
             try {
                 var message = new MailMessage();
 
                 message.To.Add(new MailAddress(ToEmail, ToName));
-                message.From = new MailAddress("from@example.com", "From Name");
+                message.From = new MailAddress(State.Settings.FromEmail, State.Settings.FromEmailName);
                 message.Subject = Subject;
                 message.Body = Razor.Run(ensureTemplate(Template), this);
-                
-                var smtpClient = new SmtpClient("smtp.sendgrid.net", Convert.ToInt32(587));
-                var credentials = new System.Net.NetworkCredential("username@domain.com", "yourpassword");
-                smtpClient.Credentials = credentials;
 
-                smtpClient.Send(message);
+                if(State.RunningInProduction()) {
+                    var smtpClient = new SmtpClient(State.Settings.SmtpHost, State.Settings.SmtpPort);
+                    var credentials = new System.Net.NetworkCredential(State.Settings.SmtpUsername, State.Settings.SmtpPassword);
+
+                    smtpClient.Credentials = credentials;
+                    smtpClient.Send(message);
+                } else {
+                    Log.Info(message.Body);
+                }
             }
             catch (Exception ex) {
-                Console.WriteLine(ex.Message);
+                Log.Error(ex); //not the best practice, but we don't care too much if this fails and we don't want to break anything else
             }
         }
 
@@ -42,7 +47,7 @@ namespace EventSite.Domain.Commands {
                 lock(CompiledTemplatesLock) {
                     if(!CompiledTemplates.Contains(templateName)) {
                         var assembly = Assembly.GetExecutingAssembly();
-                        var resourceName = "EventSite.EmailTemplates." + templateName + ".cshtml";
+                        var resourceName = "EventSite.EmailTemplates." + templateName + ".template";
 
                         using(var stream = assembly.GetManifestResourceStream(resourceName)) {
                             if(stream == null) {
