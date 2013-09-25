@@ -27,6 +27,9 @@
                 <li class="@(@Model.CurrentStatusFilter == SessionStatus.Approved ? "active" : "")">
                     <a href="@Url.Action("Index", "Sessions", new {eventSlug = Model.EventSlug, status = SessionStatus.Approved})">Approved</a>
                 </li>
+                <li class="@(@Model.CurrentStatusFilter == SessionStatus.Deleted ? "active" : "")">
+                    <a href="@Url.Action("Index", "Sessions", new {eventSlug = Model.EventSlug, status = SessionStatus.Deleted})">Deleted</a>
+                </li>
             </ul>
         </div>
     }
