@@ -6,3 +6,23 @@
     <h1>@ViewInfo.Title</h1>
     <p class="lead">Thanks to all the companies and individuals who helped make @State.CurrentEvent.Name possible!</p>
 </div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div role="complementary">
+            <ul class="sidenav nav">
+                <li class="active">Attention Potential Sponsors!</li>
+                <li><a href="~/Content/downloads/Sponsorships.docx" style="display: inline; padding: 0">Download</a> our official sponorship levels document.</li>
+            </ul>
+        </div>
+        <div class="text-center">
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="5NLHNJAJFGFAW">
+                <button class="btn btn-lg btn-success" type="submit">Donate Now with PayPal!</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-9" role="main"></div>
+</div>

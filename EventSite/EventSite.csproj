@@ -271,6 +271,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\styles\site.less" />
     <EmbeddedResource Include="EmailTemplates\SessionStatusChange.template" />
+    <Content Include="Content\downloads\Sponsorships.docx" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\behavior.js" />
     <Content Include="Scripts\bootstrap.js" />
