@@ -176,6 +176,7 @@
     <Compile Include="Domain\Commands\SubmitSession.cs" />
     <Compile Include="Domain\Commands\UpdateAccount.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
+    <Compile Include="Domain\Model\EventStatistics.cs" />
     <Compile Include="Domain\Infrastructure\ISecurityEncoder.cs" />
     <Compile Include="Domain\Infrastructure\IWork.cs" />
     <Compile Include="Domain\Infrastructure\Page.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Domain\Model\UserStatus.cs" />
     <Compile Include="Domain\Queries\CurrentEvent.cs" />
     <Compile Include="Domain\Queries\AttendeesForEvent.cs" />
+    <Compile Include="Domain\Queries\GetEventStatistics.cs" />
     <Compile Include="Domain\Queries\GetUserRegistration.cs" />
     <Compile Include="Domain\Queries\SessionSummaryPage.cs" />
     <Compile Include="Domain\Queries\SpeakersForEvent.cs" />
