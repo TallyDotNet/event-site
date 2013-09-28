@@ -7,52 +7,66 @@
 @Html.Partial("_Carousel")
 
 <div class="container marketing">
-    @if(State.EventScheduled()) {
+    @if (State.EventScheduled())
+    {
         var ev = State.CurrentEvent;
         var venue = ev.Venue;
-        
+
+        <div class="row">
+            <div class="text-center">
+                <h1>
+                    @ViewBag.TotalSpeakers Speakers. @ViewBag.TotalSessions Sessions. @ViewBag.TotalAttendees Attendees.
+                </h1>
+            </div>
+        </div>
+        <hr class="featurette-divider"/>
         <div class="row">
             <div class="col-lg-4">
                 <span class="glyphicon glyphicon-info-sign info-icon"></span>
                 <h2>What?</h2>
                 <p>@ev.Description</p>
                 <p>
-                    <a class="btn btn-default" href="@Url.Action("Index", "Sessions", new{eventSlug=State.CurrentEventSlug()})">Peruse Sessions &raquo;</a>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Sessions", new { eventSlug = State.CurrentEventSlug() })">Peruse Sessions &raquo;</a>
                 </p>
             </div>
 
             <div class="col-lg-4">
                 <span class="glyphicon glyphicon-road info-icon"></span>
                 <h2>Where?</h2>
-                
+
                 <address>
                     <strong>@venue.Name</strong><br />
-                    @if(!string.IsNullOrEmpty(venue.Street1)) {
+                    @if (!string.IsNullOrEmpty(venue.Street1))
+                    {
                         <span>@venue.Street1</span><br />
                     }
-                    @if(!string.IsNullOrEmpty(venue.Street2)) {
+                    @if (!string.IsNullOrEmpty(venue.Street2))
+                    {
                         <span>@venue.Street2</span><br />
                     }
                     @venue.City, @venue.StateOrProvince @venue.PostalCode
                 </address>
                 <p>
-                    <a class="btn btn-default" href="@Url.Action("Index", "Location", new{eventSlug=State.CurrentEventSlug()})">View Map &raquo;</a>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Location", new { eventSlug = State.CurrentEventSlug() })">View Map &raquo;</a>
                 </p>
             </div>
 
             <div class="col-lg-4">
                 <span class="glyphicon glyphicon-calendar info-icon"></span>
                 <h2>When?</h2>
-                <p>@ev.Name starts on<br/>@ev.Start.Date.ToLongDateString() at @ev.Start.DateTime.ToShortTimeString()
+                <p>@ev.Name starts on<br />@ev.Start.Date.ToLongDateString() at @ev.Start.DateTime.ToShortTimeString()
                     and ends
-                    @if(ev.Start.Date == ev.End.Date) {
+                    @if (ev.Start.Date == ev.End.Date)
+                    {
                         <span>later that day at @ev.End.DateTime.ToShortTimeString().</span>
-                    } else {
+                    }
+                    else
+                    {
                         <span>at @ev.End.Date.ToLongDateString() at @ev.End.DateTime.ToShortTimeString().</span>
                     }
                 </p>
                 <p>
-                    <a class="btn btn-default" href="@Url.Action("Index", "Location", new{eventSlug=State.CurrentEventSlug()})">See Schedule &raquo;</a>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Location", new { eventSlug = State.CurrentEventSlug() })">See Schedule &raquo;</a>
                 </p>
             </div>
         </div>
