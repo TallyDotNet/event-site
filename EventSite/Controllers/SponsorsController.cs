@@ -52,10 +52,7 @@ namespace EventSite.Controllers {
         [LoggedIn(Roles = Roles.Admin)]
         public ActionResult Detail(string eventSlug, string sponsorSlug, CreateOrUpdateSponsor input) {
             return Execute(input)
-                .OnSuccess(x => RedirectToAction("Detail", new {
-                    eventSlug = sponsorSlug,
-                    sponsorSlug = Sponsor.SlugFromId(x.Subject.Id)
-                }))
+                .OnSuccess(x => RedirectToAction("Detail", new {eventSlug, sponsorSlug}))
                 .OnFailure(x => View("CreateOrUpdate", input));
         }
     }
