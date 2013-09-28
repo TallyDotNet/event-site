@@ -1,0 +1,20 @@
+﻿@using EventSite.Domain.Model
+@model EventSite.Domain.Commands.CreateOrUpdateSponsor
+@{
+    var isCreate = string.IsNullOrEmpty(Model.Sponsor.Id);
+    var title = isCreate ? "Create Sponsor" : "Edit Sponsor";
+    var action = isCreate
+        ? Url.Action("Index", "Sponsors")
+        : Url.Action("Detail", "Sponsors", new {
+            eventSlug = Event.SlugFromId(Model.Sponsor.Event.Id),
+            sponsorSlug = Sponsor.SlugFromId(Model.Sponsor.Id)
+        });
+
+    ViewInfo.Title = title;
+}
+
+<div class="jumbotron">
+    <h1>@title</h1>
+    <p class="lead">Fill in some details and your on your way...</p>
+</div>
+
