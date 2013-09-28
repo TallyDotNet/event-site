@@ -1,4 +1,5 @@
-﻿@using EventSite.Domain
+﻿@model EventSite.Domain.Model.EventStatistics
+@using EventSite.Domain
 @{
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
     ViewInfo.Title = "Home";
@@ -7,15 +8,14 @@
 @Html.Partial("_Carousel")
 
 <div class="container marketing">
-    @if (State.EventScheduled())
-    {
+    @if (State.EventScheduled()) {
         var ev = State.CurrentEvent;
         var venue = ev.Venue;
 
         <div class="row">
             <div class="text-center">
                 <h1>
-                    @ViewBag.TotalSpeakers Speakers. @ViewBag.TotalSessions Sessions. @ViewBag.TotalAttendees Attendees.
+                    @Model.SpeakerCount Speakers. @Model.SessionCount Sessions. @Model.RegisteredAttendeeCount Attendees.
                 </h1>
             </div>
         </div>

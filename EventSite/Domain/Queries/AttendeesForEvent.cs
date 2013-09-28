@@ -3,52 +3,41 @@ using System.Linq;
 using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 using Raven.Abstractions.Indexing;
-using Raven.Client;
 using Raven.Client.Indexes;
 using Raven.Client.Linq;
 
-namespace EventSite.Domain.Queries
-{
-    public class AttendeesForEvent : Query<IEnumerable<Attendee>>
-    {
-        private readonly string eventId ;
+namespace EventSite.Domain.Queries {
+    public class AttendeesForEvent : Query<IEnumerable<Attendee>> {
+        readonly string eventId;
 
-        public AttendeesForEvent(string eventId)
-        {
+        public AttendeesForEvent(string eventId) {
             this.eventId = eventId;
         }
 
-        protected override IEnumerable<Attendee> Execute()
-        {
+        protected override IEnumerable<Attendee> Execute() {
             var query = DocSession.Query<Attendee, AttendeesPageIndex>()
-                                  .Where(a => a.EventId == eventId)
-                                  .AsProjection<Attendee>()
-                                  .Include(x => x.User); //pre-load the User so we can get the preferences and determine if they should be included in the listing page
+                .Where(a => a.EventId == eventId && a.ListInDirectory);
 
-            return query.ToArray()
-                        .Select(x =>
-                            {
-                                x.User = DocSession.Load<User>(x.UserId);
-                                return x;
-                            });
+            return query.ToArray();
         }
     }
 
-    public class AttendeesPageIndex : AbstractIndexCreationTask<Registration, Attendee>
-    {
-        public AttendeesPageIndex()
-        {
+    public class AttendeesPageIndex : AbstractIndexCreationTask<Registration, Attendee> {
+        public AttendeesPageIndex() {
             Map = registrations =>
-                  from registration in registrations
-                  let registeredUser = LoadDocument<User>(registration.User.Id)
-                  select new
-                      {
-                          UserId = registration.User.Id,
-                          EventId = registration.Event.Id
-                      };
+                from registration in registrations
+                let registeredUser = LoadDocument<User>(registration.User.Id)
+                select new Attendee {
+                    EventId = registration.Event.Id,
+                    UserId = registration.User.Id,
+                    Email = registeredUser.Email,
+                    DisplayName = string.IsNullOrEmpty(registeredUser.Profile.Name) ? registeredUser.Username : registeredUser.Profile.Name,
+                    ListInDirectory = registeredUser.Preferences.ListInAttendeeDirectory
+                };
 
             Store(x => x.UserId, FieldStorage.Yes);
-            Store(x => x.EventId, FieldStorage.Yes);
+            Store(x => x.Email, FieldStorage.Yes);
+            Store(x => x.DisplayName, FieldStorage.Yes);
         }
     }
 }
