@@ -11,5 +11,7 @@
         int SmtpPort { get; }
         string SmtpUsername { get; }
         string SmtpPassword { get; }
+
+        string BingMapsAPIKey { get; }
     }
 }

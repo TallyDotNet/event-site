@@ -48,47 +48,58 @@
     </div>
 </div>
 
-<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"></script>
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <script type="text/javascript">
+    
     var map;
+    var credentials = "@State.Settings.BingMapsAPIKey";
     var address = "@Model.Venue.Street1 @Model.Venue.Street2 @Model.Venue.City, @Model.Venue.StateOrProvince @Model.Venue.Country @Model.Venue.PostalCode";
     
-    function geocodeCallback(shapeLayer, findResults, places, moreResults, errorMsg) {
-        // if there are no results, display any error message and return
-        if (places == null) {
-            alert((errorMsg == null) ? "There were no results" : errorMsg);
-            return;
+    function geocodeCallback(result) {
+
+        if (result &&
+            result.resourceSets &&
+            result.resourceSets.length > 0 &&
+            result.resourceSets[0].resources &&
+            result.resourceSets[0].resources.length > 0) {
+           
+            var bbox = result.resourceSets[0].resources[0].bbox;
+            var viewBoundaries = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(bbox[0], bbox[1]), new Microsoft.Maps.Location(bbox[2], bbox[3]));
+            map.setView({ bounds: viewBoundaries });
+
+            
+            var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
+            var pushpin = new Microsoft.Maps.Pushpin(location);
+
+            var infoBox = new Microsoft.Maps.Infobox(pushpin.getLocation(),
+                {
+                    title: "@Model.Venue.Name",
+                    description: address,
+                    visible: true,
+                    offset: new Microsoft.Maps.Point(0, 15)
+                });
+
+            Microsoft.Maps.Events.addHandler(pushpin, 'click', function() { infoBox.setOptions({ visible: true }) });
+
+            map.entities.push(pushpin);
+            map.entities.push(infoBox);
+        } else {
+            alert('No resuilts were found for the venue location.');
         }
-
-        var bestPlace = places[0];
-
-        // Add pushpin to the *best* place
-        var location = bestPlace.LatLong;
-        var newShape = new VEShape(VEShapeType.Pushpin, location);
-
-        newShape.SetDescription(address);
-        newShape.SetTitle("@Model.Venue.Name");
-        map.AddShape(newShape);
     }
     
     function startGeocoding() {
-        map.Find(null,    // what
-            address, // where
-            null,    // VEFindType (always VEFindType.Businesses)
-            null,    // VEShapeLayer (base by default)
-            null,    // start index for results (0 by default)
-            null,    // max number of results (default is 10)
-            null,    // show results? (default is true)
-            null,    // create pushpin for what results? (ignored since what is null)
-            null,    // use default disambiguation? (default is true)
-            null,    // set best map view? (default is true)
-            geocodeCallback);  // call back function
+        
+        var geocodeRequest = "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(address) + "&output=json&jsonp=geocodeCallback&key=" + credentials;
+
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        script.setAttribute("src", geocodeRequest);
+        document.body.appendChild(script);
     }
     
     function loadMap() {
-        map = new VEMap("map");
-        map.LoadMap();
-
+        map = new Microsoft.Maps.Map(document.getElementById("map"), { credentials: credentials });
         startGeocoding();
     }
 

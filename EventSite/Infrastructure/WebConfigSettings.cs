@@ -39,5 +39,9 @@ namespace EventSite.Infrastructure {
         public string SmtpPassword {
             get { return ConfigurationManager.AppSettings["Smtp.Password"]; }
         }
+
+        public string BingMapsAPIKey {
+            get { return ConfigurationManager.AppSettings["EventSite.BingMapsAPIKey"]; }
+        }
     }
 }
