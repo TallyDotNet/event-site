@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.IO;
+using System.Web;
+using System.Web.Mvc;
 using EventSite.Domain;
 using EventSite.Domain.Commands;
 using EventSite.Domain.Model;
@@ -8,7 +10,7 @@ using EventSite.Infrastructure.Filters;
 namespace EventSite.Controllers {
     public class SponsorsController : BaseController {
         [HttpGet]
-        public ActionResult Index() {
+        public ActionResult Index(string eventSlug = null) {
             if(State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
@@ -20,18 +22,27 @@ namespace EventSite.Controllers {
 
         [HttpGet]
         [LoggedIn(Roles = Roles.Admin)]
-        public ActionResult Create() {
+        public ActionResult Create(string eventSlug) {
             return View("CreateOrUpdate", new CreateOrUpdateSponsor());
         }
 
         [HttpPost]
         [LoggedIn(Roles = Roles.Admin)]
-        public ActionResult Index(CreateOrUpdateSponsor input) {
+        public ActionResult Index(string eventSlug, CreateOrUpdateSponsor input, HttpPostedFileBase file) {
             return Execute(input)
-                .OnSuccess(x => RedirectToAction("Detail", new {
-                    eventSlug = Event.SlugFromId(x.Subject.Event.Id),
-                    sponsorSlug = Sponsor.SlugFromId(x.Subject.Id)
-                }))
+                .OnSuccess(x => {
+                    if(file == null || file.ContentLength == 0) {
+                        DisplayErrorMessage("You must provide an image.");
+                        return View("CreateOrUpdate", input);
+                    }
+
+                    saveSponsorImage(x.Subject, file);
+
+                    return RedirectToAction("Detail", new {
+                        eventSlug,
+                        sponsorSlug = Sponsor.SlugFromId(x.Subject.Id)
+                    });
+                })
                 .OnFailure(x => View("CreateOrUpdate", input));
         }
 
@@ -50,10 +61,24 @@ namespace EventSite.Controllers {
 
         [HttpPost]
         [LoggedIn(Roles = Roles.Admin)]
-        public ActionResult Detail(string eventSlug, string sponsorSlug, CreateOrUpdateSponsor input) {
+        public ActionResult Detail(string eventSlug, string sponsorSlug, CreateOrUpdateSponsor input, HttpPostedFileBase file = null) {
             return Execute(input)
-                .OnSuccess(x => RedirectToAction("Detail", new {eventSlug, sponsorSlug}))
+                .OnSuccess(x => {
+                    if(file != null && file.ContentLength > 0) {
+                        saveSponsorImage(x.Subject, file);
+                    }
+
+                    return RedirectToAction("Detail", new {eventSlug, sponsorSlug});
+                })
                 .OnFailure(x => View("CreateOrUpdate", input));
+        }
+
+        void saveSponsorImage(Sponsor sponsor, HttpPostedFileBase file) {
+            var extension = Path.GetExtension(file.FileName);
+            sponsor.ImageFileName = Path.Combine(Sponsor.SlugFromId(sponsor.Id), extension);
+
+            var savePath = Server.MapPath(sponsor.DeriveLogoRelativePath());
+            file.SaveAs(savePath);
         }
     }
 }

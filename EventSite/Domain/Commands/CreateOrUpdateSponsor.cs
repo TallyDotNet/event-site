@@ -19,6 +19,10 @@ namespace EventSite.Domain.Commands {
                     return PropertyError("Name", "Name is required.");
                 }
 
+                if(State.NoEventScheduled()) {
+                    return Error("There is no event scheduled");
+                }
+
                 var id = Sponsor.IdFrom(
                     Event.SlugFromId(State.CurrentEvent.Id),
                     SlugConverter.ToSlug(Sponsor.Name)
@@ -31,11 +35,22 @@ namespace EventSite.Domain.Commands {
                 }
 
                 toSave.Id = id;
+                toSave.Event = new Reference {
+                    Id = State.CurrentEvent.Id,
+                    Name = State.CurrentEvent.Name
+                };
+
                 DocSession.Store(toSave);
             }
             else {
                 toSave = DocSession.Load<Sponsor>(toSave.Id);
                 toSave.Name = Sponsor.Name;
+                toSave.Description = Sponsor.Description;
+                toSave.Link = Sponsor.Link;
+                toSave.Level = Sponsor.Level;
+                toSave.AmountDonated = Sponsor.AmountDonated;
+                toSave.ItemsDonated = Sponsor.ItemsDonated;
+                toSave.Priority = Sponsor.Priority;
             }
 
             return SuccessFormat("\"{0}\" was successfully {1}.", toSave.Name, isNew ? "created" : "updated")

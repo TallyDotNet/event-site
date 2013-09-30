@@ -5,7 +5,17 @@ namespace EventSite.Domain.Model {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Link { get; set; }
         public Reference Event { get; set; }
+        public decimal AmountDonated { get; set; }
+        public string ItemsDonated { get; set; }
+        public SponsorshipLevel Level { get; set; }
+        public int Priority { get; set; }
+        public string ImageFileName { get; set; }
+
+        public string DeriveLogoRelativePath() {
+            return "/Content/" + Event.Id + "/sponsors/" + ImageFileName;
+        }
 
         public static string IdFrom(string eventSlug, string sponsorSlug) {
             if(string.IsNullOrEmpty(sponsorSlug) || string.IsNullOrEmpty(eventSlug)) {
