@@ -1,4 +1,6 @@
 ﻿@using EventSite.Domain
+@using EventSite.Domain.Model
+@model IEnumerable<EventSite.Domain.Model.Sponsor>
 @{
     ViewInfo.Title = "Sponsors";
 }
@@ -35,5 +37,24 @@
         }
     </div>
 
-    <div class="col-md-9" role="main"></div>
+    <div class="col-md-9" role="main">
+        <ul class="media-list">
+            @foreach(var sponsor in Model) {
+                <li class="media">
+                    <a class="pull-left" href="@sponsor.Link" target="_blank">
+                        <img class="media-object sponsor" src="@sponsor.GetImageServerPath()" alt="@sponsor.Name">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="@sponsor.Link" target="_blank">@sponsor.Name</a></h4>
+                        <div class="description">@sponsor.Description</div>
+                    </div>
+                    @if(State.UserIsAdmin()) {
+                        <div class="pull-right">
+                            <a class="btn btn-success" href="@Url.Action("Detail", "Sponsors", new{eventSlug=Event.SlugFromId(sponsor.Event.Id),sponsorSlug=Sponsor.SlugFromId(sponsor.Id)})">Edit</a>
+                        </div>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
 </div>

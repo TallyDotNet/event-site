@@ -210,6 +210,9 @@ li.media .presenter {
   font-style: italic;
   margin-top: 4px;
 }
+li.media .sponsor {
+  width: 200px;
+}
 img.avatar {
   width: 100%;
   border-radius: 4px;

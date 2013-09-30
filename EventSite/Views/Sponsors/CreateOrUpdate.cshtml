@@ -1,4 +1,5 @@
 ﻿@using EventSite.Domain.Model
+@using EventSite.Infrastructure.Helpers
 @model EventSite.Domain.Commands.CreateOrUpdateSponsor
 @{
     var isCreate = string.IsNullOrEmpty(Model.Sponsor.Id);
@@ -18,3 +19,94 @@
     <p class="lead">Fill in some details and your on your way...</p>
 </div>
 
+<div class="row">
+    <div class="col-md-3">
+        <div role="complementary">
+            <ul class="sidenav nav">
+                <li class="active">Don't forget to...</li>
+                    
+                <li>Upload the image.</li>
+                <li>Set the sponsorship level.</li>
+                <li>Record the donated amount and items.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-9" role="main">
+        <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="@action">
+            <div class="panel panel-default">
+                <div class="panel-heading">Sponsor Details</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="Sponsor.Name" class="col-lg-2 control-label">Name</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Sponsor.Name" name="Sponsor.Name" placeholder="Name" value="@Model.Sponsor.Name">
+                            @Html.ValidationMessageFor(x => Model.Sponsor.Name)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Sponsor.Description" class="col-lg-2 control-label">Description</label>
+                        <div class="col-lg-10">
+                            <textarea rows="4" class="form-control" id="Sponsor.Description" name="Sponsor.Description" placeholder="Description">@Model.Sponsor.Description</textarea>
+                            @Html.ValidationMessageFor(x => x.Sponsor.Description)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Sponsor.Link" class="col-lg-2 control-label">Link</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Sponsor.Link" name="Sponsor.Link" placeholder="Link" value="@Model.Sponsor.Link">
+                            @Html.ValidationMessageFor(x => x.Sponsor.Link)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Sponsor.Level" class="col-lg-2 control-label">Level</label>
+                        <div class="col-lg-10">
+                            @Html.DropDownListFor(model => model.Sponsor.Level, @Model.Sponsor.Level.ToSelectList(), new { @class="form-control" })
+                            @Html.ValidationMessageFor(x => x.Sponsor.Level)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Sponsor.Priority" class="col-lg-2 control-label">Priority</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Sponsor.Priority" name="Sponsor.Priority" placeholder="Priority" value="@Model.Sponsor.Priority">
+                            @Html.ValidationMessageFor(x => x.Sponsor.Priority)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="file" class="col-lg-2 control-label">File</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" type="file" name="file" id="file" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Sponsor.AmountDonated" class="col-lg-2 control-label">Amount Donated</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Sponsor.AmountDonated" name="Sponsor.AmountDonated" placeholder="Amount Donated" value="@Model.Sponsor.AmountDonated">
+                            @Html.ValidationMessageFor(x => x.Sponsor.AmountDonated)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Sponsor.ItemsDonated" class="col-lg-2 control-label">Items Donated</label>
+                        <div class="col-lg-10">
+                            <textarea rows="4" class="form-control" id="Sponsor.ItemsDonated" name="Sponsor.ItemsDonated" placeholder="Items Donated">@Model.Sponsor.ItemsDonated</textarea>
+                            @Html.ValidationMessageFor(x => x.Sponsor.ItemsDonated)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-lg-offset-10 col-lg-2">
+                    <button type="submit" class="btn btn-lg btn-success" style="width: 100%">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

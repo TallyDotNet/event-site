@@ -59,6 +59,14 @@
                                         <li>
                                             <a href="@Url.Action("Index", "Events")"><span class="glyphicon glyphicon-calendar"></span> Events</a>
                                         </li>    
+                                        
+                                        if(State.EventScheduled()) {
+                                             <li>
+                                                 <a href="@Url.Action("Create", "Sponsors", new { eventSlug=State.CurrentEventSlug() })">
+                                                     <span class="glyphicon glyphicon-heart"></span> Add Sponsor
+                                                 </a>
+                                            </li>
+                                         }
                                     }
 
                                     <li class="divider"></li>

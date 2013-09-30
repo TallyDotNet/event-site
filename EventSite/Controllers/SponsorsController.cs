@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using EventSite.Domain;
 using EventSite.Domain.Commands;
 using EventSite.Domain.Model;
+using EventSite.Domain.Queries;
 using EventSite.Infrastructure.Controllers;
 using EventSite.Infrastructure.Filters;
 
@@ -11,13 +12,17 @@ namespace EventSite.Controllers {
     public class SponsorsController : BaseController {
         [HttpGet]
         public ActionResult Index(string eventSlug = null) {
-            if(State.NoEventScheduled()) {
+            if(string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
 
-            //TODO: paginated sponsor list
+            var eventId = string.IsNullOrEmpty(eventSlug)
+                ? State.CurrentEvent.Id
+                : Event.IdFrom(eventSlug);
 
-            return View();
+            var sponsors = Bus.Query(new SponsorsForEvent(eventId));
+
+            return View(sponsors);
         }
 
         [HttpGet]
@@ -62,6 +67,7 @@ namespace EventSite.Controllers {
         [HttpPost]
         [LoggedIn(Roles = Roles.Admin)]
         public ActionResult Detail(string eventSlug, string sponsorSlug, CreateOrUpdateSponsor input, HttpPostedFileBase file = null) {
+            input.Sponsor.Id = Sponsor.IdFrom(eventSlug, sponsorSlug);
             return Execute(input)
                 .OnSuccess(x => {
                     if(file != null && file.ContentLength > 0) {
@@ -75,10 +81,19 @@ namespace EventSite.Controllers {
 
         void saveSponsorImage(Sponsor sponsor, HttpPostedFileBase file) {
             var extension = Path.GetExtension(file.FileName);
-            sponsor.ImageFileName = Path.Combine(Sponsor.SlugFromId(sponsor.Id), extension);
+            sponsor.ImageFileName = Sponsor.SlugFromId(sponsor.Id) + extension;
 
-            var savePath = Server.MapPath(sponsor.DeriveLogoRelativePath());
+            var savePath = Server.MapPath("~" + sponsor.GetImageServerPath());
+
+            createFolderIfNeeded(savePath);
             file.SaveAs(savePath);
+        }
+
+        static void createFolderIfNeeded(string filename) {
+            var folder = Path.GetDirectoryName(filename);
+            if(!Directory.Exists(folder)) {
+                Directory.CreateDirectory(folder);
+            }
         }
     }
 }
