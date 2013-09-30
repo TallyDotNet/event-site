@@ -15,22 +15,23 @@ namespace EventSite.Infrastructure.IoC {
     public class ContainerConfig {
         public static void Configure() {
             var builder = new ContainerBuilder();
+            var settings = new WebConfigSettings();
 
             RegisterMVCComponents(builder);
-            RegisterApplicationComponents(builder);
+            RegisterApplicationComponents(builder, settings);
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));    
         }
 
-        static void RegisterApplicationComponents(ContainerBuilder builder) {
+        static void RegisterApplicationComponents(ContainerBuilder builder, WebConfigSettings settings) {
             builder.RegisterModule<NLogModule>();
             
             builder.RegisterType<ViewInfo>().InstancePerHttpRequest();
             
             builder.RegisterType<SingleWebServerApplicationState>().As<IApplicationState>().InstancePerHttpRequest();
             builder.RegisterType<DefaultApplicationBus>().As<IApplicationBus>().InstancePerHttpRequest();
-            builder.RegisterType<WebConfigSettings>().As<ISettings>().SingleInstance();
+            builder.RegisterInstance(settings).As<ISettings>().SingleInstance();
             
             builder.Register(x => RavenDBConfig.CreateDocumentStore()).As<IDocumentStore>().SingleInstance();
             builder.Register(x => x.Resolve<IDocumentStore>().OpenSession()).As<IDocumentSession>().InstancePerHttpRequest();
@@ -40,7 +41,13 @@ namespace EventSite.Infrastructure.IoC {
             
             builder.RegisterType<DefaultSecurityEncoder>().As<ISecurityEncoder>().SingleInstance();
             builder.RegisterType<DefaultSlugConverter>().As<ISlugConverter>().SingleInstance();
-            builder.RegisterType<DefaultImageStorage>().As<IImageStorage>().SingleInstance();
+
+            if(settings.RunningInProduction()) {
+                builder.RegisterType<CloudinaryImageStorage>().As<IImageStorage>().SingleInstance();
+            } else {
+                builder.RegisterType<LocalImageStorage>().As<IImageStorage>().SingleInstance();
+            }
+
         }
 
         static void RegisterMVCComponents(ContainerBuilder builder) {

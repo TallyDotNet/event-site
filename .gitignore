@@ -215,4 +215,7 @@ pip-log.txt
 .mr.developer.cfg
 
 #Raven
-CodeCamp/packages/RavenDB.Server.2.0.2330/tools/Database/
+Event-Site/packages/RavenDB.Server.2.0.2330/tools/Database/
+
+#ImageStorage
+/Event-Site/Event-Site/Content/localImageStorage/
