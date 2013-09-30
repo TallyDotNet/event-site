@@ -211,7 +211,8 @@ li.media .presenter {
   margin-top: 4px;
 }
 li.media .sponsor {
-  width: 200px;
+  width: 180px;
+  margin-right: 20px;
 }
 img.avatar {
   width: 100%;
