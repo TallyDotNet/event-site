@@ -50,6 +50,9 @@
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="CloudinaryDotNet">
+      <HintPath>..\packages\CloudinaryDotNet.1.0.10\lib\net40\CloudinaryDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="le_nlog">
       <HintPath>..\packages\le_nlog.2.2.0\lib\Net40\le_nlog.dll</HintPath>
     </Reference>
@@ -210,6 +213,7 @@
     <Compile Include="Infrastructure\Avatar.cs" />
     <Compile Include="Infrastructure\Filters\LoggedInAttribute.cs" />
     <Compile Include="Infrastructure\Helpers\ExtensionMethods.cs" />
+    <Compile Include="Infrastructure\IImageStorage.cs" />
     <Compile Include="Infrastructure\Results\JsonNetResult.cs" />
     <Compile Include="Infrastructure\Routing\RouteBuilder.cs" />
     <Compile Include="Infrastructure\Routing\RouteHelper.cs" />

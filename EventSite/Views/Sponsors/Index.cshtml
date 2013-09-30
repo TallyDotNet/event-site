@@ -42,7 +42,7 @@
             @foreach(var sponsor in Model) {
                 <li class="media">
                     <a class="pull-left" href="@sponsor.Link" target="_blank">
-                        <img class="media-object sponsor" src="@sponsor.GetImageServerPath()" alt="@sponsor.Name">
+                        <img class="media-object sponsor" src="@GetImageUrl(sponsor.ImageSource)" alt="@sponsor.Name">
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading"><a href="@sponsor.Link" target="_blank">@sponsor.Name</a></h4>

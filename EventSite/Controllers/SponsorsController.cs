@@ -1,15 +1,21 @@
-﻿using System.IO;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using EventSite.Domain;
 using EventSite.Domain.Commands;
 using EventSite.Domain.Model;
 using EventSite.Domain.Queries;
+using EventSite.Infrastructure;
 using EventSite.Infrastructure.Controllers;
 using EventSite.Infrastructure.Filters;
 
 namespace EventSite.Controllers {
     public class SponsorsController : BaseController {
+        readonly IImageStorage imageStorage;
+
+        public SponsorsController(IImageStorage imageStorage) {
+            this.imageStorage = imageStorage;
+        }
+
         [HttpGet]
         public ActionResult Index(string eventSlug = null) {
             if(string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled()) {
@@ -41,7 +47,7 @@ namespace EventSite.Controllers {
                         return View("CreateOrUpdate", input);
                     }
 
-                    saveSponsorImage(x.Subject, file);
+                    x.Subject.ImageSource = imageStorage.Store(file.FileName, file.InputStream);
 
                     return RedirectToAction("Detail", new {
                         eventSlug,
@@ -71,29 +77,13 @@ namespace EventSite.Controllers {
             return Execute(input)
                 .OnSuccess(x => {
                     if(file != null && file.ContentLength > 0) {
-                        saveSponsorImage(x.Subject, file);
+                        imageStorage.Remove(x.Subject.ImageSource);
+                        x.Subject.ImageSource = imageStorage.Store(file.FileName, file.InputStream);
                     }
 
                     return RedirectToAction("Detail", new {eventSlug, sponsorSlug});
                 })
                 .OnFailure(x => View("CreateOrUpdate", input));
-        }
-
-        void saveSponsorImage(Sponsor sponsor, HttpPostedFileBase file) {
-            var extension = Path.GetExtension(file.FileName);
-            sponsor.ImageFileName = Sponsor.SlugFromId(sponsor.Id) + extension;
-
-            var savePath = Server.MapPath("~" + sponsor.GetImageServerPath());
-
-            createFolderIfNeeded(savePath);
-            file.SaveAs(savePath);
-        }
-
-        static void createFolderIfNeeded(string filename) {
-            var folder = Path.GetDirectoryName(filename);
-            if(!Directory.Exists(folder)) {
-                Directory.CreateDirectory(folder);
-            }
         }
     }
 }

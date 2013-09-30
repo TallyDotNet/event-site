@@ -40,6 +40,7 @@ namespace EventSite.Infrastructure.IoC {
             
             builder.RegisterType<DefaultSecurityEncoder>().As<ISecurityEncoder>().SingleInstance();
             builder.RegisterType<DefaultSlugConverter>().As<ISlugConverter>().SingleInstance();
+            builder.RegisterType<DefaultImageStorage>().As<IImageStorage>().SingleInstance();
         }
 
         static void RegisterMVCComponents(ContainerBuilder builder) {

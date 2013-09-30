@@ -5,6 +5,8 @@ using Raven.Imports.Newtonsoft.Json;
 
 namespace EventSite.Infrastructure.Views {
     public abstract class BaseView<TModel> : WebViewPage<TModel> {
+        IImageStorage imageStorage;
+
         public ViewInfo ViewInfo { get; private set; }
         public IApplicationState State { get; private set; }
 
@@ -27,6 +29,14 @@ namespace EventSite.Infrastructure.Views {
         protected BaseView() {
             ViewInfo = DependencyResolver.Current.GetService<ViewInfo>();
             State = DependencyResolver.Current.GetService<IApplicationState>();
+        }
+
+        protected string GetImageUrl(string source) {
+            if(imageStorage == null) {
+                imageStorage = DependencyResolver.Current.GetService<IImageStorage>();
+            }
+
+            return imageStorage.GetUrl(source);
         }
     }
 }

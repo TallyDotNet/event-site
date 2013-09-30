@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>CloudinaryDotNet</id>
+    <version>1.0.10</version>
+    <title>Cloudinary DotNet Library</title>
+    <authors>Cloudinary</authors>
+    <owners>Cloudinary</owners>
+    <projectUrl>http://cloudinary.com/</projectUrl>
+    <iconUrl>http://res.cloudinary.com/cloudinary/image/upload/w_128/cloudinary_logo_square.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Official client library for easily integrating with the Cloudinary service</description>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <dependencies>
+      <group targetFramework=".NETFramework3.5">
+        <dependency id="Newtonsoft.Json" version="4.5.11" />
+      </group>
+      <group targetFramework=".NETFramework4.0">
+        <dependency id="Newtonsoft.Json" version="4.5.11" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

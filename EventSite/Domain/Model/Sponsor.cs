@@ -11,11 +11,7 @@ namespace EventSite.Domain.Model {
         public int Priority { get; set; }
         public decimal AmountDonated { get; set; }
         public string ItemsDonated { get; set; }
-        public string ImageFileName { get; set; }
-
-        public string GetImageServerPath() {
-            return "/Content/" + Event.Id + "/sponsors/" + ImageFileName;
-        }
+        public string ImageSource { get; set; }
 
         public static string IdFrom(string eventSlug, string sponsorSlug) {
             if(string.IsNullOrEmpty(sponsorSlug) || string.IsNullOrEmpty(eventSlug)) {
