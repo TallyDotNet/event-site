@@ -26,7 +26,7 @@
             </div>
             
             <ul class="media-list">
-                @foreach(var sponsor in Model) {
+                @foreach(var sponsor in group) {
                     <li class="media">
                         <a class="pull-left" href="@sponsor.Link" target="_blank">
                             <img class="media-object sponsor" src="@GetImageUrl(sponsor.ImageSource)" alt="@sponsor.Name">
