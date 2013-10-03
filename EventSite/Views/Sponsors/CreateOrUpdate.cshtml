@@ -10,6 +10,10 @@
             eventSlug = Event.SlugFromId(Model.Sponsor.Event.Id),
             sponsorSlug = Sponsor.SlugFromId(Model.Sponsor.Id)
         });
+        
+    var donatedOn = Model.Sponsor.DonatedOn.HasValue
+        ? Model.Sponsor.DonatedOn.Value.Date.ToString("MM/dd/yy")
+        : null;
 
     ViewInfo.Title = title;
 }
@@ -81,6 +85,14 @@
                         <label for="file" class="col-lg-2 control-label">File</label>
                         <div class="col-lg-10">
                             <input class="form-control" type="file" name="file" id="file" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Sponsor.DonatedOn" class="col-lg-2 control-label">Donated On</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="Sponsor.DonatedOn" name="Sponsor.DonatedOn" placeholder="Donated On" value="@donatedOn">
+                            @Html.ValidationMessageFor(x => x.Sponsor.DonatedOn)
                         </div>
                     </div>
                     

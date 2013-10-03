@@ -35,6 +35,7 @@ namespace EventSite.Domain.Commands {
                 }
 
                 toSave.Id = id;
+                toSave.Status = SponsorStatus.Active;
                 toSave.Event = new Reference {
                     Id = State.CurrentEvent.Id,
                     Name = State.CurrentEvent.Name
@@ -48,6 +49,7 @@ namespace EventSite.Domain.Commands {
                 toSave.Description = Sponsor.Description;
                 toSave.Link = Sponsor.Link;
                 toSave.Level = Sponsor.Level;
+                toSave.DonatedOn = Sponsor.DonatedOn;
                 toSave.AmountDonated = Sponsor.AmountDonated;
                 toSave.ItemsDonated = Sponsor.ItemsDonated;
                 toSave.Priority = Sponsor.Priority;

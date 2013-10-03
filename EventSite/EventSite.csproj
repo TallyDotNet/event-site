@@ -194,6 +194,7 @@
     <Compile Include="Domain\Model\Speaker.cs" />
     <Compile Include="Domain\Model\Sponsor.cs" />
     <Compile Include="Domain\Model\SponsorshipLevel.cs" />
+    <Compile Include="Domain\Model\SponsorStatus.cs" />
     <Compile Include="Domain\Model\UserStatus.cs" />
     <Compile Include="Domain\Queries\CurrentEvent.cs" />
     <Compile Include="Domain\Queries\AttendeesForEvent.cs" />

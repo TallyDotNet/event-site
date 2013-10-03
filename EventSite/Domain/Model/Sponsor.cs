@@ -1,4 +1,5 @@
-﻿using EventSite.Domain.Infrastructure;
+﻿using System;
+using EventSite.Domain.Infrastructure;
 
 namespace EventSite.Domain.Model {
     public class Sponsor {
@@ -12,6 +13,8 @@ namespace EventSite.Domain.Model {
         public decimal AmountDonated { get; set; }
         public string ItemsDonated { get; set; }
         public string ImageSource { get; set; }
+        public SponsorStatus Status { get; set; }
+        public DateTimeOffset? DonatedOn { get; set; }
 
         public static string IdFrom(string eventSlug, string sponsorSlug) {
             if(string.IsNullOrEmpty(sponsorSlug) || string.IsNullOrEmpty(eventSlug)) {

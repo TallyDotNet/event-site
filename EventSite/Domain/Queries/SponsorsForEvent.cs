@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
@@ -15,8 +16,10 @@ namespace EventSite.Domain.Queries {
         protected override IEnumerable<Sponsor> Execute() {
             return DocSession.Query<Sponsor, SponsorsIndex>()
                 .Where(x => x.Event.Id == eventId)
-                .OrderByDescending(x => x.Priority)
                 .ToList()
+                .Where(x => x.Status == SponsorStatus.Active)
+                .OrderBy(x => x.DonatedOn.GetValueOrDefault(DateTimeOffset.Now))
+                .OrderByDescending(x => x.Priority)
                 .OrderByDescending(x => x.Level);
         }
 
@@ -25,8 +28,7 @@ namespace EventSite.Domain.Queries {
                 Map = sponsors =>
                     from sponsor in sponsors
                     select new {
-                        Event_Id = sponsor.Event.Id,
-                        sponsor.Priority
+                        Event_Id = sponsor.Event.Id
                     };
             }
         }
