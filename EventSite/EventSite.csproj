@@ -251,7 +251,7 @@
     <Compile Include="ViewModels\Account\IndexViewModel.cs" />
     <Compile Include="ViewModels\ErrorOutput.cs" />
     <Compile Include="ViewModels\Sessions\IndexOutput.cs" />
-    <Compile Include="ViewModels\Speakers\IndexOutput.cs" />
+    <Compile Include="ViewModels\RegisteredUsers\IndexOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Filters\FilterConfig.cs" />
@@ -327,6 +327,8 @@
     <Content Include="Views\Home\_Carousel.cshtml" />
     <Content Include="Views\Home\_Featurette.cshtml" />
     <Content Include="Views\Sponsors\CreateOrUpdate.cshtml" />
+    <Content Include="Views\Attendees\Index.cshtml" />
+    <Content Include="Views\Attendees\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Register\" />

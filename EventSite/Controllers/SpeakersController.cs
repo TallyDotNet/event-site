@@ -4,7 +4,7 @@ using EventSite.Domain;
 using EventSite.Domain.Model;
 using EventSite.Domain.Queries;
 using EventSite.Infrastructure.Controllers;
-using EventSite.ViewModels.Speakers;
+using EventSite.ViewModels.RegisteredUsers;
 
 namespace EventSite.Controllers {
     public class SpeakersController : BaseController {
@@ -20,7 +20,7 @@ namespace EventSite.Controllers {
 
             var speakers = Bus.Query(new SpeakersForEvent(eventId)).ToList();
 
-            return View(new IndexOutput(speakers, speakerSlug));
+            return View(new IndexOutput<Speaker>(speakers, speakerSlug));
         }
     }
 }
