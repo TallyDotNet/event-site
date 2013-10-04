@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttendeesController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -328,7 +329,6 @@
     <Content Include="Views\Home\_Featurette.cshtml" />
     <Content Include="Views\Sponsors\CreateOrUpdate.cshtml" />
     <Content Include="Views\Attendees\Index.cshtml" />
-    <Content Include="Views\Attendees\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Register\" />

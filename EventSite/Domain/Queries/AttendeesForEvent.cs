@@ -3,6 +3,7 @@ using System.Linq;
 using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 using Raven.Abstractions.Indexing;
+using Raven.Client;
 using Raven.Client.Indexes;
 using Raven.Client.Linq;
 
@@ -18,7 +19,7 @@ namespace EventSite.Domain.Queries {
             var query = DocSession.Query<Attendee, AttendeesPageIndex>()
                 .Where(a => a.EventId == eventId && a.ListInDirectory);
 
-            return query.ToArray();
+            return query.AsProjection<Attendee>().ToArray();
         }
     }
 
