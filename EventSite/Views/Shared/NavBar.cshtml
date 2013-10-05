@@ -27,6 +27,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="@Url.Action("Index", "Speakers", new{eventSlug=State.CurrentEventSlug()})">Speakers</a></li>
                         <li><a href="@Url.Action("Index", "Sessions", new{eventSlug=State.CurrentEventSlug()})">Sessions</a></li>
+                        <li><a href="@Url.Action("Index", "Attendees", new {eventSlug=State.CurrentEventSlug()})">Attendees</a></li>
                         <li><a href="@Url.Action("Index", "Sponsors", new{eventSlug=State.CurrentEventSlug()})">Sponsors</a></li>
                         <li><a href="@Url.Action("Index", "Location", new{eventSlug=State.CurrentEventSlug()})">Location</a></li>
                         
