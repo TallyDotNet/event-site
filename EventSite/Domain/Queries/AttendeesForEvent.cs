@@ -19,7 +19,12 @@ namespace EventSite.Domain.Queries {
             var query = DocSession.Query<Attendee, AttendeesPageIndex>()
                 .Where(a => a.EventId == eventId && a.ListInDirectory);
 
-            return query.AsProjection<Attendee>().ToArray();
+            return query.AsProjection<Attendee>().ToArray()
+                        .Select(x =>
+                            {
+                                x.User = DocSession.Load<User>(x.UserId);
+                                return x;
+                            });
         }
     }
 
@@ -29,16 +34,13 @@ namespace EventSite.Domain.Queries {
                 from registration in registrations
                 let registeredUser = LoadDocument<User>(registration.User.Id)
                 select new Attendee {
-                    EventId = registration.Event.Id,
+                    EventId = registration.Event.Id, 
                     UserId = registration.User.Id,
-                    Email = registeredUser.Email,
-                    DisplayName = string.IsNullOrEmpty(registeredUser.Profile.Name) ? registeredUser.Username : registeredUser.Profile.Name,
                     ListInDirectory = registeredUser.Preferences.ListInAttendeeDirectory
                 };
 
             Store(x => x.UserId, FieldStorage.Yes);
-            Store(x => x.Email, FieldStorage.Yes);
-            Store(x => x.DisplayName, FieldStorage.Yes);
+            //Store(x => x.User, FieldStorage.Yes);
         }
     }
 }

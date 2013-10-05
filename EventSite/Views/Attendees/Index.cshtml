@@ -10,16 +10,18 @@
     <p class="lead">Network, catch up, and make new friends.</p>
 </div>
 
-    
+
 <div class="container">
-    @foreach(var row in Model.Users) {
+    @foreach (var row in Model.Users)
+    {
         <div class="row speakers">
-            @foreach(var user in row) {
-                var slug = EventSite.Domain.Model.User.SlugFromId(user.UserId);
+            @foreach (var attenddee in row)
+            {
+                var slug = EventSite.Domain.Model.User.SlugFromId(attenddee.UserId);
 
                 <a data-toggle="modal" href="#@slug" class="col-xs-2 col-sm-2 col-md-2">
-                    <img class="avatar img-responsive" src="@Avatar.GetUrl(user.Email, 128)" alt="@user.DisplayName" />
-                    <div class="text-center">@user.DisplayName</div>
+                    <img class="avatar img-responsive" src="@Avatar.GetUrl(attenddee.User.Email, 128)" alt="@attenddee.User.GetDisplayName()" />
+                    <div class="text-center">@attenddee.User.GetDisplayName()</div>
                 </a>
 
                 <div class="modal fade" id="@slug" tabindex="-1" role="dialog" aria-hidden="true">
@@ -28,16 +30,27 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <img class="avatar img-responsive" style="width: auto" src="@Avatar.GetUrl(user.Email, 128)" alt="@user.DisplayName">
+                                        <img class="avatar img-responsive" style="width: auto" src="@Avatar.GetUrl(attenddee.User.Email, 128)" alt="@attenddee.User.GetDisplayName()">
                                     </div>
                                     <div class="col-xs-8 col-sm-8 col-md-8">
-                                        <h3>@user.DisplayName</h3>
-@*                                        <div>@user.User.GetProfessionalInfo()</div>*@
-                                        @if (State.UserIsAdmin()) {
-                                        <div>@user.Email</div>
+                                        <h3>@attenddee.User.GetDisplayName()</h3>
+                                        <div>@attenddee.User.GetProfessionalInfo()</div>
+                                        @if (State.UserIsAdmin())
+                                        {
+                                            <div>@attenddee.User.Email</div>
                                         }
                                     </div>
                                     <button class="close col-xs-1 col-sm-1 col-md-1" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="row">
+                                    @if (string.IsNullOrEmpty(attenddee.User.Profile.Bio))
+                                    {
+                                        <div class="col-lg-12 text-center bio">No Bio Available</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-lg-12 bio">@attenddee.User.Profile.Bio</div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -48,7 +61,8 @@
     }
 </div>
 
-@if(!string.IsNullOrEmpty(Model.ActiveUserSlug)) {
+@if (!string.IsNullOrEmpty(Model.ActiveUserSlug))
+{
     <script type="text/javascript">
         (function (es) {
             es.activeUserSlug = "@Model.ActiveUserSlug";
