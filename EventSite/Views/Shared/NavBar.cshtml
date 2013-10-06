@@ -25,10 +25,10 @@
                 </div>
                 <div class="navbar-collapse collapse pull-right" style="padding: 0">
                     <ul class="nav navbar-nav">
-                        <li><a href="@Url.Action("Index", "Speakers", new{eventSlug=State.CurrentEventSlug()})">Speakers</a></li>
+                        <li><a href="@Url.Action("Index", "Location", new{eventSlug=State.CurrentEventSlug()})">Time &amp; Place</a></li>
                         <li><a href="@Url.Action("Index", "Sessions", new{eventSlug=State.CurrentEventSlug()})">Sessions</a></li>
+                        <li><a href="@Url.Action("Index", "Speakers", new{eventSlug=State.CurrentEventSlug()})">Speakers</a></li>
                         <li><a href="@Url.Action("Index", "Sponsors", new{eventSlug=State.CurrentEventSlug()})">Sponsors</a></li>
-                        <li><a href="@Url.Action("Index", "Location", new{eventSlug=State.CurrentEventSlug()})">Location</a></li>
                         
                         @if(State.UserIsLoggedIn()) {
                             <li class="btn-group">

@@ -5,14 +5,30 @@
 
 <div class="jumbotron">
     <h1>@ViewInfo.Title</h1>
-    <p class="lead">The <strong>where</strong> and <strong>when</strong> of @Model.Name.</p>
+    <p class="lead">The <strong>when</strong> and <strong>where</strong> of @Model.Name.</p>
 </div>
 
 <div class="row">
     <div class="col-md-3">
         <div role="complementary">
             <ul class="sidenav nav">
-                <li class="active">@Model.Venue.Name</li>
+                <li class="active">When</li>
+                <li>@Model.Name starts on @Model.Start.DateTime.ToLongDateString() at @Model.Start.DateTime.ToShortTimeString() and ends
+
+                    @if (Model.Start.Date == Model.End.Date) {
+                        <span>later that day at @Model.End.DateTime.ToShortTimeString().</span>
+                    }
+                    else {
+                        <span>at @Model.End.Date.ToLongDateString() at @Model.End.DateTime.ToShortTimeString().</span>
+                    }
+                </li>
+            </ul>
+        </div>
+        
+        <div role="complementary">
+            <ul class="sidenav nav">
+                <li class="active">Where</li>
+                <li>@Model.Venue.Name</li>
                 @if(!string.IsNullOrEmpty(Model.Venue.Street1)) {
                     <li>@Model.Venue.Street1</li>
                 }
