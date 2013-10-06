@@ -21,9 +21,9 @@ namespace EventSite.Controllers
                 ? State.CurrentEvent.Id
                 : Event.IdFrom(eventSlug);
 
-            var speakers = Bus.Query(new AttendeesForEvent(eventId)).ToList();
+            var attendees = Bus.Query(new AttendeesForEvent(eventId, 1)).Items.ToList();
 
-            return View(new IndexOutput<Attendee>(speakers, null));
+            return View(new IndexOutput<Attendee>(attendees, null));
         }
     }
 }
