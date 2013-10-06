@@ -15,9 +15,11 @@ namespace EventSite.Domain.Queries {
             this.eventId = eventId;
         }
 
-        protected override IEnumerable<Attendee> Execute() {
+        protected override IEnumerable<Attendee> Execute()
+        {
             var query = DocSession.Query<Attendee, AttendeesPageIndex>()
-                .Where(a => a.EventId == eventId && a.ListInDirectory);
+                                  .Where(a => a.EventId == eventId && a.ListInDirectory)
+                                  .OrderBy(x => x.User.Profile.Name);
 
             return query.AsProjection<Attendee>().ToArray()
                         .Select(x =>
@@ -33,14 +35,14 @@ namespace EventSite.Domain.Queries {
             Map = registrations =>
                 from registration in registrations
                 let registeredUser = LoadDocument<User>(registration.User.Id)
-                select new Attendee {
+                select new  {
                     EventId = registration.Event.Id, 
                     UserId = registration.User.Id,
-                    ListInDirectory = registeredUser.Preferences.ListInAttendeeDirectory
+                    ListInDirectory = registeredUser.Preferences.ListInAttendeeDirectory,
+                    User_Profile_Name = registeredUser.Profile.Name
                 };
 
             Store(x => x.UserId, FieldStorage.Yes);
-            //Store(x => x.User, FieldStorage.Yes);
         }
     }
 }
