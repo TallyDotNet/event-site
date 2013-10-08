@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using EventSite.Domain;
-using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 using EventSite.Domain.Queries;
 using EventSite.Infrastructure.Controllers;
@@ -10,7 +8,7 @@ using EventSite.ViewModels.RegisteredUsers;
 namespace EventSite.Controllers {
     public class SpeakersController : BaseController {
         [HttpGet]
-        public ActionResult Index(string eventSlug = null, string speakerSlug = null) {
+        public ActionResult Index(string eventSlug = null, string speakerSlug = null, int page = 1) {
             if(string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
@@ -19,15 +17,9 @@ namespace EventSite.Controllers {
                 ? State.CurrentEvent.Id
                 : Event.IdFrom(eventSlug);
 
-            var speakers = Bus.Query(new SpeakersForEvent(eventId)).ToList();
+            var speakers = Bus.Query(new SpeakersForEvent(eventId, page));
 
-            //temp work-around to deal with viewmodel differences
-            var paged = new Page<Speaker>
-                {
-                    Items = speakers
-                };
-
-            return View(new IndexOutput<Speaker>(paged, speakerSlug, eventSlug));
+            return View(new IndexOutput<Speaker>(speakers, speakerSlug, eventSlug));
         }
     }
 }

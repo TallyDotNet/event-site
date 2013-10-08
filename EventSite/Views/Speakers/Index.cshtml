@@ -71,6 +71,25 @@
     }
 </div>
 
+@if(Model.Page.HasMultiplePages) {
+
+    <ul class="pager">
+        @if (Model.Page.HasPreviousPage)
+        {
+            <li>
+                <a href="@Url.Action("Index", "Speakers", new {eventSlug = Model.EventSlug, page = Model.Page.PreviousPage})">Previous</a>
+            </li>
+        }
+        
+        @if (Model.Page.HasNextPage)
+        {
+            <li>
+                <a href="@Url.Action("Index", "Speakers", new {eventSlug = Model.EventSlug, page = Model.Page.NextPage})">Next</a>
+            </li>
+        }
+    </ul>
+}
+
 @if(!string.IsNullOrEmpty(Model.ActiveUserSlug)) {
     <script type="text/javascript">
         (function (es) {

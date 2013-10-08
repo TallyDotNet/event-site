@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 using Raven.Abstractions.Indexing;
@@ -27,7 +26,6 @@ namespace EventSite.Domain.Queries
                                   .Where(a => a.EventId == eventId && a.ListInDirectory)
                                   .OrderBy(x => x.User.Profile.Name);
 
-
             RavenQueryStatistics statistics;
             var pagedResults = Page.Transform(query, ref page, out statistics, PageSize)
                                    .AsProjection<Attendee>()
@@ -50,7 +48,7 @@ namespace EventSite.Domain.Queries
 
     public class AttendeesPageIndex : AbstractIndexCreationTask<Registration, Attendee>
     {
-        public AttendeesPageIndex()
+        public AttendeesPageIndex() 
         {
             Map = registrations =>
                 from registration in registrations
@@ -64,6 +62,8 @@ namespace EventSite.Domain.Queries
                 };
 
             Store(x => x.UserId, FieldStorage.Yes);
+            Store(x => x.EventId, FieldStorage.Yes);
+            Store(x => x.ListInDirectory, FieldStorage.Yes);
         }
     }
 }

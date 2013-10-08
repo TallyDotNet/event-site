@@ -64,13 +64,13 @@ namespace EventSite.Infrastructure.Routing {
                 .HandledBy<LocationController>(x => x.Index(null));
 
             RouteFor("events/{eventSlug}/speakers/{speakerSlug}")
-                .HandledBy<SpeakersController>(x => x.Index(null, null));
+                .HandledBy<SpeakersController>(x => x.Index(null, null, 0));
 
             RouteFor("events/{eventSlug}/speakers")
-                .HandledBy<SpeakersController>(x => x.Index(null, null));
+                .HandledBy<SpeakersController>(x => x.Index(null, null, 0));
 
             RouteFor("speakers")
-                .HandledBy<SpeakersController>(x => x.Index(null, null));
+                .HandledBy<SpeakersController>(x => x.Index(null, null, 0));
 
             RouteFor("events/{eventSlug}/attendees")
                 .HandledBy<AttendeesController>(x => x.Index(null,0));
