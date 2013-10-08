@@ -23,8 +23,11 @@ namespace EventSite.Domain.Queries
         protected override Page<Attendee> Execute()
         {
             var query = DocSession.Query<Attendee, AttendeesPageIndex>()
-                                  .Where(a => a.EventId == eventId && a.ListInDirectory)
+                                  .Where(a => a.EventId == eventId)
                                   .OrderBy(x => x.User.Profile.Name);
+
+            if (!State.UserIsAdmin())
+                query = query.Where(x => x.ListInDirectory);
 
             RavenQueryStatistics statistics;
             var pagedResults = Page.Transform(query, ref page, out statistics, PageSize)
