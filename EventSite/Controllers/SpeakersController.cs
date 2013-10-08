@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using EventSite.Domain;
+using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 using EventSite.Domain.Queries;
 using EventSite.Infrastructure.Controllers;
@@ -20,7 +21,13 @@ namespace EventSite.Controllers {
 
             var speakers = Bus.Query(new SpeakersForEvent(eventId)).ToList();
 
-            return View(new IndexOutput<Speaker>(speakers, speakerSlug));
+            //temp work-around to deal with viewmodel differences
+            var paged = new Page<Speaker>
+                {
+                    Items = speakers
+                };
+
+            return View(new IndexOutput<Speaker>(paged, speakerSlug, eventSlug));
         }
     }
 }

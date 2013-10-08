@@ -12,7 +12,7 @@
 
     
 <div class="container">
-    @foreach(var row in Model.Users) {
+    @foreach(var row in Model.UserRows) {
         <div class="row speakers">
             @foreach(var speaker in row) {
                 var slug = EventSite.Domain.Model.User.SlugFromId(speaker.Id);

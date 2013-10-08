@@ -73,10 +73,10 @@ namespace EventSite.Infrastructure.Routing {
                 .HandledBy<SpeakersController>(x => x.Index(null, null));
 
             RouteFor("events/{eventSlug}/attendees")
-                .HandledBy<AttendeesController>(x => x.Index(null));
+                .HandledBy<AttendeesController>(x => x.Index(null,0));
 
             RouteFor("attendees")
-                .HandledBy<AttendeesController>(x => x.Index(null));
+                .HandledBy<AttendeesController>(x => x.Index(null,0));
 
             RouteFor("events/{eventSlug}/sponsors")
                 .HandledBy<SponsorsController>(x => x.Index(null));

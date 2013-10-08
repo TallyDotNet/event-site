@@ -10,7 +10,8 @@ namespace EventSite.Controllers
 {
     public class AttendeesController : BaseController
     {
-        public ActionResult Index(string eventSlug = null)
+        [HttpGet]
+        public ActionResult Index(string eventSlug = null, int page = 1)
         {
             if (string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled())
             {
@@ -21,9 +22,9 @@ namespace EventSite.Controllers
                 ? State.CurrentEvent.Id
                 : Event.IdFrom(eventSlug);
 
-            var attendees = Bus.Query(new AttendeesForEvent(eventId, 1)).Items.ToList();
+            var attendees = Bus.Query(new AttendeesForEvent(eventId, page));
 
-            return View(new IndexOutput<Attendee>(attendees, null));
+            return View(new IndexOutput<Attendee>(attendees, null, eventSlug));
         }
     }
 }

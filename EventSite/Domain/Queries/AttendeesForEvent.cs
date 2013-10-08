@@ -44,12 +44,6 @@ namespace EventSite.Domain.Queries
                     TotalPages = Page.CalculatePages(statistics.TotalResults),
                     Items = pagedResults
                 };
-            //return query.AsProjection<Attendee>().ToArray()
-            //            .Select(x =>
-            //                {
-            //                    x.User = DocSession.Load<User>(x.UserId);
-            //                    return x;
-            //                });
         }
     }
 
