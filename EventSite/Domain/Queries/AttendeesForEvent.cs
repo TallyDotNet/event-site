@@ -11,6 +11,7 @@ namespace EventSite.Domain.Queries
 {
     public class AttendeesForEvent : Query<Page<Attendee>>
     {
+        private const int PageSize = 24; //these get displayed in rows of 6, so we'll go with 4 rows per page
         readonly string eventId;
         private int page;
 
@@ -28,7 +29,7 @@ namespace EventSite.Domain.Queries
 
 
             RavenQueryStatistics statistics;
-            var pagedResults = Page.Transform(query, ref page, out statistics)
+            var pagedResults = Page.Transform(query, ref page, out statistics, PageSize)
                                    .AsProjection<Attendee>()
                                    .ToArray()
                                    .Select(x =>
@@ -41,7 +42,7 @@ namespace EventSite.Domain.Queries
             return new Page<Attendee>
                 {
                     CurrentPage = page,
-                    TotalPages = Page.CalculatePages(statistics.TotalResults),
+                    TotalPages = Page.CalculatePages(statistics.TotalResults, PageSize),
                     Items = pagedResults
                 };
         }
