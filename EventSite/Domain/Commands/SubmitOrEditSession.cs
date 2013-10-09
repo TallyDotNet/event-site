@@ -3,8 +3,7 @@ using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 
 namespace EventSite.Domain.Commands {
-    public class SubmitSession : Command<Result> {
-
+    public class SubmitOrEditSession : Command<Result> {
         public string SessionId { get; set; }
 
         [Required]
@@ -25,55 +24,46 @@ namespace EventSite.Domain.Commands {
                 return Error("You are not registered for the event. Please register before submitting a session.");
             }
 
-            if (string.IsNullOrEmpty(SessionId)) {
-                return CreateNewSession();
-            }
-            else {
-                return EditExistingSession();
-            }
+            return string.IsNullOrEmpty(SessionId)
+                ? createNewSession()
+                : editExistingSession();
         }
 
-        private Result EditExistingSession()
-        {
-            if (!State.UserIsAdmin())
-                return Error("Only admin users can edit sessions.");
+        Result editExistingSession() {
+            if(!State.UserIsAdmin()) {
+                return Forbidden();
+            }
 
             var session = DocSession.Load<Session>(SessionId);
-            if (session == null)
-                return Error("The provided session to be edited couldn't be found.");
+            if(session == null) {
+                return NotFound();
+            }
 
             session.Name = Name;
             session.Description = Description;
             session.Level = Level;
 
-            DocSession.Store(session);
-
             return SuccessFormat("You have successfully edited \"{0}\"", Name);
         }
 
-        private Result CreateNewSession()
-        {
+        Result createNewSession() {
             var slug = SlugConverter.ToSlug(Name);
             var id = Session.IdFrom(State.CurrentEventSlug(), slug);
 
-            if (DocSession.Load<Session>(id) != null)
-            {
+            if(DocSession.Load<Session>(id) != null) {
                 return Error("The provided session name is not available.");
             }
 
-            var session = new Session
-            {
+            var session = new Session {
                 Id = id,
                 Name = Name,
                 Description = Description,
                 Level = Level,
-                Event = new Reference
-                {
+                Event = new Reference {
                     Id = State.CurrentEvent.Id,
                     Name = State.CurrentEvent.Name
                 },
-                User = new Reference
-                {
+                User = new Reference {
                     Id = CurrentUser.Id,
                     Name = CurrentUser.Username
                 },

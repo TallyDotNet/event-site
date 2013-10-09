@@ -178,7 +178,7 @@
     <Compile Include="Domain\Commands\MakeEventCurrent.cs" />
     <Compile Include="Domain\Commands\RegisterForCurrentEvent.cs" />
     <Compile Include="Domain\Commands\SendEmail.cs" />
-    <Compile Include="Domain\Commands\SubmitSession.cs" />
+    <Compile Include="Domain\Commands\SubmitOrEditSession.cs" />
     <Compile Include="Domain\Commands\UpdateAccount.cs" />
     <Compile Include="Domain\ExtensionMethods.cs" />
     <Compile Include="Domain\Model\EventStatistics.cs" />

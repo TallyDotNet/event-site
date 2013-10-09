@@ -8,26 +8,25 @@ using EventSite.Infrastructure.Filters;
 using EventSite.ViewModels.Sessions;
 
 namespace EventSite.Controllers {
-    public class SessionsController : BaseController
-    {
+    public class SessionsController : BaseController {
         [HttpGet]
-        public ActionResult Index(string eventSlug = null, int page = 1, SessionStatus? status = null)
-        {
-            if (string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled())
-            {
+        public ActionResult Index(string eventSlug = null, int page = 1, SessionStatus? status = null) {
+            if(string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
 
             var eventId = string.IsNullOrEmpty(eventSlug)
-                              ? State.CurrentEvent.Id
-                              : Event.IdFrom(eventSlug);
+                ? State.CurrentEvent.Id
+                : Event.IdFrom(eventSlug);
 
             var data = Bus.Query(new SessionSummaryPage(eventId, page, status));
 
             return View(
                 new IndexOutput(
                     data,
-                    string.IsNullOrEmpty(eventSlug) ? Event.SlugFromId(State.CurrentEvent.Id) : eventSlug,
+                    string.IsNullOrEmpty(eventSlug)
+                        ? Event.SlugFromId(State.CurrentEvent.Id)
+                        : eventSlug,
                     status
                     )
                 );
@@ -35,72 +34,58 @@ namespace EventSite.Controllers {
 
         [HttpGet]
         [LoggedIn]
-        public ActionResult Create()
-        {
-            if (State.NoEventScheduled())
-            {
-                return View("NoEventScheduled");
-            }
-
-            if (!State.RegisteredForEvent())
-            {
-                DisplayErrorMessage("Please register before submitting a session.");
-                return RedirectToAction("Create", "Registration", new {eventSlug = State.CurrentEventSlug()});
-            }
-
-            return View(new SubmitSession());
-        }
-
-        [HttpGet]
-        [LoggedIn]
-        public ActionResult Edit(string eventSlug, string sessionSlug)
-        {
-            if (State.NoEventScheduled())
-            {
-                return View("NoEventScheduled");
-            }
-
-            if (!State.UserIsAdmin())
-            {
-                DisplayErrorMessage("Sessions can only be edited by admin users.");
-                return RedirectToAction("Index");
-            }
-
-            var sessionId = Domain.Model.Session.IdFrom(eventSlug, sessionSlug);
-            var session = DocSession.Load<Session>(sessionId);
-            if (session == null)
-            {
-                DisplayErrorMessage("Session cannot be found.");
-                return RedirectToAction("Index");
-            }
-
-            return View("Create", new SubmitSession
-                {
-                    SessionId = sessionId,
-                    Description = session.Description,
-                    Name = session.Name,
-                    Level = session.Level
-                });
-        }
-
-        [HttpPost]
-        [LoggedIn]
-        public ActionResult Index(string eventSlug, SubmitSession input) {
+        public ActionResult Create() {
             if(State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
 
             if(!State.RegisteredForEvent()) {
                 DisplayErrorMessage("Please register before submitting a session.");
-                return RedirectToAction("Create", "Registration", new{eventSlug=State.CurrentEventSlug()});
+                return RedirectToAction("Create", "Registration", new {eventSlug = State.CurrentEventSlug()});
+            }
+
+            return View(new SubmitOrEditSession());
+        }
+
+        [HttpGet]
+        [LoggedIn(Roles = Roles.Admin)]
+        public ActionResult Edit(string eventSlug, string sessionSlug) {
+            if(State.NoEventScheduled()) {
+                return View("NoEventScheduled");
+            }
+
+            var sessionId = Domain.Model.Session.IdFrom(eventSlug, sessionSlug);
+            var session = DocSession.Load<Session>(sessionId);
+            if(session == null) {
+                return NotFound();
+            }
+
+            return View("Create", new SubmitOrEditSession {
+                SessionId = sessionId,
+                Description = session.Description,
+                Name = session.Name,
+                Level = session.Level
+            });
+        }
+
+        [HttpPost]
+        [LoggedIn]
+        public ActionResult Index(string eventSlug, SubmitOrEditSession input) {
+            if(State.NoEventScheduled()) {
+                return View("NoEventScheduled");
+            }
+
+            if(!State.RegisteredForEvent()) {
+                DisplayErrorMessage("Please register before submitting a session.");
+                return RedirectToAction("Create", "Registration", new {eventSlug = State.CurrentEventSlug()});
             }
 
             return Execute(input)
                 .OnSuccess(x => {
                     DocSession.SaveChanges();
                     return string.IsNullOrEmpty(input.SessionId)
-                                ? RedirectToAction("Index", "Account")
-                                : RedirectToAction("Index", "Sessions");
+                        ? RedirectToAction("Index", "Account")
+                        : RedirectToAction("Index", "Sessions");
                 })
                 .OnFailure(x => View("Create", input));
         }
@@ -123,8 +108,7 @@ namespace EventSite.Controllers {
             return ChangeSessionStatus(eventSlug, sessionSlug, SessionStatus.Deleted);
         }
 
-        private ActionResult ChangeSessionStatus(string eventSlug, string sessionSlug, SessionStatus newStatus)
-        {
+        ActionResult ChangeSessionStatus(string eventSlug, string sessionSlug, SessionStatus newStatus) {
             var sessionId = Domain.Model.Session.IdFrom(eventSlug, sessionSlug);
 
             return Execute(new ChangeSessionStatus(sessionId, newStatus))
