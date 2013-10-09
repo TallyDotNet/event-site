@@ -19,12 +19,10 @@ namespace EventSite.Domain.Queries {
         }
 
         protected override Page<Speaker> Execute() {
-            
-
             var query = DocSession.Query<Speaker, SpeakerPageIndex>()
                                   .Where(x => x.EventId == eventId)
                                   .Include(x => x.Id)
-                                  .OrderBy(x => x.User.Profile.Name);
+                                  .OrderBy(x => x.DisplayName);
 
             RavenQueryStatistics statistics;
             var pagedResults = Page.Transform(query, ref page, out statistics, PageSize)
@@ -54,7 +52,7 @@ namespace EventSite.Domain.Queries {
                             Id = reg.User.Id,
                             EventId = reg.Event.Id,
                             Sessions = (IEnumerable) null,
-                            User_Profile_Name = user.Profile.Name
+                            DisplayName = string.IsNullOrEmpty(user.Profile.Name) ? user.Username : user.Profile.Name
                         });
 
                 AddMap<Session>(
@@ -66,7 +64,7 @@ namespace EventSite.Domain.Queries {
                             Id = session.User.Id,
                             EventId = session.Event.Id,
                             Sessions = new[] {session},
-                            User_Profile_Name = user.Profile.Name
+                            DisplayName = string.IsNullOrEmpty(user.Profile.Name) ? user.Username : user.Profile.Name
                         }
                     );
 
@@ -76,9 +74,11 @@ namespace EventSite.Domain.Queries {
                     select new {
                         Id = g.First().Id,
                         EventId = g.First().EventId,
-                        Sessions = g.SelectMany(x => x.Sessions),
-                        User_Profile_Name = g.First().User.Profile.Name
+                        DisplayName = g.First().DisplayName,
+                        Sessions = g.SelectMany(x => x.Sessions)
                     };
+
+                
             }
         }
     }
