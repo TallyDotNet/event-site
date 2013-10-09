@@ -1,0 +1,102 @@
+﻿@using EventSite.Domain
+@using EventSite.Infrastructure
+@model EventSite.ViewModels.RegisteredUsers.IndexOutput<EventSite.Domain.Model.Attendee>
+@{
+    ViewInfo.Title = "Speakers";
+}
+
+<div class="jumbotron">
+    <h1>Attendees</h1>
+    <p class="lead">Network, catch up, and make new friends.</p>
+</div>
+
+
+<div class="container">
+    @foreach (var row in Model.UserRows)
+    {
+        <div class="row speakers">
+            @foreach (var attendeee in row)
+            {
+                if (!attendeee.ListInDirectory && !State.UserIsAdmin())
+                {
+                    continue;
+                }
+                
+                var slug = EventSite.Domain.Model.User.SlugFromId(attendeee.UserId);
+
+                <a data-toggle="modal" href="#@slug" class="col-xs-2 col-sm-2 col-md-2">
+                    <img class="avatar img-responsive" src="@Avatar.GetUrl(attendeee.User.Email, 128)" alt="@attendeee.DisplayName" />
+                    <div class="text-center">@attendeee.DisplayName
+                    @if (!attendeee.ListInDirectory)
+                    {
+                        <span class="glyphicon glyphicon-eye-open pull-right" title="Opted-out of listing" style="color: #d9534f"></span>   
+                    }
+                    </div>
+                    
+                </a>
+
+                <div class="modal fade" id="@slug" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-3 col-sm-3 col-md-3">
+                                        <img class="avatar img-responsive" style="width: auto" src="@Avatar.GetUrl(attendeee.User.Email, 128)" alt="@attendeee.DisplayName">
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8">
+                                        <h3>@attendeee.DisplayName</h3>
+                                        <div>@attendeee.User.GetProfessionalInfo()</div>
+                                        @if (State.UserIsAdmin())
+                                        {
+                                            <div>@attendeee.User.Email</div>
+                                        }
+                                    </div>
+                                    <button class="close col-xs-1 col-sm-1 col-md-1" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="row">
+                                    @if (string.IsNullOrEmpty(attendeee.User.Profile.Bio))
+                                    {
+                                        <div class="col-lg-12 text-center bio">No Bio Available</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-lg-12 bio">@attendeee.User.Profile.Bio</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (Model.Page.HasMultiplePages)
+{
+
+    <ul class="pager">
+        @if (Model.Page.HasPreviousPage)
+        {
+            <li>
+                <a href="@Url.Action("Index", "Attendees", new { eventSlug = Model.EventSlug, page = Model.Page.PreviousPage })">Previous</a>
+            </li>
+        }
+        
+        @if (Model.Page.HasNextPage)
+        {
+            <li>
+                <a href="@Url.Action("Index", "Attendees", new { eventSlug = Model.EventSlug, page = Model.Page.NextPage })">Next</a>
+            </li>
+        }
+    </ul>
+}
+
+@if (!string.IsNullOrEmpty(Model.ActiveUserSlug))
+{
+    <script type="text/javascript">
+        (function (es) {
+            es.activeUserSlug = "@Model.ActiveUserSlug";
+        })(window.EventSite || (window.EventSite = {}));
+    </script>
+}

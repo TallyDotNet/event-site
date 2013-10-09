@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttendeesController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -252,7 +253,7 @@
     <Compile Include="ViewModels\Account\IndexViewModel.cs" />
     <Compile Include="ViewModels\ErrorOutput.cs" />
     <Compile Include="ViewModels\Sessions\IndexOutput.cs" />
-    <Compile Include="ViewModels\Speakers\IndexOutput.cs" />
+    <Compile Include="ViewModels\RegisteredUsers\IndexOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\Filters\FilterConfig.cs" />
@@ -328,6 +329,7 @@
     <Content Include="Views\Home\_Carousel.cshtml" />
     <Content Include="Views\Home\_Featurette.cshtml" />
     <Content Include="Views\Sponsors\CreateOrUpdate.cshtml" />
+    <Content Include="Views\Attendees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Register\" />

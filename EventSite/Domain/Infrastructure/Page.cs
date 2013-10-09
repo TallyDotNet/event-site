@@ -6,7 +6,7 @@ using Raven.Client.Linq;
 
 namespace EventSite.Domain.Infrastructure {
     public class Page {
-        public static int Size = 25;
+        public const int DefaultPageSize = 25;
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
 
@@ -32,20 +32,20 @@ namespace EventSite.Domain.Infrastructure {
             }
         }
 
-        public static int CalculatePages(int totalResults)
+        public static int CalculatePages(int totalResults, int pageSize = DefaultPageSize)
         {
-            var floatingPointResult = (decimal)totalResults/Size;
+            var floatingPointResult = (decimal)totalResults/pageSize;
             return (int)Math.Ceiling(floatingPointResult);
         }
 
-        public static IQueryable<T> Transform<T>(IRavenQueryable<T> query, ref int page, out RavenQueryStatistics statistics) {
+        public static IQueryable<T> Transform<T>(IRavenQueryable<T> query, ref int page, out RavenQueryStatistics statistics, int pageSize = DefaultPageSize) {
             if(page < 1) {
                 page = 1;
             }
 
             return query.Statistics(out statistics)
-                .Skip((page - 1)*Size)
-                .Take(Size);
+                .Skip((page - 1)*pageSize)
+                .Take(pageSize);
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿@using EventSite.Domain
 @using EventSite.Infrastructure
-@model EventSite.ViewModels.Speakers.IndexOutput
+@model EventSite.ViewModels.RegisteredUsers.IndexOutput<EventSite.Domain.Model.Speaker>
 @{
     ViewInfo.Title = "Speakers";
 }
@@ -12,14 +12,14 @@
 
     
 <div class="container">
-    @foreach(var row in Model.Speakers) {
+    @foreach(var row in Model.UserRows) {
         <div class="row speakers">
             @foreach(var speaker in row) {
                 var slug = EventSite.Domain.Model.User.SlugFromId(speaker.Id);
 
                 <a data-toggle="modal" href="#@slug" class="col-xs-2 col-sm-2 col-md-2">
-                    <img class="avatar img-responsive" src="@Avatar.GetUrl(speaker.User.Email, 128)" alt="@speaker.User.GetDisplayName()" />
-                    <div class="text-center">@speaker.User.GetDisplayName()</div>
+                    <img class="avatar img-responsive" src="@Avatar.GetUrl(speaker.User.Email, 128)" alt="@speaker.DisplayName" />
+                    <div class="text-center">@speaker.DisplayName</div>
                 </a>
 
                 <div class="modal fade" id="@slug" tabindex="-1" role="dialog" aria-hidden="true">
@@ -28,10 +28,10 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-xs-3 col-sm-3 col-md-3">
-                                        <img class="avatar img-responsive" style="width: auto" src="@Avatar.GetUrl(speaker.User.Email, 128)" alt="@speaker.User.GetDisplayName()">
+                                        <img class="avatar img-responsive" style="width: auto" src="@Avatar.GetUrl(speaker.User.Email, 128)" alt="@speaker.DisplayName">
                                     </div>
                                     <div class="col-xs-8 col-sm-8 col-md-8">
-                                        <h3>@speaker.User.GetDisplayName()</h3>
+                                        <h3>@speaker.DisplayName</h3>
                                         <div>@speaker.User.GetProfessionalInfo()</div>
                                         @if (State.UserIsAdmin()) {
                                         <div>@speaker.User.Email</div>
@@ -71,10 +71,29 @@
     }
 </div>
 
-@if(!string.IsNullOrEmpty(Model.ActiveSpeakerSlug)) {
+@if(Model.Page.HasMultiplePages) {
+
+    <ul class="pager">
+        @if (Model.Page.HasPreviousPage)
+        {
+            <li>
+                <a href="@Url.Action("Index", "Speakers", new {eventSlug = Model.EventSlug, page = Model.Page.PreviousPage})">Previous</a>
+            </li>
+        }
+        
+        @if (Model.Page.HasNextPage)
+        {
+            <li>
+                <a href="@Url.Action("Index", "Speakers", new {eventSlug = Model.EventSlug, page = Model.Page.NextPage})">Next</a>
+            </li>
+        }
+    </ul>
+}
+
+@if(!string.IsNullOrEmpty(Model.ActiveUserSlug)) {
     <script type="text/javascript">
         (function (es) {
-            es.activeSpeakerSlug = "@Model.ActiveSpeakerSlug";
+            es.activeSpeakerSlug = "@Model.ActiveUserSlug";
         })(window.EventSite || (window.EventSite = {}));
     </script>
 }
