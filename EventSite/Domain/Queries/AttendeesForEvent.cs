@@ -24,7 +24,7 @@ namespace EventSite.Domain.Queries
         {
             var query = DocSession.Query<Attendee, AttendeesPageIndex>()
                                   .Where(a => a.EventId == eventId)
-                                  .OrderBy(x => x.User.Profile.Name);
+                                  .OrderBy(x => x.DisplayName);
 
             if (!State.UserIsAdmin())
                 query = query.Where(x => x.ListInDirectory);
@@ -45,7 +45,7 @@ namespace EventSite.Domain.Queries
                     CurrentPage = page,
                     TotalPages = Page.CalculatePages(statistics.TotalResults, PageSize),
                     Items = pagedResults
-                };
+                }; 
         }
     }
 
@@ -56,17 +56,18 @@ namespace EventSite.Domain.Queries
             Map = registrations =>
                 from registration in registrations
                 let registeredUser = LoadDocument<User>(registration.User.Id)
-                select new
+                select new Attendee
                 {
                     EventId = registration.Event.Id,
                     UserId = registration.User.Id,
                     ListInDirectory = registeredUser.Preferences.ListInAttendeeDirectory,
-                    User_Profile_Name = registeredUser.Profile.Name
+                    DisplayName = string.IsNullOrEmpty(registeredUser.Profile.Name) ? registeredUser.Username : registeredUser.Profile.Name
                 };
 
             Store(x => x.UserId, FieldStorage.Yes);
             Store(x => x.EventId, FieldStorage.Yes);
             Store(x => x.ListInDirectory, FieldStorage.Yes);
+            Store(x => x.DisplayName, FieldStorage.Yes);
         }
     }
 }
