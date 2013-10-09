@@ -4,6 +4,9 @@ using EventSite.Domain.Model;
 
 namespace EventSite.Domain.Commands {
     public class SubmitSession : Command<Result> {
+
+        public string SessionId { get; set; }
+
         [Required]
         [StringLength(150, MinimumLength = 3)]
         public string Name { get; set; }

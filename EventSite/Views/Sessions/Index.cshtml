@@ -43,33 +43,38 @@
             </a>
             <div class="media-body">
                 <h4 class="media-heading">
-                    @summary.Name
+                    @if (State.UserIsAdmin()) {
+                        @Html.ActionLink(summary.Name, "Edit", "Sessions", new {eventSlug = Model.EventSlug, sessionSlug = EventSite.Domain.Model.Session.SlugFromId(summary.Id)}, null)
+                    }
+                    else {
+                        @summary.Name
+                    }
                     <div class="pull-right">
-                     @if(State.UserIsAdmin() && summary.Status != SessionStatus.PendingApproval) {
-                        switch(summary.Status) {
-                            case SessionStatus.Approved:
-                                <span class="label label-success">Approved</span>
+                        @if(State.UserIsAdmin() && summary.Status != SessionStatus.PendingApproval) {
+                            switch(summary.Status) {
+                                case SessionStatus.Approved:
+                                    <span class="label label-success">Approved</span>
+                                    break;
+                                case SessionStatus.Rejected:
+                                    <span class="label label-danger">Rejected</span>
+                                    break;
+                            }
+                        }
+                        
+                        @switch(summary.Level) {
+                            case AudienceLevel.General:
+                                <span class="label label-primary">General</span>
                                 break;
-                            case SessionStatus.Rejected:
-                                <span class="label label-danger">Rejected</span>
+                            case AudienceLevel.Beginner:
+                                <span class="label label-success">Beginner</span>
+                                break;
+                            case AudienceLevel.Intermediate:
+                                <span class="label label-warning">Intermediate</span>
+                                break;
+                            case AudienceLevel.Advanced:
+                                <span class="label label-danger">Advanced</span>
                                 break;
                         }
-                     }
-                        
-                    @switch(summary.Level) {
-                        case AudienceLevel.General:
-                            <span class="label label-primary">General</span>
-                            break;
-                        case AudienceLevel.Beginner:
-                            <span class="label label-success">Beginner</span>
-                            break;
-                        case AudienceLevel.Intermediate:
-                            <span class="label label-warning">Intermediate</span>
-                            break;
-                        case AudienceLevel.Advanced:
-                            <span class="label label-danger">Advanced</span>
-                            break;
-                    }
                     </div>
                 </h4>
                 <div class="description">@summary.Description</div>
@@ -110,6 +115,8 @@
                                 <button class="btn btn-danger">Delete</button>
                             </form>   
                             }
+                            
+                            
                         </div>
                     }
                 </div>

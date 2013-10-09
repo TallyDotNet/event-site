@@ -8,16 +8,19 @@ using EventSite.Infrastructure.Filters;
 using EventSite.ViewModels.Sessions;
 
 namespace EventSite.Controllers {
-    public class SessionsController : BaseController {
+    public class SessionsController : BaseController
+    {
         [HttpGet]
-        public ActionResult Index(string eventSlug = null, int page = 1, SessionStatus? status = null) {
-            if(string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled()) {
+        public ActionResult Index(string eventSlug = null, int page = 1, SessionStatus? status = null)
+        {
+            if (string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled())
+            {
                 return View("NoEventScheduled");
             }
 
             var eventId = string.IsNullOrEmpty(eventSlug)
-                ? State.CurrentEvent.Id
-                : Event.IdFrom(eventSlug);
+                              ? State.CurrentEvent.Id
+                              : Event.IdFrom(eventSlug);
 
             var data = Bus.Query(new SessionSummaryPage(eventId, page, status));
 
@@ -32,17 +35,52 @@ namespace EventSite.Controllers {
 
         [HttpGet]
         [LoggedIn]
-        public ActionResult Create() {
-            if(State.NoEventScheduled()) {
+        public ActionResult Create()
+        {
+            if (State.NoEventScheduled())
+            {
                 return View("NoEventScheduled");
             }
 
-            if(!State.RegisteredForEvent()) {
+            if (!State.RegisteredForEvent())
+            {
                 DisplayErrorMessage("Please register before submitting a session.");
                 return RedirectToAction("Create", "Registration", new {eventSlug = State.CurrentEventSlug()});
             }
 
             return View(new SubmitSession());
+        }
+
+        [HttpGet]
+        [LoggedIn]
+        public ActionResult Edit(string eventSlug, string sessionSlug)
+        {
+            if (State.NoEventScheduled())
+            {
+                return View("NoEventScheduled");
+            }
+
+            if (!State.UserIsAdmin())
+            {
+                DisplayErrorMessage("Sessions can only be edited by admin users.");
+                return RedirectToAction("Index");
+            }
+
+            var sessionId = Domain.Model.Session.IdFrom(eventSlug, sessionSlug);
+            var session = DocSession.Load<Session>(sessionId);
+            if (session == null)
+            {
+                DisplayErrorMessage("Session cannot be found.");
+                return RedirectToAction("Index");
+            }
+
+            return View("Create", new SubmitSession
+                {
+                    SessionId = sessionId,
+                    Description = session.Description,
+                    Name = session.Name,
+                    Level = session.Level
+                });
         }
 
         [HttpPost]
