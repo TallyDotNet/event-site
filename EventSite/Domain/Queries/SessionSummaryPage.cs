@@ -22,7 +22,8 @@ namespace EventSite.Domain.Queries {
             RavenQueryStatistics statistics;
 
             var query = DocSession.Query<Session, SessionSummaryPageIndex>()
-                .Where(x => x.Event.Id == eventId);
+                                  .Where(x => x.Event.Id == eventId)
+                                  .OrderBy(x => x.Name);
 
             var sessionStatusForQuery = State.UserIsAdmin()
                                             ? status
