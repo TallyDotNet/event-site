@@ -320,7 +320,7 @@
     <Content Include="Views\Shared\NoEventScheduled.cshtml" />
     <Content Include="Views\Registration\AlreadyRegistered.cshtml" />
     <Content Include="Views\Sessions\Index.cshtml" />
-    <Content Include="Views\Sessions\Create.cshtml" />
+    <Content Include="Views\Sessions\CreateOrUpdate.cshtml" />
     <Content Include="Views\Speakers\Index.cshtml" />
     <Content Include="Views\Sponsors\Index.cshtml" />
     <Content Include="Views\Location\Index.cshtml" />

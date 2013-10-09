@@ -4,7 +4,8 @@ using EventSite.Domain.Model;
 
 namespace EventSite.Domain.Commands {
     public class SubmitOrEditSession : Command<Result> {
-        public string SessionId { get; set; }
+        public string SessionSlug { get; set; }
+        public string EventSlug { get; set; }
 
         [Required]
         [StringLength(150, MinimumLength = 3)]
@@ -20,11 +21,7 @@ namespace EventSite.Domain.Commands {
         public ISlugConverter SlugConverter { get; set; }
 
         protected override Result Execute() {
-            if(!State.RegisteredForEvent()) {
-                return Error("You are not registered for the event. Please register before submitting a session.");
-            }
-
-            return string.IsNullOrEmpty(SessionId)
+            return string.IsNullOrEmpty(SessionSlug)
                 ? createNewSession()
                 : editExistingSession();
         }
@@ -34,7 +31,7 @@ namespace EventSite.Domain.Commands {
                 return Forbidden();
             }
 
-            var session = DocSession.Load<Session>(SessionId);
+            var session = DocSession.Load<Session>(Session.IdFrom(EventSlug, SessionSlug));
             if(session == null) {
                 return NotFound();
             }
@@ -47,6 +44,10 @@ namespace EventSite.Domain.Commands {
         }
 
         Result createNewSession() {
+            if(!State.RegisteredForEvent()) {
+                return Error("You are not registered for the event. Please register before submitting a session.");
+            }
+
             var slug = SlugConverter.ToSlug(Name);
             var id = Session.IdFrom(State.CurrentEventSlug(), slug);
 

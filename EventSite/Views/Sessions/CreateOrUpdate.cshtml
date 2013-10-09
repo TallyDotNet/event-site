@@ -2,11 +2,20 @@
 @using EventSite.Infrastructure.Helpers
 @model EventSite.Domain.Commands.SubmitOrEditSession
 @{
-    ViewInfo.Title = "Submit Session";
+    var isCreate = string.IsNullOrEmpty(Model.SessionSlug);
+    var title = isCreate ? "Submit Session" : "Edit Session";
+    var action = isCreate
+        ? Url.Action("Index", "Sessions", new{ eventSlug = State.CurrentEventSlug() })
+        : Url.Action("Detail", "Sessions", new {
+            eventSlug = Model.EventSlug,
+            sessionSlug = Model.SessionSlug
+        });
+    
+    ViewInfo.Title = title;
 }
 
 <div class="jumbotron">
-    <h1>Submit Session</h1>
+    <h1>@title</h1>
     <p class="lead">Just provide us with a few details below, and you're on your way.</p>
 </div>
 
@@ -24,8 +33,7 @@
     </div>
 
     <div class="col-md-9" role="main">
-        <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Index", "Sessions", new{ eventSlug = State.CurrentEventSlug() })">
-            @Html.HiddenFor(x => x.SessionId)
+        <form class="form-horizontal" role="form" method="POST" action="@action">
             <div class="panel panel-default">
                 <div class="panel-heading">Session Details</div>
                 <div class="panel-body">

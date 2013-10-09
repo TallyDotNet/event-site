@@ -32,42 +32,6 @@ namespace EventSite.Controllers {
                 );
         }
 
-        [HttpGet]
-        [LoggedIn]
-        public ActionResult Create() {
-            if(State.NoEventScheduled()) {
-                return View("NoEventScheduled");
-            }
-
-            if(!State.RegisteredForEvent()) {
-                DisplayErrorMessage("Please register before submitting a session.");
-                return RedirectToAction("Create", "Registration", new {eventSlug = State.CurrentEventSlug()});
-            }
-
-            return View(new SubmitOrEditSession());
-        }
-
-        [HttpGet]
-        [LoggedIn(Roles = Roles.Admin)]
-        public ActionResult Edit(string eventSlug, string sessionSlug) {
-            if(State.NoEventScheduled()) {
-                return View("NoEventScheduled");
-            }
-
-            var sessionId = Domain.Model.Session.IdFrom(eventSlug, sessionSlug);
-            var session = DocSession.Load<Session>(sessionId);
-            if(session == null) {
-                return NotFound();
-            }
-
-            return View("Create", new SubmitOrEditSession {
-                SessionId = sessionId,
-                Description = session.Description,
-                Name = session.Name,
-                Level = session.Level
-            });
-        }
-
         [HttpPost]
         [LoggedIn]
         public ActionResult Index(string eventSlug, SubmitOrEditSession input) {
@@ -83,12 +47,55 @@ namespace EventSite.Controllers {
             return Execute(input)
                 .OnSuccess(x => {
                     DocSession.SaveChanges();
-                    return string.IsNullOrEmpty(input.SessionId)
-                        ? RedirectToAction("Index", "Account")
-                        : RedirectToAction("Index", "Sessions");
+                    return RedirectToAction("Index", "Account");
                 })
-                .OnFailure(x => View("Create", input));
+                .OnFailure(x => View("CreateOrUpdate", input));
         }
+
+        [HttpGet]
+        [LoggedIn]
+        public ActionResult Create() {
+            if(State.NoEventScheduled()) {
+                return View("NoEventScheduled");
+            }
+
+            if(!State.RegisteredForEvent()) {
+                DisplayErrorMessage("Please register before submitting a session.");
+                return RedirectToAction("Create", "Registration", new {eventSlug = State.CurrentEventSlug()});
+            }
+
+            return View("CreateOrUpdate", new SubmitOrEditSession());
+        }
+
+        [HttpGet]
+        [LoggedIn(Roles = Roles.Admin)]
+        public ActionResult Edit(string eventSlug, string sessionSlug) {
+            var sessionId = Domain.Model.Session.IdFrom(eventSlug, sessionSlug);
+            var session = DocSession.Load<Session>(sessionId);
+            if(session == null) {
+                return NotFound();
+            }
+
+            return View("CreateOrUpdate", new SubmitOrEditSession {
+                SessionSlug = sessionSlug,
+                EventSlug = eventSlug,
+                Description = session.Description,
+                Name = session.Name,
+                Level = session.Level
+            });
+        }
+
+        [HttpPost]
+        [LoggedIn(Roles = Roles.Admin)]
+        public ActionResult Detail(string eventSlug, string sessionSlug, SubmitOrEditSession input) {
+            input.EventSlug = eventSlug;
+            input.SessionSlug = sessionSlug;
+
+            return Execute(input)
+                .OnSuccess(x => RedirectToAction("Index", "Sessions"))
+                .OnFailure(x => View("CreateOrUpdate", input));
+        }
+
 
         [HttpPost]
         [LoggedIn(Roles = Roles.Admin)]
