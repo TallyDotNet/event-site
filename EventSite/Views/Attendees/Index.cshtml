@@ -26,7 +26,7 @@
 
                 <a data-toggle="modal" href="#@slug" class="col-xs-2 col-sm-2 col-md-2">
                     <img class="avatar img-responsive" src="@Avatar.GetUrl(attendeee.User.Email, 128)" alt="@attendeee.User.GetDisplayName()" />
-                    <div class="text-center">@attendeee.User.GetDisplayName()
+                    <div class="text-center">@attendeee.DisplayName
                     @if (!attendeee.ListInDirectory)
                     {
                         <span class="glyphicon glyphicon-eye-open pull-right" title="Opted-out of listing" style="color: #d9534f"></span>   
