@@ -25,23 +25,55 @@ namespace EventSite.Domain.Commands {
                 return Error("You are not registered for the event. Please register before submitting a session.");
             }
 
+            if (string.IsNullOrEmpty(SessionId)) {
+                return CreateNewSession();
+            }
+            else {
+                return EditExistingSession();
+            }
+        }
+
+        private Result EditExistingSession()
+        {
+            if (!State.UserIsAdmin())
+                return Error("Only admin users can edit sessions.");
+
+            var session = DocSession.Load<Session>(SessionId);
+            if (session == null)
+                return Error("The provided session to be edited couldn't be found.");
+
+            session.Name = Name;
+            session.Description = Description;
+            session.Level = Level;
+
+            DocSession.Store(session);
+
+            return SuccessFormat("You have successfully edited \"{0}\"", Name);
+        }
+
+        private Result CreateNewSession()
+        {
             var slug = SlugConverter.ToSlug(Name);
             var id = Session.IdFrom(State.CurrentEventSlug(), slug);
 
-            if(DocSession.Load<Session>(id) != null) {
+            if (DocSession.Load<Session>(id) != null)
+            {
                 return Error("The provided session name is not available.");
             }
 
-            var session = new Session {
+            var session = new Session
+            {
                 Id = id,
                 Name = Name,
                 Description = Description,
                 Level = Level,
-                Event = new Reference {
+                Event = new Reference
+                {
                     Id = State.CurrentEvent.Id,
                     Name = State.CurrentEvent.Name
                 },
-                User = new Reference {
+                User = new Reference
+                {
                     Id = CurrentUser.Id,
                     Name = CurrentUser.Username
                 },
@@ -50,7 +82,6 @@ namespace EventSite.Domain.Commands {
             };
 
             DocSession.Store(session);
-
             return SuccessFormat("You have successfully submitted \"{0}\" to {1}.", Name, State.CurrentEvent.Name);
         }
     }

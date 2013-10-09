@@ -25,6 +25,7 @@
 
     <div class="col-md-9" role="main">
         <form class="form-horizontal" role="form" method="POST" action="@Url.Action("Index", "Sessions", new{ eventSlug = State.CurrentEventSlug() })">
+            @Html.HiddenFor(x => x.SessionId)
             <div class="panel panel-default">
                 <div class="panel-heading">Session Details</div>
                 <div class="panel-body">

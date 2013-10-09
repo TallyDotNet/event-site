@@ -98,7 +98,9 @@ namespace EventSite.Controllers {
             return Execute(input)
                 .OnSuccess(x => {
                     DocSession.SaveChanges();
-                    return RedirectToAction("Index", "Account");
+                    return string.IsNullOrEmpty(input.SessionId)
+                                ? RedirectToAction("Index", "Account")
+                                : RedirectToAction("Index", "Sessions");
                 })
                 .OnFailure(x => View("Create", input));
         }
