@@ -24,5 +24,10 @@ namespace EventSite.Domain.Infrastructure {
             container.InjectProperties(work);
             work.Process(); 
         }
+
+        public void Do(IWork work) {
+            container.InjectProperties(work);
+            work.Process();
+        }
     }
 }

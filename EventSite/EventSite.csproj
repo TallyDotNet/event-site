@@ -175,7 +175,7 @@
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="Controllers\SponsorsController.cs" />
     <Compile Include="Domain\Commands\ChangeSessionStatus.cs" />
-    <Compile Include="Domain\Commands\ExportAttendeesToExcel.cs" />
+    <Compile Include="Domain\Commands\ExportToExcel.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
     <Compile Include="Domain\Commands\CreateOrUpdateEvent.cs" />
     <Compile Include="Domain\Commands\CreateOrUpdateSponsor.cs" />
@@ -211,6 +211,7 @@
     <Compile Include="Domain\Queries\SponsorsForEvent.cs" />
     <Compile Include="Domain\Queries\SubmittedSessions.cs" />
     <Compile Include="Domain\Queries\UserViaProvider.cs" />
+    <Compile Include="Domain\WorkItems\ExportAttendeesToExcel.cs" />
     <Compile Include="Domain\WorkItems\SendSessionStatusChangeEmail.cs" />
     <Compile Include="Infrastructure\Authentication\AuthenticationCallbackProvider.cs" />
     <Compile Include="Infrastructure\Controllers\CommandExecutor.cs" />

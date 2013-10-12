@@ -9,24 +9,23 @@ using OfficeOpenXml;
 namespace EventSite.Domain.Commands
 {
     public abstract class ExportToExcel<T> : Work {
+
         protected abstract IEnumerable<T> DataSource { get; }
 
         protected abstract IDictionary<string, Func<string>> Columns { get; }
 
-        protected abstract string TargetFileName { get; }
+        protected abstract FileInfo TargetFile { get; }
 
         public override void Process() {
-            var excelFile = new FileInfo(TargetFileName);
-
-            using (var package = new ExcelPackage(excelFile))
+            using (var package = new ExcelPackage(TargetFile))
             {
-                var ws = package.Workbook.Worksheets.Add("Attendees");
+                var ws = package.Workbook.Worksheets.Add("Sheet1");
                 ws.View.ShowGridLines = true;
 
-                var columnCounter = 0;
+                var columnCounter = 1;
                 foreach (var column in Columns)
                 {
-                    ws.Cells[columnCounter, 1].Value = column.Key;
+                    ws.Cells[1, columnCounter].Value = column.Key;
                     columnCounter++;
                 }
 

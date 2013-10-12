@@ -102,6 +102,9 @@ namespace EventSite.Infrastructure.Routing {
             RouteFor("events/{eventSlug}")
                 .HandledBy<EventsController>(x => x.Detail(null));
 
+            RouteFor("events/exportAttendees/{eventSlug}")
+                .HandledBy<EventsController>(x => x.ExportAttendees(null));
+
             RouteFor("events")
                 .HandledBy<EventsController>(x => x.Index());
 
