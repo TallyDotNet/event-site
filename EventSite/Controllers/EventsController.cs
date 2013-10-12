@@ -11,6 +11,9 @@ using EventSite.Infrastructure.Filters;
 namespace EventSite.Controllers {
     [LoggedIn(Roles = Roles.Admin)]
     public class EventsController : BaseController {
+        private const int PageNumberForExport = 1;
+        private const int PageSizeForExport = int.MaxValue;
+
         [HttpGet]
         public ActionResult Index() {
             var events = DocSession.Query<Event>();
@@ -46,12 +49,11 @@ namespace EventSite.Controllers {
         public FileResult ExportAttendees(string eventSlug) {
 
             var eventId = Event.IdFrom(eventSlug);
-            var attendees = Bus.Query(new AllAttendeesForEvent(eventId));
+            var attendees = Bus.Query(new AttendeesForEvent(eventId, PageNumberForExport, PageSizeForExport));
 
             var downloadFileName = string.Format("attendees_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmss"));
             var tempFile = Path.Combine(Path.GetTempPath(), downloadFileName);
-            Bus.Do(new ExportAttendeesToExcel(attendees, new FileInfo(tempFile)));
-
+            Bus.Do(new ExportAttendeesToExcel(attendees.Items, new FileInfo(tempFile)));
 
             return File(tempFile, "application/xlsx", downloadFileName);
 

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using EventSite.Domain.Commands;
 using EventSite.Domain.Model;
 
@@ -11,19 +9,19 @@ namespace EventSite.Domain.WorkItems
     public class ExportAttendeesToExcel : ExportToExcel<Attendee> {
         private readonly IEnumerable<Attendee> attendees;
         private readonly FileInfo targetFile;
-        private readonly IDictionary<string, Func<string>> columns;
+        private readonly IDictionary<string, Func<Attendee, object>> columns;
 
         public ExportAttendeesToExcel(IEnumerable<Attendee> attendees, FileInfo targetFile) {
             this.attendees = attendees;
 
             this.targetFile = targetFile;
-            columns = new Dictionary<string, Func<string>>
+            columns = new Dictionary<string, Func<Attendee, object>>
                 {
-                    {"Username", null},
-                    {"DislayName", null},
-                    {"Email", null},
-                    {"ReceiveEmail", null},
-                    {"ShowInListing", null}
+                    {"Username", attendee => attendee.User.Username},
+                    {"DislayName", attendee => attendee.DisplayName},
+                    {"Email", attendee => attendee.User.Email},
+                    {"ReceiveEmail", attendee => attendee.User.Preferences.ReceiveEmail},
+                    {"ListInAttendeeDirectory", attendee => attendee.User.Preferences.ListInAttendeeDirectory}
                 };
         }
 
@@ -31,7 +29,7 @@ namespace EventSite.Domain.WorkItems
             get { return attendees; }
         }
 
-        protected override IDictionary<string, Func<string>> Columns {
+        protected override IDictionary<string, Func<Attendee, object>> Columns {
             get { return columns; }
         }
 
