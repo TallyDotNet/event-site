@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using EventSite.Domain.Infrastructure;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace EventSite.Domain.Commands
 {
@@ -24,7 +25,10 @@ namespace EventSite.Domain.Commands
                 var columnCounter = 1;
                 foreach (var column in Columns)
                 {
+                    ws.Column(columnCounter).Width = 25;
                     ws.Cells[1, columnCounter].Value = column.Key;
+                    ws.Cells[1, columnCounter].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[1, columnCounter].Style.Font.Bold = true;
                     columnCounter++;
                 }
 
