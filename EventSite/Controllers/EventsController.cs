@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.Mvc;
 using EventSite.Domain.Commands;
+using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 using EventSite.Domain.Queries;
 using EventSite.Domain.WorkItems;
@@ -11,8 +13,7 @@ using EventSite.Infrastructure.Filters;
 namespace EventSite.Controllers {
     [LoggedIn(Roles = Roles.Admin)]
     public class EventsController : BaseController {
-        private const int PageNumberForExport = 1;
-        private const int PageSizeForExport = int.MaxValue;
+        private const int PageSizeForExport = 25;
 
         [HttpGet]
         public ActionResult Index() {
@@ -49,14 +50,29 @@ namespace EventSite.Controllers {
         public FileResult ExportAttendees(string eventSlug) {
 
             var eventId = Event.IdFrom(eventSlug);
-            var attendees = Bus.Query(new AttendeesForEvent(eventId, PageNumberForExport, PageSizeForExport));
+            var allAttendeesForEvent = GetAllAttendees(eventId);
 
             var downloadFileName = string.Format("attendees_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmss"));
+
+            //TODO: put this into App_Data
             var tempFile = Path.Combine(Path.GetTempPath(), downloadFileName);
-            Bus.Do(new ExportAttendeesToExcel(attendees.Items, new FileInfo(tempFile)));
+            Bus.Do(new ExportAttendeesToExcel(allAttendeesForEvent, new FileInfo(tempFile)));
 
             return File(tempFile, "application/xlsx", downloadFileName);
+        }
 
+        private IEnumerable<Attendee> GetAllAttendees(string eventId) {
+            var pageNumber = 1;
+
+            Page<Attendee> currentAttendeePage;
+            do
+            {
+                currentAttendeePage = Bus.Query(new AttendeesForEvent(eventId, pageNumber, PageSizeForExport));
+                foreach (var attendee in currentAttendeePage.Items)
+                    yield return attendee;
+
+                pageNumber++;
+            } while (currentAttendeePage.HasNextPage);
         }
 
         [HttpPost]
