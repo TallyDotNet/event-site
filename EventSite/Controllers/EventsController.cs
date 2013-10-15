@@ -53,12 +53,11 @@ namespace EventSite.Controllers {
             var allAttendeesForEvent = GetAllAttendees(eventId);
 
             var downloadFileName = string.Format("attendees_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            var tempFilePath = Path.Combine(Server.MapPath("~/App_Data"), downloadFileName);
 
-            //TODO: put this into App_Data
-            var tempFile = Path.Combine(Path.GetTempPath(), downloadFileName);
-            Bus.Do(new ExportAttendeesToExcel(allAttendeesForEvent, new FileInfo(tempFile)));
+            Bus.Do(new ExportAttendeesToExcel(allAttendeesForEvent, new FileInfo(tempFilePath)));
 
-            return File(tempFile, "application/xlsx", downloadFileName);
+            return File(tempFilePath, "application/xlsx", downloadFileName);
         }
 
         private IEnumerable<Attendee> GetAllAttendees(string eventId) {

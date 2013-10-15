@@ -337,6 +337,7 @@
     <Content Include="Views\Attendees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="ViewModels\Register\" />
   </ItemGroup>
   <ItemGroup>
