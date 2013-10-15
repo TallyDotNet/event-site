@@ -165,8 +165,8 @@ UpgradeLog*.htm
 App_Data/*.mdf
 App_Data/*.ldf
 
-# Misc app_data
-App_Data/*.xlsx
+# Temp output of Excel files for data exports
+EventSite/App_Data/*.xlsx
 
 #############
 ## Windows detritus
