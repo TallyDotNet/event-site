@@ -4,25 +4,23 @@ using System.IO;
 using EventSite.Domain.Commands;
 using EventSite.Domain.Model;
 
-namespace EventSite.Domain.WorkItems
-{
+namespace EventSite.Domain.WorkItems {
     public class ExportAttendeesToExcel : ExportToExcel<Attendee> {
-        private readonly IEnumerable<Attendee> attendees;
-        private readonly FileInfo targetFile;
-        private readonly IDictionary<string, Func<Attendee, object>> columns;
+        readonly IEnumerable<Attendee> attendees;
+        readonly FileInfo targetFile;
+        readonly IDictionary<string, Func<Attendee, object>> columns;
 
         public ExportAttendeesToExcel(IEnumerable<Attendee> attendees, FileInfo targetFile) {
             this.attendees = attendees;
-
             this.targetFile = targetFile;
-            columns = new Dictionary<string, Func<Attendee, object>>
-                {
-                    {"Username", attendee => attendee.User.Username},
-                    {"DislayName", attendee => attendee.DisplayName},
-                    {"Email", attendee => attendee.User.Email},
-                    {"ReceiveEmail", attendee => attendee.User.Preferences.ReceiveEmail},
-                    {"ListInAttendeeDirectory", attendee => attendee.User.Preferences.ListInAttendeeDirectory}
-                };
+
+            columns = new Dictionary<string, Func<Attendee, object>> {
+                {"Username", attendee => attendee.User.Username},
+                {"DislayName", attendee => attendee.DisplayName},
+                {"Email", attendee => attendee.User.Email},
+                {"ReceiveEmail", attendee => attendee.User.Preferences.ReceiveEmail},
+                {"ListInAttendeeDirectory", attendee => attendee.User.Preferences.ListInAttendeeDirectory}
+            };
         }
 
         protected override IEnumerable<Attendee> DataSource {
