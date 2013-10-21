@@ -8,8 +8,9 @@ using EventSite.Infrastructure.Controllers;
 
 namespace EventSite.Controllers
 {
-    public class AttendeesController : BaseController
-    {
+    public class AttendeesController : BaseController {
+        private const int PageSize = 24; //we show six per row, so we'll show 6 rows
+
         [HttpGet]
         public ActionResult Index(string eventSlug = null, int page = 1)
         {
@@ -22,7 +23,7 @@ namespace EventSite.Controllers
                 ? State.CurrentEvent.Id
                 : Event.IdFrom(eventSlug);
 
-            var attendees = Bus.Query(new AttendeesForEvent(eventId, page));
+            var attendees = Bus.Query(new AttendeesForEvent(eventId, page, PageSize));
 
             return View(new IndexOutput<Attendee>(attendees, null, eventSlug));
         }
