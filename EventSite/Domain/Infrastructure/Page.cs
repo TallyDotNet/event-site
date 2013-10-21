@@ -27,15 +27,12 @@ namespace EventSite.Domain.Infrastructure {
         }
 
         public bool HasMultiplePages {
-            get {
-                return TotalPages > 1;
-            }
+            get { return TotalPages > 1; }
         }
 
-        public static int CalculatePages(int totalResults, int pageSize = DefaultPageSize)
-        {
-            var floatingPointResult = (decimal)totalResults/pageSize;
-            return (int)Math.Ceiling(floatingPointResult);
+        public static int CalculatePages(int totalResults, int pageSize = DefaultPageSize) {
+            var floatingPointResult = (decimal) totalResults/pageSize;
+            return (int) Math.Ceiling(floatingPointResult);
         }
 
         public static IQueryable<T> Transform<T>(IRavenQueryable<T> query, ref int page, out RavenQueryStatistics statistics, int pageSize = DefaultPageSize) {

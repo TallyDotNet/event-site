@@ -13,7 +13,7 @@ using EventSite.Infrastructure.Filters;
 namespace EventSite.Controllers {
     [LoggedIn(Roles = Roles.Admin)]
     public class EventsController : BaseController {
-        const int PageSizeForExport = 25;
+        const int PageSizeForExport = 50;
 
         [HttpGet]
         public ActionResult Index() {
@@ -61,17 +61,16 @@ namespace EventSite.Controllers {
 
         IEnumerable<Attendee> getAllAttendees(string eventId) {
             var pageNumber = 1;
+            var attendees = new List<Attendee>();
             Page<Attendee> currentPage;
 
             do {
                 currentPage = Bus.Query(new AttendeesForEvent(eventId, pageNumber, PageSizeForExport));
-
-                foreach(var attendee in currentPage.Items) {
-                    yield return attendee;
-                }
-
+                attendees.AddRange(currentPage.Items);
                 pageNumber++;
             } while (currentPage.HasNextPage);
+
+            return attendees;
         }
 
         [HttpPost]
