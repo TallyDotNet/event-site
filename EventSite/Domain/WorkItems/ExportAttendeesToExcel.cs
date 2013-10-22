@@ -16,7 +16,7 @@ namespace EventSite.Domain.WorkItems {
 
             columns = new Dictionary<string, Func<Attendee, object>> {
                 {"Username", attendee => attendee.User.Username},
-                {"DislayName", attendee => attendee.DisplayName},
+                {"DisplayName", attendee => attendee.DisplayName},
                 {"Email", attendee => attendee.User.Email},
                 {"ReceiveEmail", attendee => attendee.User.Preferences.ReceiveEmail},
                 {"ListInAttendeeDirectory", attendee => attendee.User.Preferences.ListInAttendeeDirectory}
