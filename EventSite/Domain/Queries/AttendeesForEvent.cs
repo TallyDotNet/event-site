@@ -20,6 +20,7 @@ namespace EventSite.Domain.Queries {
 
         protected override Page<Attendee> Execute() {
             var query = DocSession.Query<Attendee, AttendeesPageIndex>()
+                .Include(x => x.UserId)
                 .Where(a => a.EventId == eventId)
                 .OrderBy(x => x.DisplayName);
 
