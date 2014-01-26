@@ -15,6 +15,8 @@ namespace EventSite {
         static readonly Logger Log = LogManager.GetLogger(typeof(MvcApplication).FullName);
 
         protected void Application_Start() {
+            
+            //TODO: what's this about?
             // Work around nasty .NET framework bug
             try {
                 new Uri("http://fail/first/time?only=%2bplus");
@@ -31,11 +33,13 @@ namespace EventSite {
                 Response.Redirect("~/error");
             };
 
+            //NOTE: some of this boilerplate stuff you'd get with a default File -> New Project 
             ContainerConfig.Configure();
-            AreaRegistration.RegisterAllAreas();
+            AreaRegistration.RegisterAllAreas(); //TODO: we're not using areas, so this line probably isn't needed
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            new RouteConfig(RouteTable.Routes).Configure();
+            
+            new RouteConfig(RouteTable.Routes).Configure(); //Note: this line deviates a bit from what you get in a brand new project
 
             ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 
