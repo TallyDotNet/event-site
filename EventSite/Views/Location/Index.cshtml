@@ -1,4 +1,5 @@
-﻿@model EventSite.Domain.Model.Event
+﻿@using RestSharp.Extensions
+@model EventSite.Domain.Model.Event
 @{
     ViewInfo.Title = "Location";
 }
@@ -28,22 +29,38 @@
         <div role="complementary">
             <ul class="sidenav nav">
                 <li class="active">Where</li>
-                <li>@Model.Venue.Name</li>
-                @if(!string.IsNullOrEmpty(Model.Venue.Street1)) {
-                    <li>@Model.Venue.Street1</li>
+                @if (Model.Venue.Name.HasValue())
+                {
+                    <li>@Model.Venue.Name</li>
+                    if (!string.IsNullOrEmpty(Model.Venue.Street1))
+                     {
+                         <li>@Model.Venue.Street1</li>
+                     }
+                    if (!string.IsNullOrEmpty(Model.Venue.Street2))
+                     {
+                         <li>@Model.Venue.Street2</li>
+                     }
+                    <li>@Model.Venue.City, @Model.Venue.StateOrProvince</li>
+                    <li>@Model.Venue.Country @Model.Venue.PostalCode</li>
                 }
-                @if(!string.IsNullOrEmpty(Model.Venue.Street2)) {
-                    <li>@Model.Venue.Street2</li>
+                else
+                {
+                    <li>The venue for this event is TBD</li>
                 }
-                <li>@Model.Venue.City, @Model.Venue.StateOrProvince</li>
-                <li>@Model.Venue.Country @Model.Venue.PostalCode</li>
             </ul>
         </div>
         
         <div role="complementary">
             <ul class="sidenav nav">
                 <li class="active">Parking</li>
-                <li>@Model.Venue.ParkingInformation</li>
+                @if (Model.Venue.ParkingInformation.HasValue())
+                {
+                    <li>@Model.Venue.ParkingInformation</li>
+                }
+                else
+                {
+                    <li>No parking information is avaliable for this event yet.</li>
+                }
             </ul>
         </div>
         
@@ -51,73 +68,108 @@
             <div role="complementary">
                 <ul class="sidenav nav">
                     <li class="active">Schedule</li>
-                    @foreach(var line in Model.ScheduleSummary.Split('\n')) {
-                        <li>@line</li>
+                    @if (Model.ScheduleSummary.HasValue())
+                    {
+                        foreach (var line in Model.ScheduleSummary.Split('\n'))
+                         {
+                             <li>@line</li>
+                         }
                     }
+                    else
+                    {
+                        <li>No schedule information is available for this event yet.</li>
+                    }
+                    
                 </ul>
             </div>
         }
     </div>
-
-    <div class="col-md-9" role="main">
-        <div id="map"style="width:100%; height:480px;" />
-    </div>
+    
+    @if (Model.Venue.HasAddressSet())
+    {
+        <div class="col-md-9" role="main">
+            <div id="map"style="width: 100%; height: 480px;" />
+        </div>
+    }
+    else
+    {
+        <p>Once a venue address has been identified for this event a map with directions will be available here.</p>
+    }
+    
 </div>
 
-<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
-<script type="text/javascript">
-    
-    var map;
-    var credentials = "@State.Settings.BingMapsAPIKey";
-    var address = "@Model.Venue.Street1 @Model.Venue.Street2 @Model.Venue.City, @Model.Venue.StateOrProvince @Model.Venue.Country @Model.Venue.PostalCode";
-    
-    function geocodeCallback(result) {
+    @if (Model.Venue.HasAddressSet())
+    {
+        <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+        <script type="text/javascript">
+            var map;
+            var credentials = "@State.Settings.BingMapsAPIKey";
+            var address = "@Model.Venue.Street1 @Model.Venue.Street2 @Model.Venue.City, @Model.Venue.StateOrProvince @Model.Venue.Country @Model.Venue.PostalCode";
 
-        if (result &&
-            result.resourceSets &&
-            result.resourceSets.length > 0 &&
-            result.resourceSets[0].resources &&
-            result.resourceSets[0].resources.length > 0) {
-           
-            var bbox = result.resourceSets[0].resources[0].bbox;
-            var viewBoundaries = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(bbox[0], bbox[1]), new Microsoft.Maps.Location(bbox[2], bbox[3]));
-            map.setView({ bounds: viewBoundaries });
+            function geocodeCallback
+            (result) {
 
-            
-            var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
-            var pushpin = new Microsoft.Maps.Pushpin(location);
+                if (result &&
+                    result.resourceSets &&
+                    result.resourceSets.length > 0 &&
+                    result.resourceSets[0].resources &&
+                    result.resourceSets[0].resources.length > 0) {
 
-            var infoBox = new Microsoft.Maps.Infobox(pushpin.getLocation(),
-                {
-                    title: "@Model.Venue.Name",
-                    description: address,
-                    visible: true,
-                    offset: new Microsoft.Maps.Point(0, 15)
-                });
+                    var bbox = result.resourceSets[0].resources[0].bbox;
+                    var viewBoundaries = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(bbox[0], bbox[1]), new Microsoft.Maps.Location(bbox[2], bbox[3]));
+                    map.setView(
+                        {
+                            bounds:
+                                viewBoundaries
+                        }
+                    );
 
-            Microsoft.Maps.Events.addHandler(pushpin, 'click', function() { infoBox.setOptions({ visible: true }) });
 
-            map.entities.push(pushpin);
-            map.entities.push(infoBox);
-        } else {
-            alert('No resuilts were found for the venue location.');
-        }
+                    var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
+                    var pushpin = new Microsoft.Maps.Pushpin(location);
+
+                    var infoBox = new Microsoft.Maps.Infobox(pushpin.getLocation(),
+                        {
+                            title: "@Model.Venue.Name",
+                        description: address,
+                        visible: true,
+                        offset: new Microsoft.Maps.Point(0, 15)
+                    });
+
+                    Microsoft.Maps.Events.addHandler(pushpin, 'click', function() {
+                            infoBox.setOptions(
+                                {
+                                    visible:
+                                        true
+                                }
+                            )
+                        }
+                    );
+
+                    map.entities.push(pushpin);
+                    map.entities.push(infoBox);
+                } else {
+                    alert('No resuilts were found for the venue location.');
+                }
+            }
+
+            function startGeocoding
+            () {
+
+                var geocodeRequest = "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(address) + "&output=json&jsonp=geocodeCallback&key=" + credentials;
+
+                var script = document.createElement("script");
+                script.setAttribute("type", "text/javascript");
+                script.setAttribute("src", geocodeRequest);
+                document.body.appendChild(script);
+            }
+
+            function loadMap
+            () {
+                map = new Microsoft.Maps.Map(document.getElementById("map"), { credentials: credentials });
+                startGeocoding();
+            }
+
+            loadMap();
+        </script>
     }
-    
-    function startGeocoding() {
-        
-        var geocodeRequest = "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(address) + "&output=json&jsonp=geocodeCallback&key=" + credentials;
-
-        var script = document.createElement("script");
-        script.setAttribute("type", "text/javascript");
-        script.setAttribute("src", geocodeRequest);
-        document.body.appendChild(script);
-    }
-    
-    function loadMap() {
-        map = new Microsoft.Maps.Map(document.getElementById("map"), { credentials: credentials });
-        startGeocoding();
-    }
-
-    loadMap();
-</script>
