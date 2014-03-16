@@ -10,8 +10,6 @@ using NLog;
 
 namespace EventSite.Infrastructure.Controllers {
     public abstract class LowLevelController : Controller {
-        //static readonly ITempDataProvider CookieTempData = new CookieTempDataProvider();
-
         public Logger Log { get; set; }
         public ViewInfo ViewInfo { get; private set; }
         public IApplicationState State { get; private set; }
@@ -26,11 +24,6 @@ namespace EventSite.Infrastructure.Controllers {
             State = DependencyResolver.Current.GetService<IApplicationState>();
             Bus = DependencyResolver.Current.GetService<IApplicationBus>();
         }
-
-        //TODO: doesn't look like we're using this
-        //protected override ITempDataProvider CreateTempDataProvider() {
-        //    return CookieTempData;
-        //}
 
         protected override void HandleUnknownAction(string actionName) {
             if(GetType() != typeof(ErrorController)) {

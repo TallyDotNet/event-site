@@ -242,7 +242,6 @@
     <Compile Include="Infrastructure\Controllers\BaseController.cs" />
     <Compile Include="Infrastructure\Controllers\ControllerFactory.cs" />
     <Compile Include="Infrastructure\Controllers\LowLevelController.cs" />
-    <Compile Include="Infrastructure\Controllers\CookieTempDataProvider.cs" />
     <Compile Include="Infrastructure\Logging\LogModule.cs" />
     <Compile Include="Infrastructure\Logging\NLogModule.cs" />
     <Compile Include="Infrastructure\Views\ViewInfo.cs" />
