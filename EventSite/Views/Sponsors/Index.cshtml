@@ -11,12 +11,19 @@
     <p class="lead">Thanks to all the companies and individuals who helped make @State.CurrentEvent.Name possible!</p>
 </div>
 
-@if(State.UserIsAdmin()) {
+@if (State.UserIsAdmin())
+{
     <div class="page-header text-center">
         <h3>@Model.Count() Sponsors Have Dontated a Total of @Model.Sum(x => x.AmountDonated).ToString("C").</h3>
     </div>
+} else
+{
+    //TODO: if we have a sponsorship doc, show it here with some info
+    <div>
+        Details about becoming a sponsor including sponsorship levels for this event will be available as the event date draws closer.
+    </div>  
 }
-    
+
 <div class="row">
     <div class="col-md-9" role="main">
             
@@ -47,12 +54,6 @@
     </div>
     
     <div class="col-md-3" style="padding-top: 100px;">
-        <div role="complementary">
-            <ul class="sidenav nav">
-                <li class="active">Attention Potential Sponsors!</li>
-                <li><a href="~/Content/downloads/Sponsorships.docx" style="display: inline; padding: 0">Download</a> our official sponsorship levels document.</li>
-            </ul>
-        </div>
         
         @if(State.UserIsAdmin() && State.EventScheduled()) {
             <div class="text-center">
@@ -60,14 +61,6 @@
                     Add a Sponsor for <br/>
                     @State.CurrentEvent.Name
                 </a>
-            </div>
-        } else {
-            <div class="text-center">
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick">
-                    <input type="hidden" name="hosted_button_id" value="5NLHNJAJFGFAW">
-                    <button class="btn btn-lg btn-success" type="submit">Donate Now with PayPal!</button>
-                </form>
             </div>
         }
     </div>

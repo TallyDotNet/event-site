@@ -13,8 +13,7 @@ This is an ASP.NET MVC 4 web application designed to be used for simple events s
 
 * Create Events
 * Approve or Reject Session Submissions
-
-_More features coming..._
+* Create Sponsore
 
 ## Technologies Used
 
@@ -32,12 +31,16 @@ _More features coming..._
 2. In the extracted directory, navigate to the _tools_ sub directory.
 3. Start the database by running _Raven.Server.exe_.
 4. Once the database has started, you can run the web application normally from Visual Studio.
+ 
+## Expectations
+
+While this project is open source, we currently have no intention of supporting any groups or individuals outside our organization. Please do not expect us to fix your bugs or take pull requests at this time.
 
 ## License
 
 The MIT License
 
-Copyright (c) 2013 Blue Spire Consulting, Inc.
+Copyright (c) 2013 Capital City .NET Users Group
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
