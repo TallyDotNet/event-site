@@ -54,7 +54,7 @@ namespace EventSite.Domain.Commands {
             user.AddOAuthAccount(providerName, providerUserId)
                 .AddRole(Roles.User);
 
-            if(string.Compare(user.Username, "EisenbergEffect", StringComparison.OrdinalIgnoreCase) == 0) {
+            if(shouldMakeAdmin(user.Username)){
                 user.AddRole(Roles.Admin);
             }
 
@@ -69,6 +69,20 @@ namespace EventSite.Domain.Commands {
             "admin", "administrator", "developer",
             "support", "owner", "siteowner", "site-owner", "bin"
         };
+
+        bool shouldMakeAdmin(string userName) {
+            //this method allows for a couple of ways to bootstrap the initial admin user
+            //for a fresh installation of the app where no users exist yet.
+
+            //TODO: make this a configurable switch
+            if (userName.Equals("EisenbergEffect", StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            if (!State.RunningInProduction() && !Bus.Query(new AdminUserExists()))
+                return true;
+
+            return false;
+        }
 
         bool prohibitSlug(string slug) {
             if(string.IsNullOrWhiteSpace(slug)) {
