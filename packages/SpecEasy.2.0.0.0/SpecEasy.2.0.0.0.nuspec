@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SpecEasy</id>
+    <version>2.0.0.0</version>
+    <title>SpecEasy</title>
+    <authors>TrackAbout,  Inc.</authors>
+    <owners>TrackAbout,  Inc.</owners>
+    <licenseUrl>https://github.com/trackabout/speceasy/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/trackabout/speceasy</projectUrl>
+    <iconUrl>https://raw.github.com/trackabout/speceasy/master/speceasy_logo_sq_128.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Specifications made easy</description>
+    <releaseNotes>Version 2.0.0 of SpecEasy introduces support for testing async methods. 
+Note that this version requires .NET 4.5.1 and includes a breaking change from the 1.0.0 release as described here:
+https://github.com/trackabout/speceasy/pull/23#issuecomment-32572855</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <language />
+    <tags>bdd tdd unit test testing fluent</tags>
+    <dependencies>
+      <dependency id="NUnit" version="2.6.2" />
+      <dependency id="RhinoMocks" version="3.6.1" />
+    </dependencies>
+  </metadata>
+</package>

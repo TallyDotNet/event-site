@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Shouldly</id>
+    <version>2.1.1</version>
+    <title>Shouldly</title>
+    <authors>Dave Newman,  Xerxes Battiwalla,  Anthony Egerton,  Peter van der Woude</authors>
+    <owners>Dave Newman,  Xerxes Battiwalla,  Anthony Egerton,  Peter van der Woude</owners>
+    <licenseUrl>https://github.com/shouldly/shouldly/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>http://shouldly.github.com/</projectUrl>
+    <iconUrl>http://shouldly.github.com/images/nuget_logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Shouldly - Assertion framework for .NET. The way asserting *Should* be</description>
+    <releaseNotes>- Task Support in Should.(Not)Throw
+ - IEnumerable.ShouldAllBe(predecate)
+ - ShouldBeOneOf(params)
+ - IEnumerable.ShouldBe can ignore order
+ - IEnumerable.ShouldBeSubsetOf
+ - Should(Not)BeNullOrEmpty
+ - Should(Not)BeInRange
+ - ShouldBeOfType -&gt; ShouldBeTypeOf and ShouldBeAssignableTo
+
+Full release notes and breaking changes at https://github.com/shouldly/shouldly/blob/master/ReleaseNotes.md</releaseNotes>
+    <copyright />
+    <language />
+    <tags>testing unit TDD AAA shoulda testunit rspec</tags>
+  </metadata>
+</package>
