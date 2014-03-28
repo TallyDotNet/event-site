@@ -15,12 +15,7 @@ namespace EventSite {
         static readonly Logger Log = LogManager.GetLogger(typeof(MvcApplication).FullName);
 
         protected void Application_Start() {
-            // Work around nasty .NET framework bug
-            try {
-                new Uri("http://fail/first/time?only=%2bplus");
-            } catch(Exception) {}
-
-            Log.Info("Tally Code Camp - Starting");
+            Log.Info("Event Site - Starting");
 
             Error += delegate {
                 var exception = Server.GetLastError();
@@ -32,18 +27,20 @@ namespace EventSite {
             };
 
             ContainerConfig.Configure();
-            AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            new RouteConfig(RouteTable.Routes).Configure();
+            
+            new RouteConfig(RouteTable.Routes).Configure(); //Note: this line deviates a bit from what you get in a brand new project
 
             ControllerBuilder.Current.SetControllerFactory(new ControllerFactory());
 
-            Log.Info("Tally Code Camp - Started");
+            Log.Info("Event Site - Started");
         }
 
         protected void Session_Start(Object sender, EventArgs e) {
-            Session["init"] = 0; //need to access session in order to get a consistent session id
+            //we'll rely on session later for authentication/authorization, so we init it here to ensure
+            //that we get an keep the same session Id all the way through.
+            Session["init"] = 0;
         }
     }
 }

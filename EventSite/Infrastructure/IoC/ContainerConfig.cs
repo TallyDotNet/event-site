@@ -33,6 +33,7 @@ namespace EventSite.Infrastructure.IoC {
             builder.RegisterType<DefaultApplicationBus>().As<IApplicationBus>().InstancePerHttpRequest();
             builder.RegisterInstance(settings).As<ISettings>().SingleInstance();
             
+            //NOTE: registering a single RavenDB document store instance for the entire application, and a single instance per HttpRequest for the IDocumentSession
             builder.Register(x => RavenDBConfig.CreateDocumentStore()).As<IDocumentStore>().SingleInstance();
             builder.Register(x => x.Resolve<IDocumentStore>().OpenSession()).As<IDocumentSession>().InstancePerHttpRequest();
             
