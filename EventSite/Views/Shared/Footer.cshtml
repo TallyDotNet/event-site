@@ -1,4 +1,6 @@
-﻿<footer>
+﻿@using EventSite.Domain
+<footer>
     <p class="pull-right"><a href="#">Back to top</a></p>
-    <p>@State.Settings.Owner</p>
+    <p class="pull-left">@State.Settings.Owner</p>
+    <p class="text-center">Commit:&nbsp; @State.Settings.CommitId</p>
 </footer>

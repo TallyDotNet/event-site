@@ -49,7 +49,6 @@ namespace EventSite.Tests.Domain.Commands
                                             Then("it should store the user in the database", () => SUT.DocSession.AssertWasCalled(d => d.Store(Arg<User>.Is.Anything))); 
                                             Then("it should return a success result.", () => result.Succeeded().ShouldBe(true));
                                         });
-                                    //Given()
                                 });
                         });
                 });
