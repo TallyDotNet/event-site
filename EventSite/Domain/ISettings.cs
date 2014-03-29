@@ -13,5 +13,7 @@
         string SmtpPassword { get; }
 
         string BingMapsAPIKey { get; }
+
+        string CommitId { get; }
     }
 }

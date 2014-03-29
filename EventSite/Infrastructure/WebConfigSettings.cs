@@ -43,5 +43,9 @@ namespace EventSite.Infrastructure {
         public string BingMapsAPIKey {
             get { return ConfigurationManager.AppSettings["EventSite.BingMapsAPIKey"]; }
         }
+
+        public string CommitId {
+            get { return this.RunningInProduction() ? ConfigurationManager.AppSettings["appharbor.commit_id"] : "n/a"; }
+        }
     }
 }

@@ -2,6 +2,13 @@
   padding-bottom: 40px;
   color: #5a5a5a;
 }
+.dev-env-banner {
+  width: 100%;
+  text-align: center;
+  background: #86B8C5;
+  font-weight: bold;
+  padding: 3px;
+}
 .navbar-wrapper {
   position: relative;
   z-index: 15;
@@ -319,7 +326,6 @@ footer {
 .featurette-divider {
   margin: 80px 0;
   /* Space out the Bootstrap <hr> more */
-
 }
 /* Thin out the marketing headings */
 .featurette-heading {
@@ -358,3 +364,4 @@ footer {
     margin-top: 120px;
   }
 }
+/*# sourceMappingURL=site.css.map */

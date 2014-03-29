@@ -7,7 +7,11 @@
         ? State.CurrentEvent.Name
         : State.Settings.Name;
 }
-
+@if (!State.RunningInProduction()){
+    <div class="dev-env-banner">
+        <span>This is a development/test environment.</span>
+    </div>
+}
 <div class="navbar-wrapper">
     <div class="container" style="padding: 0">
         <div class="navbar-custom navbar navbar-inverse navbar-static-top">
