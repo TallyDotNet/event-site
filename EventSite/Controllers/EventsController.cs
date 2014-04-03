@@ -8,7 +8,9 @@ using EventSite.Domain.Model;
 using EventSite.Domain.Queries;
 using EventSite.Domain.WorkItems;
 using EventSite.Infrastructure.Controllers;
+using EventSite.Infrastructure.Data.Export;
 using EventSite.Infrastructure.Filters;
+using EventSite.Infrastructure.Helpers;
 
 namespace EventSite.Controllers {
     [LoggedIn(Roles = Roles.Admin)]
@@ -50,11 +52,13 @@ namespace EventSite.Controllers {
         public FileResult ExportAttendees(string eventSlug) {
             var eventId = Event.IdFrom(eventSlug);
             var allAttendeesForEvent = getAllAttendees(eventId);
-
+            
             var downloadFileName = string.Format("attendees_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmss"));
             var tempFilePath = Path.Combine(Server.MapPath("~/App_Data"), downloadFileName);
 
-            Bus.Do(new ExportAttendeesToExcel(allAttendeesForEvent, new FileInfo(tempFilePath)));
+            var fileBuilder = new ExcelFileBuilder(Bus);
+            var exporter = new ExcelExporter<Attendee>(new AttendeesExportColumnMappings(), new FileInfoTargetFile(tempFilePath), Bus);
+            fileBuilder.Build(new FileInfoTargetFile(tempFilePath), new AttendeesForEvent(eventId,1,PageSizeForExport), exporter);
 
             return File(tempFilePath, "application/xlsx", downloadFileName);
         }
