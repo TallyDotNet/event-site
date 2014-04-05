@@ -25,6 +25,10 @@ namespace EventSite.Infrastructure.Helpers
             this.fileInfo = new FileInfo(filePath);
         }
 
+        public FileInfoTargetFile(FileInfo file) {
+            this.fileInfo = file;
+        }
+
         public bool Exists {
             get { return fileInfo.Exists; }
         }
@@ -40,29 +44,37 @@ namespace EventSite.Infrastructure.Helpers
 
     public class ExcelFileBuilder {
         private readonly IApplicationBus bus;
-        public const int PageSize = 50;
 
         public ExcelFileBuilder(IApplicationBus bus) {
             this.bus = bus;
         } 
 
-        public void Build<T>(ITargetFile targetFile, Query<Page<T>> pagedQuery, IExcelExporter<T> exportCommand) {
+        public void Build<T>(Query<Page<T>> pagedQuery, IExcelExporter<T> exportCommand) {
             var data = ExecuteQuery(pagedQuery);
+            exportCommand.Export(data);
+        }
+
+        public void Build<T>(Query<IEnumerable<T>> query, IExcelExporter<T> exportCommand) {
+            var data = ExecuteQuery(query);
             exportCommand.Export(data);
         }
 
         private IEnumerable<T> ExecuteQuery<T>(Query<Page<T>> pagedQuery) {
             var pageNumber = 1;
-            var attendees = new List<T>();
+            var result = new List<T>();
             Page<T> currentPage;
 
             do {
                 currentPage = bus.Query(pagedQuery);
-                attendees.AddRange(currentPage.Items);
+                result.AddRange(currentPage.Items);
                 pageNumber++;
             } while (currentPage.HasNextPage);
 
-            return attendees;
-        } 
+            return result;
+        }
+
+        private IEnumerable<T> ExecuteQuery<T>(Query<IEnumerable<T>> query) {
+            return bus.Query(query);
+        }
     }
 }

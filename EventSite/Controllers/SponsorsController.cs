@@ -1,9 +1,14 @@
-﻿using System.Web;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using EventSite.Domain;
 using EventSite.Domain.Commands;
 using EventSite.Domain.Model;
 using EventSite.Domain.Queries;
+using EventSite.Domain.WorkItems;
 using EventSite.Infrastructure;
 using EventSite.Infrastructure.Controllers;
 using EventSite.Infrastructure.Filters;
@@ -85,5 +90,33 @@ namespace EventSite.Controllers {
                 })
                 .OnFailure(x => View("CreateOrUpdate", input));
         }
+
+        //[HttpGet]
+        //[LoggedIn(Roles = Roles.Admin)]
+        //public FileResult ExportSponsors(string eventSlug) {
+        //    //var eventId = Event.IdFrom(eventSlug);
+        //    //var allSponsorsForEvent = getAllSponsors(eventId);
+
+        //    //var downloadFileName = string.Format("attendees_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmss"));
+        //    //var tempFilePath = Path.Combine(Server.MapPath("~/App_Data"), downloadFileName);
+
+        //    //Bus.Do(new ExportAttendeesToExcel(allSponsorsForEvent, new FileInfo(tempFilePath)));
+
+        //    //return File(tempFilePath, "application/xlsx", downloadFileName);
+        //}
+
+        //private IEnumerable<Sponsor> getAllSponsors {
+        //     var pageNumber = 1;
+        //    var sponsors = new List<Attendee>();
+        //    Page<Attendee> currentPage;
+
+        //    do {
+        //        currentPage = Bus.Query(new AttendeesForEvent(eventId, pageNumber, PageSizeForExport));
+        //        attendees.AddRange(currentPage.Items);
+        //        pageNumber++;
+        //    } while (currentPage.HasNextPage);
+
+        //    return attendees;
+        //}
     }
 }

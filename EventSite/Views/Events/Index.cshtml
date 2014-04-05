@@ -56,6 +56,7 @@
                                     }
                                     <a href="@Url.Action("Detail", "Events", new {eventSlug=Event.SlugFromId(ev.Id)})" class="btn btn-success">Edit</a>
                                     <a href="@Url.Action("ExportAttendees", "Events", new {eventSlug=Event.SlugFromId(ev.Id)})" class="btn btn-success">Export Attendees (xslx)</a>
+                                    <a href="@Url.Action("ExportSponsors",  "Events", new {eventSlug=Event.SlugFromId(ev.Id)})" class="btn btn-success">Export Sponsors (xlsx)</a>
                                 </div>
                             </div>
                         </div>

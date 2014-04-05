@@ -51,30 +51,44 @@ namespace EventSite.Controllers {
         [HttpGet]
         public FileResult ExportAttendees(string eventSlug) {
             var eventId = Event.IdFrom(eventSlug);
-            var allAttendeesForEvent = getAllAttendees(eventId);
-            
-            var downloadFileName = string.Format("attendees_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmss"));
-            var tempFilePath = Path.Combine(Server.MapPath("~/App_Data"), downloadFileName);
-
-            var fileBuilder = new ExcelFileBuilder(Bus);
-            var exporter = new ExcelExporter<Attendee>(new AttendeesExportColumnMappings(), new FileInfoTargetFile(tempFilePath), Bus);
-            fileBuilder.Build(new FileInfoTargetFile(tempFilePath), new AttendeesForEvent(eventId,1,PageSizeForExport), exporter);
-
-            return File(tempFilePath, "application/xlsx", downloadFileName);
+            return PerformExcelExport("attendees",
+                new AttendeesForEvent(eventId, 1, PageSizeForExport),
+                new AttendeesExportColumnMappings());
         }
 
-        IEnumerable<Attendee> getAllAttendees(string eventId) {
-            var pageNumber = 1;
-            var attendees = new List<Attendee>();
-            Page<Attendee> currentPage;
+        [HttpGet]
+        public FileResult ExportSponsors(string eventSlug) {
+            var eventId = Event.IdFrom(eventSlug);
+            return PerformExcelExport("sponsors",
+                new SponsorsForEvent(eventId),
+                new SponsorsExportColumnMappings());
+        }
 
-            do {
-                currentPage = Bus.Query(new AttendeesForEvent(eventId, pageNumber, PageSizeForExport));
-                attendees.AddRange(currentPage.Items);
-                pageNumber++;
-            } while (currentPage.HasNextPage);
+        private FileResult PerformExcelExport<T>(string rootFileName, Query<Page<T>> query, IExportColumnMappings<T> columns) {
+            var exportItems = GetExcelExportItems(rootFileName, columns);
+            exportItems.FileBuilder.Build(query, exportItems.Exporter);
+            return File(exportItems.TempFileInfo.FullName, "application/xlsx", exportItems.TempFileInfo.Name);
+        }
 
-            return attendees;
+        private FileResult PerformExcelExport<T>(string rootFileName, Query<IEnumerable<T>> query, IExportColumnMappings<T> columns) {
+            var exportItems = GetExcelExportItems(rootFileName, columns);
+            exportItems.FileBuilder.Build(query, exportItems.Exporter);
+            return File(exportItems.TempFileInfo.FullName, "application/xlsx", exportItems.TempFileInfo.Name);
+        }
+
+        private dynamic GetExcelExportItems<T>(string rootFileName, IExportColumnMappings<T> columns) {
+            var tempFileInfo = BuildExcelExportTempPath(rootFileName);
+            return new
+            {
+                TempFileInfo = tempFileInfo,
+                Exporter = new ExcelExporter<T>(columns, new FileInfoTargetFile(tempFileInfo), Bus),
+                FileBuilder = new ExcelFileBuilder(Bus)
+            };
+        }
+
+        private FileInfo BuildExcelExportTempPath(string rootFileName) {
+            var timeStampedFileName = string.Format("{0}_{1}.xlsx", rootFileName, DateTime.Now.ToString("yyyyMMddHHmmss"));
+            return new FileInfo(Path.Combine(Server.MapPath("~/App_Data"), timeStampedFileName));
         }
 
         [HttpPost]

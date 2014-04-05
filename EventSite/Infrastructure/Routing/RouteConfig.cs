@@ -88,6 +88,9 @@ namespace EventSite.Infrastructure.Routing {
             RouteFor("attendees")
                 .HandledBy<AttendeesController>(x => x.Index(null,0));
 
+            RouteFor("events/{eventSlug}/sponsors/export")
+                .HandledBy<EventsController>(x => x.ExportSponsors(null));
+
             RouteFor("events/{eventSlug}/sponsors")
                 .HandledBy<SponsorsController>(x => x.Index(null));
 

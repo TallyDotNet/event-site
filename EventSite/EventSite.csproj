@@ -175,6 +175,7 @@
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="Controllers\SponsorsController.cs" />
     <Compile Include="Domain\Commands\ChangeSessionStatus.cs" />
+    <Compile Include="Domain\Model\SponsorsExportColumnMappings.cs" />
     <Compile Include="Infrastructure\Data\Export\ExcelExporter.cs" />
     <Compile Include="Infrastructure\Data\Export\IExportColumnMappings.cs" />
     <Compile Include="Domain\WorkItems\ExportToExcel.cs" />
