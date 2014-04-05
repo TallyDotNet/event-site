@@ -1,24 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using EventSite.Domain.Infrastructure;
+using EventSite.Infrastructure.Data.Export;
+using EventSite.Infrastructure.Helpers;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
-namespace EventSite.Domain.Commands {
-    public abstract class ExportToExcel<T> : Work {
-        protected abstract IEnumerable<T> DataSource { get; }
-        protected abstract IDictionary<string, Func<T, object>> Columns { get; }
-        protected abstract FileInfo TargetFile { get; }
+namespace EventSite.Domain.WorkItems {
+
+    public class ExportToExcel<T> : Work {
+
+        private readonly ITargetFile targetFile;
+        private readonly IEnumerable<T> dataSource;
+        private readonly IExportColumnMappings<T> columns; 
+
+        public ExportToExcel(ITargetFile targetFile, IEnumerable<T> dataSource, IExportColumnMappings<T> columns) {
+            this.targetFile = targetFile;
+            this.dataSource = dataSource;
+            this.columns = columns;
+        } 
 
         public override void Process() {
-            using(var package = new ExcelPackage(TargetFile)) {
+            using(var package = new ExcelPackage(targetFile.ToFileInfo())) {
                 var ws = package.Workbook.Worksheets.Add("Sheet1");
                 ws.View.ShowGridLines = true;
 
                 var rowCounter = 1;
                 var columnCounter = 1;
-                foreach(var column in Columns) {
+                foreach(var column in columns.Columns) {
                     ws.Column(columnCounter).Width = 25;
                     ws.Cells[1, columnCounter].Value = column.Key;
                     ws.Cells[1, columnCounter].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -26,10 +34,10 @@ namespace EventSite.Domain.Commands {
                     columnCounter++;
                 }
 
-                foreach(var row in DataSource) {
+                foreach(var row in dataSource) {
                     rowCounter++;
                     columnCounter = 1;
-                    foreach(var column in Columns) {
+                    foreach(var column in columns.Columns) {
                         ws.Cells[rowCounter, columnCounter].Value = column.Value(row);
                         columnCounter++;
                     }

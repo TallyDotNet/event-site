@@ -175,7 +175,10 @@
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="Controllers\SponsorsController.cs" />
     <Compile Include="Domain\Commands\ChangeSessionStatus.cs" />
-    <Compile Include="Domain\Commands\ExportToExcel.cs" />
+    <Compile Include="Domain\Model\SponsorsExportColumnMappings.cs" />
+    <Compile Include="Infrastructure\Data\Export\ExcelExporter.cs" />
+    <Compile Include="Infrastructure\Data\Export\IExportColumnMappings.cs" />
+    <Compile Include="Domain\WorkItems\ExportToExcel.cs" />
     <Compile Include="Domain\Commands\CreateAccount.cs" />
     <Compile Include="Domain\Commands\CreateOrUpdateEvent.cs" />
     <Compile Include="Domain\Commands\CreateOrUpdateSponsor.cs" />
@@ -211,7 +214,7 @@
     <Compile Include="Domain\Queries\SponsorsForEvent.cs" />
     <Compile Include="Domain\Queries\SubmittedSessions.cs" />
     <Compile Include="Domain\Queries\UserViaProvider.cs" />
-    <Compile Include="Domain\WorkItems\ExportAttendeesToExcel.cs" />
+    <Compile Include="Domain\Model\AttendeesExportColumnMappings.cs" />
     <Compile Include="Domain\WorkItems\SendSessionStatusChangeEmail.cs" />
     <Compile Include="Infrastructure\Authentication\AuthenticationCallbackProvider.cs" />
     <Compile Include="Infrastructure\Controllers\CommandExecutor.cs" />
@@ -220,6 +223,7 @@
     <Compile Include="Infrastructure\Data\RavenDBConfig.cs" />
     <Compile Include="Infrastructure\Avatar.cs" />
     <Compile Include="Infrastructure\Filters\LoggedInAttribute.cs" />
+    <Compile Include="Infrastructure\Helpers\ExcelFileResultBuilder.cs" />
     <Compile Include="Infrastructure\Helpers\ExtensionMethods.cs" />
     <Compile Include="Infrastructure\IImageStorage.cs" />
     <Compile Include="Infrastructure\Results\JsonNetResult.cs" />
