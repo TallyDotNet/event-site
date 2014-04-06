@@ -15,7 +15,8 @@ namespace EventSite.Infrastructure.IoC {
     public class ContainerConfig {
         public static void Configure() {
             var builder = new ContainerBuilder();
-            var settings = new WebConfigSettings();
+            var settingsProvider = new AppSettingsProvider();
+            var settings = new WebConfigSettings(settingsProvider);
 
             RegisterMVCComponents(builder);
             RegisterApplicationComponents(builder, settings);

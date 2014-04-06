@@ -1,6 +1,7 @@
 ﻿namespace EventSite.Domain {
     public interface ISettings {
         string Environment { get; }
+        AuthenticationModes AuthenticationMode { get; }
         string Name { get; }
         string Owner { get; }
 
@@ -16,4 +17,11 @@
 
         string CommitId { get; }
     }
+
+    public enum AuthenticationModes {
+        Default, //uses "fake" auth providers anywhere but prod, and real ones in prod
+        Fake, //uses the "fake" auth providers reglardless of the environment settings
+        Actual //uses the actual auth providers regardless of the environment settings
+    }
+
 }

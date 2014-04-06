@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Domain\Commands\CreateAccountSpecs.cs" />
     <Compile Include="Infrastructure\Helpers\ExcelFileResultBuilderSpecs.cs" />
+    <Compile Include="Infrastructure\WebConfigSettingsSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

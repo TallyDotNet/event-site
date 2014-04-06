@@ -61,7 +61,8 @@ namespace EventSite.Tests.Domain.Commands
             SUT.DocSession = Mock<IDocumentSession>();
             SUT.Bus = Mock<IApplicationBus>();
             SUT.State = Mock<IApplicationState>();
-            SUT.State.Stub(s => s.Settings).Return(new WebConfigSettings()).Repeat.Any();
+            var settingsProvider = Mock<IConfigurationSettingsProvider>();
+            SUT.State.Stub(s => s.Settings).Return(new WebConfigSettings(settingsProvider)).Repeat.Any();
         }
 
         private void SetRequiredFields() {
