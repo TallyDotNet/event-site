@@ -31,7 +31,7 @@ namespace EventSite.Tests.Infrastructure
 
         private void StubAuthenticationModeProperty(string desiredValue) {
             const string propertyKey = "EventSite.AuthenticationMode";
-            Get<IConfigurationSettingsProvider>().Stub(p => p.GetPropertyValue(propertyKey)).Return(desiredValue);
+            Get<IAppSettingsProvider>().Stub(p => p.GetPropertyValue(propertyKey)).Return(desiredValue);
         }
     }
 }

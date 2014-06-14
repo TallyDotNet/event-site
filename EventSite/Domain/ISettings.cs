@@ -4,6 +4,7 @@
         AuthenticationModes AuthenticationMode { get; }
         string Name { get; }
         string Owner { get; }
+        string InitialAdminUserId { get; }
 
         string FromEmail { get; }
         string FromEmailName { get; }

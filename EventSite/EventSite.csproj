@@ -176,6 +176,11 @@
     <Compile Include="Controllers\SponsorsController.cs" />
     <Compile Include="Domain\Commands\ChangeSessionStatus.cs" />
     <Compile Include="Domain\Model\SponsorsExportColumnMappings.cs" />
+    <Compile Include="EventSiteResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EventSiteResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\AppSettingsProvider.cs" />
     <Compile Include="Infrastructure\Data\Export\ExcelExporter.cs" />
     <Compile Include="Infrastructure\Data\Export\IExportColumnMappings.cs" />
@@ -297,6 +302,11 @@
     <EmbeddedResource Include="EmailTemplates\SessionStatusChange.template" />
     <Content Include="Content\downloads\Sponsorships.docx" />
     <Content Include="Content\downloads\TallahasseeCodeCamp2013Schedule.pdf" />
+    <EmbeddedResource Include="EventSiteResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EventSiteResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>EventSite</CustomToolNamespace>
+    </EmbeddedResource>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\behavior.js" />
     <Content Include="Scripts\bootstrap.js" />

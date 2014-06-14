@@ -7,9 +7,9 @@ namespace EventSite.Infrastructure {
 
     public class WebConfigSettings : ISettings {
 
-        private readonly IConfigurationSettingsProvider settingsProvider;
+        private readonly IAppSettingsProvider settingsProvider;
 
-        public WebConfigSettings(IConfigurationSettingsProvider settingsProvider) {
+        public WebConfigSettings(IAppSettingsProvider settingsProvider) {
             this.settingsProvider = settingsProvider;
         }
 
@@ -41,6 +41,10 @@ namespace EventSite.Infrastructure {
 
         public string Owner {
             get { return settingsProvider.GetPropertyValue("EventSite.Owner"); }
+        }
+
+        public string InitialAdminUserId {
+            get { return settingsProvider.GetPropertyValue("EventSite.InitialAdminUserId"); }
         }
 
         public string FromEmail {
