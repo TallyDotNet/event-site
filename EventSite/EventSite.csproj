@@ -264,6 +264,7 @@
     <Compile Include="Domain\Model\User.cs" />
     <Compile Include="Infrastructure\WebConfigSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\CreateAccountViewModel.cs" />
     <Compile Include="ViewModels\Account\IndexViewModel.cs" />
     <Compile Include="ViewModels\ErrorOutput.cs" />
