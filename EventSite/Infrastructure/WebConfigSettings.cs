@@ -43,8 +43,8 @@ namespace EventSite.Infrastructure {
             get { return settingsProvider.GetPropertyValue("EventSite.Owner"); }
         }
 
-        public string InitialAdminUserId {
-            get { return settingsProvider.GetPropertyValue("EventSite.InitialAdminUserId"); }
+        public string InitialAdminUserName {
+            get { return settingsProvider.GetPropertyValue("EventSite.InitialAdminUserName"); }
         }
 
         public string FromEmail {

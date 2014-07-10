@@ -59,9 +59,9 @@ namespace EventSite.Tests.Domain.Commands
 
                             Given("the application is running in the production environment.", () => settings.Stub(s => s.Environment).Return("Production").Repeat.Any()).Verify(() =>
                             {
-                                Given("the application has an intitial user id for the admin user defined in configuration", () => settings.Stub(s => s.InitialAdminUserId).Return("NewAdminUserSlug")).Verify(() =>
+                                Given("the application has an intitial user id for the admin user defined in configuration", () => settings.Stub(s => s.InitialAdminUserName).Return("NewAdminUserName")).Verify(() =>
                                     {
-                                        Given("the username provided translates into the user id configured to be the initial admin user.", () => StubUserNameAndSlugPair("NewAdminUser", "NewAdminUserSlug")).Verify(() =>
+                                        Given("the username provided translates into the user id configured to be the initial admin user.", () => StubUserNameAndSlugPair("NewAdminUserName", "NewAdminUserSlug")).Verify(() =>
                                             Then("it should add the user to the admin role.", () => result.Subject.Roles.ShouldContain(Roles.Admin)));
     
                                         Given("the username provided does not translate into the user id configured to be the initial admin user.", () => StubUserNameAndSlugPair("RegularUser", "RegularUserSlug")).Verify(() =>
@@ -69,7 +69,7 @@ namespace EventSite.Tests.Domain.Commands
                                     });
                                     
 
-                                Given("the application does not have an initial user id for the admin user defined in configuration", () => settings.Stub(s => s.InitialAdminUserId).Return(null)).Verify(() => 
+                                Given("the application does not have an initial user id for the admin user defined in configuration", () => settings.Stub(s => s.InitialAdminUserName).Return(null)).Verify(() => 
                                     AssertUserAddedToRegularUserRole());
                             });
 
