@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Resources;
+using System.Web.Mvc;
 using EventSite.Domain;
 using EventSite.Domain.Commands;
 using EventSite.Domain.Queries;
@@ -37,7 +38,26 @@ namespace EventSite.Controllers {
 
         [HttpGet]
         public ActionResult Login() {
-            return View();
+
+            var rootAuthUrl = GetRootUrl();
+            var loginView = new LoginViewModel();
+            loginView.GoogleAuthUrl = rootAuthUrl + "google";
+            loginView.FacebookAuthUrl = rootAuthUrl + "facebook";
+            loginView.LinkedInAuthUrl = rootAuthUrl + "linkedin";
+            loginView.TwitterAuthUrl = rootAuthUrl + "twitter";
+            loginView.GithubAuthUrl = rootAuthUrl + "github";
+            loginView.WindowLiveAuthUrl = rootAuthUrl + "windowslive";
+
+            return View(loginView);
+        }
+
+        private string GetRootUrl() {
+            return ShouldUseActualAuthUrls() ? "/authentication/redirect/" : "/authentication/redirect/fake";
+        }
+
+        private bool ShouldUseActualAuthUrls() {
+            return State.Settings.AuthenticationMode == AuthenticationModes.Actual ||
+                   (State.Settings.AuthenticationMode == AuthenticationModes.Default && State.RunningInProduction());
         }
 
         [HttpPost]

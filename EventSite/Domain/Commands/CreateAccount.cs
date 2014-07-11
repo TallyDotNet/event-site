@@ -32,7 +32,7 @@ namespace EventSite.Domain.Commands {
             var slug = SlugConverter.ToSlug(Username);
 
             if(prohibitSlug(slug)) {
-                return Error("The requested username is not available.");
+                return Error(EventSiteResources.CreateUser_UsernameNotAvailable);
             }
 
             var user = Bus.Query(new UserWithEmail(Email));
@@ -51,10 +51,10 @@ namespace EventSite.Domain.Commands {
                 }
             };
 
-            user.AddOAuthAccount(providerName, providerUserId)
-                .AddRole(Roles.User);
+            user.AddOAuthAccount(providerName, providerUserId);
 
-            if(shouldMakeAdmin(user.Username)){
+            user.AddRole(Roles.User);
+            if(shouldMakeAdmin(Username)){
                 user.AddRole(Roles.Admin);
             }
 
@@ -65,17 +65,16 @@ namespace EventSite.Domain.Commands {
                 .WithMessage("Your account has been successfully created.");
         }
 
-        static readonly string[] ForbiddenUserSlugs = {
+        public static readonly string[] ForbiddenUserSlugs = {
             "admin", "administrator", "developer",
             "support", "owner", "siteowner", "site-owner", "bin"
         };
 
-        bool shouldMakeAdmin(string userName) {
+        bool shouldMakeAdmin(string username) {
             //this method allows for a couple of ways to bootstrap the initial admin user
             //for a fresh installation of the app where no users exist yet.
 
-            //TODO: make this a configurable switch
-            if (userName.Equals("EisenbergEffect", StringComparison.OrdinalIgnoreCase))
+            if (username.Equals(State.Settings.InitialAdminUserName, StringComparison.OrdinalIgnoreCase))
                 return true;
 
             if (!State.RunningInProduction() && !Bus.Query(new AdminUserExists()))

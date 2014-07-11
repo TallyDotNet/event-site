@@ -1,13 +1,8 @@
 ﻿@using EventSite.Domain
+@model EventSite.ViewModels.Account.LoginViewModel
+
 @{
     ViewInfo.Title = "Login";
-
-    var google = State.RunningInProduction() ? "/authentication/redirect/google" : "/authentication/redirect/fakeGoogle";
-    var facebook = State.RunningInProduction() ? "/authentication/redirect/facebook" : "/authentication/redirect/fakeFacebook";
-    var twitter = State.RunningInProduction() ? "/authentication/redirect/twitter" : "/authentication/redirect/fakeTwitter";
-    var github = State.RunningInProduction() ? "/authentication/redirect/github" : "/authentication/redirect/fakeGithub";
-    var linkedin = State.RunningInProduction() ? "/authentication/redirect/linkedin" : "/authentication/redirect/fakeLinkedIn";
-    var windowsLive = State.RunningInProduction() ? "/authentication/redirect/windowslive" : "/authentication/redirect/fakeWindowsLive";
 }
 
 <div class="jumbotron">
@@ -18,36 +13,36 @@
 <div class="container login-buttons" style="margin: 60px">
     <div class="row">
         <div class="col-md-offset-4 col-md-2">
-            <a class="btn btn-lg btn-default" href="@google">
+            <a class="btn btn-lg btn-default" href="@Model.GoogleAuthUrl">
                 Google
             </a> 
         </div>
         <div class="col-md-2">
-            <a class="btn btn-lg btn-default" href="@facebook">
+            <a class="btn btn-lg btn-default" href="@Model.FacebookAuthUrl">
                 Facebook
             </a> 
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-2">
-            <a class="btn btn-lg btn-default" href="@twitter">
+            <a class="btn btn-lg btn-default" href="@Model.TwitterAuthUrl">
                 Twitter
             </a> 
         </div>
         <div class="col-md-2">
-            <a class="btn btn-lg btn-default" href="@github">
+            <a class="btn btn-lg btn-default" href="@Model.GithubAuthUrl">
                 Github
             </a> 
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-2">
-            <a class="btn btn-lg btn-default" href="@linkedin">
+            <a class="btn btn-lg btn-default" href="@Model.LinkedInAuthUrl">
                 LinkedIn
             </a> 
         </div>
         <div class="col-md-2">
-            <a class="btn btn-lg btn-default" href="@windowsLive">
+            <a class="btn btn-lg btn-default" href="@Model.WindowLiveAuthUrl">
                 Windows Live
             </a> 
         </div>
