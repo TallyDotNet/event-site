@@ -16,12 +16,6 @@
     <div class="page-header text-center">
         <h3>@Model.Count() Sponsors Have Dontated a Total of @Model.Sum(x => x.AmountDonated).ToString("C").</h3>
     </div>
-} else
-{
-    //TODO: if we have a sponsorship doc, show it here with some info
-    <div>
-        Details about becoming a sponsor including sponsorship levels for this event will be available as the event date draws closer.
-    </div>  
 }
 
 <div class="row">
@@ -54,6 +48,12 @@
     </div>
     
     <div class="col-md-3" style="padding-top: 100px;">
+        <div role="complementary">
+            <ul class="sidenav nav">
+                <li class="active">Attention Potential Sponsors!</li>
+                <li>If you are interested in becoming a sponsor for this event stay tuned to this page for updates or follow us on twitter: <a href="http://twitter.com/TallyCodeCamp">@@TallyCodeCamp</a> </li>
+            </ul>
+        </div>
         
         @if(State.UserIsAdmin() && State.EventScheduled()) {
             <div class="text-center">
