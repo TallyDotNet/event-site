@@ -4,20 +4,23 @@ using System.Linq;
 using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 using Raven.Client.Indexes;
+using Raven.Client.Linq;
 
 namespace EventSite.Domain.Queries {
     public class SponsorsForEvent : Query<IEnumerable<Sponsor>> {
         readonly string eventId;
+        readonly SponsorStatus[] statuses;
 
-        public SponsorsForEvent(string eventId) {
+        public SponsorsForEvent(string eventId, params SponsorStatus[] statuses) {
             this.eventId = eventId;
+            this.statuses = statuses.Any() ? statuses : new[] {SponsorStatus.Active};
         }
 
         protected override IEnumerable<Sponsor> Execute() {
             return DocSession.Query<Sponsor, SponsorsIndex>()
                 .Where(x => x.Event.Id == eventId)
                 .ToList()
-                .Where(x => x.Status == SponsorStatus.Active)
+                .Where(x => x.Status.In(statuses))
                 .OrderBy(x => x.DonatedOn.GetValueOrDefault(DateTimeOffset.Now))
                 .OrderByDescending(x => x.Priority)
                 .OrderByDescending(x => x.Level);

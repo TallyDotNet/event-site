@@ -20,6 +20,10 @@ namespace EventSite.Infrastructure {
         }
 
         public void Remove(string source) {
+            if (string.IsNullOrEmpty(source)) {
+                return;
+            }
+
             var deletePath = HttpContext.Current.Server.MapPath("~" + Location + source);
             File.Delete(deletePath);
         }

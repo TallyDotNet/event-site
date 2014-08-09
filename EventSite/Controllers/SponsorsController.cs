@@ -17,7 +17,7 @@ namespace EventSite.Controllers {
         }
 
         [HttpGet]
-        public ActionResult Index(string eventSlug = null) {
+        public ActionResult Index(string eventSlug = null, SponsorStatus? status = null) {
             if(string.IsNullOrEmpty(eventSlug) && State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
@@ -26,9 +26,16 @@ namespace EventSite.Controllers {
                 ? State.CurrentEvent.Id
                 : Event.IdFrom(eventSlug);
 
-            var sponsors = Bus.Query(new SponsorsForEvent(eventId));
+            var statusFilter = status.HasValue ? new[] { status.Value } : GetDefaultSponsorStatusesForQuery();
+            var sponsors = Bus.Query(new SponsorsForEvent(eventId, statusFilter));
 
             return View(sponsors);
+        }
+
+        private SponsorStatus[] GetDefaultSponsorStatusesForQuery() {
+            return State.UserIsAdmin()
+                ? new[] {SponsorStatus.Active, SponsorStatus.Inactive}
+                : new[] {SponsorStatus.Active};
         }
 
         [HttpGet]

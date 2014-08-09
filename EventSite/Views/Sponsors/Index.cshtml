@@ -34,6 +34,19 @@
                         </a>
                         <div class="media-body">
                             <h4 class="media-heading"><a href="@sponsor.Link" target="_blank">@sponsor.Name</a></h4>
+                            @if (State.UserIsAdmin()) {
+                                    switch (sponsor.Status) {
+                                        case SponsorStatus.Inactive:
+                                            <span class="label label-warning">Inactive</span>
+                                            break;
+                                        case SponsorStatus.Active:
+                                            <span class="label label-success">Active</span>
+                                            break;
+                                        case SponsorStatus.Deleted:
+                                            <span class="label label-danger">Deleted</span>
+                                            break;
+                                    }
+                            }
                             <div class="description">@sponsor.Description</div>
                         </div>
                         @if(State.UserIsAdmin()) {

@@ -20,7 +20,7 @@
 
 <div class="jumbotron">
     <h1>@title</h1>
-    <p class="lead">Fill in some details and your on your way...</p>
+    <p class="lead">Enter details about the sponsor</p>
 </div>
 
 <div class="row">
@@ -109,6 +109,12 @@
                         <div class="col-lg-10">
                             <textarea rows="4" class="form-control" id="Sponsor.ItemsDonated" name="Sponsor.ItemsDonated" placeholder="Items Donated">@Model.Sponsor.ItemsDonated</textarea>
                             @Html.ValidationMessageFor(x => x.Sponsor.ItemsDonated)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Sponsor.Status" class="col-lg-2 control-label">Status</label>
+                        <div class="col-lg-10">
+                            @Html.DropDownListFor(model => model.Sponsor.Status, @Model.Sponsor.Status.ToSelectList(), new { id="Sponsor.Status", @class = "form-control" })
                         </div>
                     </div>
                 </div>

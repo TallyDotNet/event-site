@@ -35,7 +35,6 @@ namespace EventSite.Domain.Commands {
                 }
 
                 toSave.Id = id;
-                toSave.Status = SponsorStatus.Active;
                 toSave.Event = new Reference {
                     Id = State.CurrentEvent.Id,
                     Name = State.CurrentEvent.Name
@@ -53,6 +52,7 @@ namespace EventSite.Domain.Commands {
                 toSave.AmountDonated = Sponsor.AmountDonated;
                 toSave.ItemsDonated = Sponsor.ItemsDonated;
                 toSave.Priority = Sponsor.Priority;
+                toSave.Status = Sponsor.Status;
             }
 
             return SuccessFormat("\"{0}\" was successfully {1}.", toSave.Name, isNew ? "created" : "updated")
