@@ -11,7 +11,7 @@
     <p class="lead">Thanks to all the companies and individuals who helped make @State.CurrentEvent.Name possible!</p>
 </div>
 
-@if (State.UserIsAdmin())
+@if (State.UserCanManageSponsors())
 {
     <div class="page-header text-center">
         <h3>@Model.Count() Sponsors Have Dontated a Total of @Model.Sum(x => x.AmountDonated).ToString("C").</h3>
@@ -34,7 +34,7 @@
                         </a>
                         <div class="media-body">
                             <h4 class="media-heading"><a href="@sponsor.Link" target="_blank">@sponsor.Name</a></h4>
-                            @if (State.UserIsAdmin()) {
+                            @if (State.UserCanManageSponsors()) {
                                     switch (sponsor.Status) {
                                         case SponsorStatus.Inactive:
                                             <span class="label label-warning">Inactive</span>
@@ -49,7 +49,7 @@
                             }
                             <div class="description">@sponsor.Description</div>
                         </div>
-                        @if(State.UserIsAdmin()) {
+                        @if(State.UserCanManageSponsors()) {
                             <div class="pull-right">
                                 <a class="btn btn-success" href="@Url.Action("Detail", "Sponsors", new {eventSlug = Event.SlugFromId(sponsor.Event.Id), sponsorSlug = Sponsor.SlugFromId(sponsor.Id)})">Edit</a>
                             </div>
@@ -68,7 +68,7 @@
             </ul>
         </div>
         
-        @if(State.UserIsAdmin() && State.EventScheduled()) {
+        @if(State.UserCanManageSponsors() && State.EventScheduled()) {
             <div class="text-center">
                 <a href="@Url.Action("Create", "Sponsors", new {eventSlug = State.CurrentEventSlug()})" class="btn btn-lg btn-success">
                     Add a Sponsor for <br/>

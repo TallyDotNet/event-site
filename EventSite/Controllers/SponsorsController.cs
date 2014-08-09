@@ -33,19 +33,19 @@ namespace EventSite.Controllers {
         }
 
         private SponsorStatus[] GetDefaultSponsorStatusesForQuery() {
-            return State.UserIsAdmin()
+            return State.UserCanManageSponsors()
                 ? new[] {SponsorStatus.Active, SponsorStatus.Inactive}
                 : new[] {SponsorStatus.Active};
         }
 
         [HttpGet]
-        [LoggedIn(Roles = Roles.Admin)]
+        [LoggedIn(Roles = Roles.ManageSponsors)]
         public ActionResult Create(string eventSlug) {
             return View("CreateOrUpdate", new CreateOrUpdateSponsor());
         }
 
         [HttpPost]
-        [LoggedIn(Roles = Roles.Admin)]
+        [LoggedIn(Roles = Roles.ManageSponsors)]
         public ActionResult Index(string eventSlug, CreateOrUpdateSponsor input, HttpPostedFileBase file) {
             return Execute(input)
                 .OnSuccess(x => {
@@ -65,7 +65,7 @@ namespace EventSite.Controllers {
         }
 
         [HttpGet]
-        [LoggedIn(Roles = Roles.Admin)]
+        [LoggedIn(Roles = Roles.ManageSponsors)]
         public ActionResult Detail(string eventSlug, string sponsorSlug) {
             var sponsor = DocSession.Load<Sponsor>(Sponsor.IdFrom(eventSlug, sponsorSlug));
             if(sponsor == null) {
@@ -78,7 +78,7 @@ namespace EventSite.Controllers {
         }
 
         [HttpPost]
-        [LoggedIn(Roles = Roles.Admin)]
+        [LoggedIn(Roles = Roles.ManageSponsors)]
         public ActionResult Detail(string eventSlug, string sponsorSlug, CreateOrUpdateSponsor input, HttpPostedFileBase file = null) {
             input.Sponsor.Id = Sponsor.IdFrom(eventSlug, sponsorSlug);
             return Execute(input)
