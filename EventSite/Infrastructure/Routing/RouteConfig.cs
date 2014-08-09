@@ -92,7 +92,7 @@ namespace EventSite.Infrastructure.Routing {
                 .HandledBy<EventsController>(x => x.ExportSponsors(null));
 
             RouteFor("events/{eventSlug}/sponsors")
-                .HandledBy<SponsorsController>(x => x.Index(null));
+                .HandledBy<SponsorsController>(x => x.Index(null, null));
 
             RouteFor("events/{eventSlug}/sponsors/new")
                 .HandledBy<SponsorsController>(x => x.Create(null));
@@ -101,7 +101,7 @@ namespace EventSite.Infrastructure.Routing {
                 .HandledBy<SponsorsController>(x => x.Detail(null, null));
 
             RouteFor("sponsors")
-                .HandledBy<SponsorsController>(x => x.Index(null));
+                .HandledBy<SponsorsController>(x => x.Index(null, null));
 
             RouteFor("events/new")
                 .HandledBy<EventsController>(x => x.Create());
