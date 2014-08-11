@@ -53,6 +53,12 @@ namespace EventSite.Domain.Model {
             return this;
         }
 
+        public void RemoveRole(string role) {
+            if (Roles.Contains(role)) {
+                Roles.Remove(role);
+            }
+        }
+
         public static string IdFrom(string slug) {
             if(string.IsNullOrEmpty(slug)) {
                 return null;

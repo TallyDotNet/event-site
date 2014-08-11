@@ -1,0 +1,66 @@
+﻿@using EventSite.Domain.Model
+@using Raven.Client.Linq
+@using Roles = EventSite.Domain.Model.Roles
+@model EventSite.Domain.Commands.UpdateUser
+
+@{
+    
+}
+
+<div class="jumbotron">
+    <h1>Update User</h1>
+    <p class="lead">Edit user details</p>
+</div>
+
+<div class="col-md-9" role="main">
+    <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="@Url.Action("")">
+        <div class="page-header">
+            <h3>Basic Info</h3>
+        </div>
+        <div class="form-group">
+            <label for="User.Name" class="col-lg-2 control-label">Name:</label>
+            <div class="col-lg-10">
+                <label id="User.Name" class="col-lg-2 control-label">@Model.User.GetDisplayName()</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="User.Title" class="col-lg-2 control-label">Title:</label>
+            <div class="col-lg-10">
+                <label id="User.Title" class="col-lg-2 control-label">
+                    @Model.User.Profile.Title
+                </label>
+            </div>
+        </div>
+
+        <div class="page-header">
+            <h3>Auth Accounts</h3>
+        </div>
+        @foreach (var authAccount in Model.User.AuthAccounts) {
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Provider:</label>
+                <div class="col-lg-10">
+                    <label class="col-lg-2 control-label">@authAccount.Provider</label>
+                </div>
+            </div>
+        }
+        <div class="page-header">
+            <h3>Roles</h3>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Manage Sponsors:</label>
+            <div class="col-lg-10">
+                @Html.CheckBoxFor(model => model.InSponsorManagerRole, new { @class = "col-lg-2 checkbox"})
+                @*@Html.CheckBox("role_" + Roles.ManageSponsors, Model.User.InRole(Roles.ManageSponsors), new { @class = "col-lg-2 checkbox"})*@
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-lg-2 control-label">System Admin:</label>
+            <div class="col-lg-10">
+                @Html.CheckBoxFor(model => model.InAdminRole, new { @class = "col-lg-2 checkbox"});
+                @*@Html.CheckBox("role_" + Roles.Admin, Model.User.InRole(Roles.Admin), new { @class = "col-lg-2 checkbox"})*@
+            </div>
+        </div>
+    </form>
+</div>
