@@ -8,8 +8,20 @@ namespace EventSite.Domain {
             return state.User != null;
         }
 
+        public static bool UserCanManageSponsors(this IApplicationState state) {
+            return state.UserIsLoggedIn() && UserHasPermission(state.User, Roles.ManageSponsors);
+        }
+
         public static bool UserIsAdmin(this IApplicationState state) {
-            return state.UserIsLoggedIn() && state.User.Roles.Contains(Roles.Admin);
+            return state.UserIsLoggedIn() && UserHasPermission(state.User, Roles.Admin);
+        }
+
+        private static bool UserHasPermission(User user, string role) {
+            if (user.Roles.Contains(Roles.Admin)) {
+                return true;
+            }
+
+            return user.Roles.Contains(role);
         }
 
         public static bool RunningInProduction(this IApplicationState state) {

@@ -174,7 +174,9 @@
     <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="Controllers\SponsorsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Domain\Commands\ChangeSessionStatus.cs" />
+    <Compile Include="Domain\Commands\UpdateUser.cs" />
     <Compile Include="Domain\Model\SponsorsExportColumnMappings.cs" />
     <Compile Include="EventSiteResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -352,6 +354,7 @@
     <Content Include="Views\Home\_Featurette.cshtml" />
     <Content Include="Views\Sponsors\CreateOrUpdate.cshtml" />
     <Content Include="Views\Attendees\Index.cshtml" />
+    <Content Include="Views\Users\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,71 @@
+﻿@using EventSite.Domain.Model
+@using Raven.Client.Linq
+@using Roles = EventSite.Domain.Model.Roles
+@model EventSite.Domain.Commands.UpdateUser
+
+@{
+    
+}
+
+<div class="jumbotron">
+    <h1>Update User</h1>
+    <p class="lead">Edit user details</p>
+</div>
+
+<div class="col-md-9" role="main">
+    <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="@Url.Action("Update", "Users", new { userSlug = EventSite.Domain.Model.User.SlugFromId(Model.User.Id)})">
+        <div class="page-header">
+            <h3>Basic Info</h3>
+        </div>
+        <div class="form-group">
+            <label for="User.Id" class="col-lg-2 control-label">User Id:</label>
+            <div class="col-lg-10">
+                <label id="User.Name" class="control-label">@Model.User.Id</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="User.Profile.Title" class="col-lg-2 control-label">Title:</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="User.Profile.Title" name="User.Profile.Title" placeholder="Title" value="@Model.User.Profile.Title">
+                @*<label id="User.Title" class="col-lg-2 control-label">
+                    @Model.User.Profile.Title
+                </label>*@
+            </div>
+        </div>
+
+        <div class="page-header">
+            <h3>Auth Accounts</h3>
+        </div>
+        @foreach (var authAccount in Model.User.AuthAccounts) {
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Provider:</label>
+                <div class="col-lg-10">
+                    <label class="col-lg-2 control-label">@authAccount.Provider</label>
+                </div>
+            </div>
+        }
+        <div class="page-header">
+            <h3>Roles</h3>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Manage Sponsors:</label>
+            <div class="col-lg-10">
+                @Html.CheckBoxFor(model => model.InSponsorManagerRole, new { @class = "col-lg-2 checkbox"})                
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-lg-2 control-label">System Admin:</label>
+            <div class="col-lg-10">
+                @Html.CheckBoxFor(model => model.InAdminRole, new { @class = "col-lg-2 checkbox"});
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-lg-offset-10 col-lg-2">
+                <button type="submit" class="btn btn-lg btn-success" style="width: 100%">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
