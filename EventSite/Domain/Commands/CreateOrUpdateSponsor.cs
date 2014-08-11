@@ -2,7 +2,7 @@
 using EventSite.Domain.Model;
 
 namespace EventSite.Domain.Commands {
-    public class CreateOrUpdateSponsor : Command<Result<Sponsor>>.AdminOnly {
+    public class CreateOrUpdateSponsor : Command<Result<Sponsor>> {
         public Sponsor Sponsor { get; set; }
         public ISlugConverter SlugConverter { get; set; }
 
@@ -11,6 +11,8 @@ namespace EventSite.Domain.Commands {
         }
 
         protected override Result<Sponsor> Execute() {
+            RestrictToRole(Roles.ManageSponsors);
+
             var toSave = Sponsor;
             var isNew = string.IsNullOrEmpty(toSave.Id);
 

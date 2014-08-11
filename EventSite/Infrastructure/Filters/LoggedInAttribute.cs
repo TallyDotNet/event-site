@@ -10,6 +10,11 @@ namespace EventSite.Infrastructure.Filters {
 
         protected override bool AuthorizeCore(HttpContextBase httpContext) {
             if(State.UserIsLoggedIn()) {
+
+                if (State.UserIsAdmin()) {
+                    return true;
+                }
+
                 var roles = splitString(Roles);
                 return !roles.Any() || roles.Any(x => State.User.Roles.Contains(x));
             }

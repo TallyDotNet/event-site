@@ -18,7 +18,23 @@ namespace EventSite.Controllers
                 return NotFound();
             }
 
-            return View(new UpdateUser(user));
+            var userData = new UpdateUser();
+            userData.User = user;
+            userData.InAdminRole = user.InRole(Roles.Admin);
+            userData.InSponsorManagerRole = user.InRole(Roles.ManageSponsors);
+
+            return View(new UpdateUser() { User = user });
+        }
+
+        [HttpPost]
+        [LoggedIn(Roles = Roles.Admin)]
+        public ActionResult Update(string userSlug, UpdateUser command) {
+
+            command.User.Id = EventSite.Domain.Model.User.IdFrom(userSlug);
+
+            return Execute(command)
+                .OnSuccess(x => View("Update", command))
+                .OnFailure(x => View("Update", command));
         }
 
         private User LoadUserFromSlug(string userSlug) {
