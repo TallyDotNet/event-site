@@ -32,6 +32,11 @@ namespace EventSite.Controllers {
             return View(sponsors);
         }
 
+        [HttpGet]
+        public ActionResult Info(string eventSlug) {
+            return View();
+        }
+
         private SponsorStatus[] GetDefaultSponsorStatusesForQuery() {
             return State.UserCanManageSponsors()
                 ? new[] {SponsorStatus.Active, SponsorStatus.Inactive}

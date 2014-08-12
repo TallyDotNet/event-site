@@ -303,13 +303,13 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\styles\site.less" />
     <EmbeddedResource Include="EmailTemplates\SessionStatusChange.template" />
-    <Content Include="Content\downloads\Sponsorships.docx" />
     <Content Include="Content\downloads\TallahasseeCodeCamp2013Schedule.pdf" />
     <EmbeddedResource Include="EventSiteResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EventSiteResources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>EventSite</CustomToolNamespace>
     </EmbeddedResource>
+    <Content Include="Content\downloads\2014TallahasseeCodeCampSponsorship.pdf" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\behavior.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -355,6 +355,7 @@
     <Content Include="Views\Sponsors\CreateOrUpdate.cshtml" />
     <Content Include="Views\Attendees\Index.cshtml" />
     <Content Include="Views\Users\Update.cshtml" />
+    <Content Include="Views\Sponsors\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

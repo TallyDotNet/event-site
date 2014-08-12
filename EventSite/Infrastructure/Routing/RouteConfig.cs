@@ -99,6 +99,9 @@ namespace EventSite.Infrastructure.Routing {
             RouteFor("events/{eventSlug}/sponsors/new")
                 .HandledBy<SponsorsController>(x => x.Create(null));
 
+            RouteFor("events/{eventSlug}/sponsors/info")
+                .HandledBy<SponsorsController>(x => x.Info(null));
+
             RouteFor("events/{eventSlug}/sponsors/{sponsorSlug}")
                 .HandledBy<SponsorsController>(x => x.Detail(null, null));
 
