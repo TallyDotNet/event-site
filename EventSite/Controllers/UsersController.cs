@@ -23,7 +23,7 @@ namespace EventSite.Controllers
             userData.InAdminRole = user.InRole(Roles.Admin);
             userData.InSponsorManagerRole = user.InRole(Roles.ManageSponsors);
 
-            return View(new UpdateUser() { User = user });
+            return View(userData);
         }
 
         [HttpPost]
