@@ -206,6 +206,9 @@
   margin: 8px;
   width: 100%;
 }
+.description {
+	white-space: pre;
+}
 li.media {
   border-bottom: 1px solid lightgray;
   padding-bottom: 16px;
