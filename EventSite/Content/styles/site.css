@@ -218,7 +218,7 @@ li.media .presenter {
   margin-top: 4px;
 }
 li.media .description {
-  white-space: pre;
+  white-space: pre-wrap;
 }
 li.media .sponsor {
   width: 180px;
