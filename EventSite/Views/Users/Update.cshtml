@@ -4,7 +4,7 @@
 @model EventSite.Domain.Commands.UpdateUser
 
 @{
-    
+
 }
 
 <div class="jumbotron">
@@ -24,44 +24,66 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="User.Profile.Name" class="col-lg-2 control-label">Name:</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="User.Profile.Name" name="User.Profile.Name" placeholder="Name" value="@Model.User.Profile.Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="User.Profile.Company" class="col-lg-2 control-label">Company:</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="User.Profile.Company" name="User.Profile.Company" placeholder="Name" value="@Model.User.Profile.Company" />
+            </div>
+        </div>
+        <div class="form-group">
             <label for="User.Profile.Title" class="col-lg-2 control-label">Title:</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="User.Profile.Title" name="User.Profile.Title" placeholder="Title" value="@Model.User.Profile.Title">
-                @*<label id="User.Title" class="col-lg-2 control-label">
-                    @Model.User.Profile.Title
-                </label>*@
+                <input type="text" class="form-control" id="User.Profile.Title" name="User.Profile.Title" placeholder="Title" value="@Model.User.Profile.Title" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="User.Profile.Phone" class="col-lg-2 control-label">Phone:</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="User.Profile.Phone" name="User.Profile.Phone" placeholder="Phone" value="@Model.User.Profile.TelephoneNumber" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="User.Profile.Bio" class="col-lg-2 control-label">Bio:</label>
+            <div class="col-lg-10">
+                <textarea class="form-control" id="User.Profile.Bio" name="User.Profile.Bio" placeholder="Bio">@Model.User.Profile.Bio</textarea>
             </div>
         </div>
 
         <div class="page-header">
             <h3>Auth Accounts</h3>
         </div>
-        @foreach (var authAccount in Model.User.AuthAccounts) {
+        @foreach (var authAccount in Model.User.AuthAccounts)
+        {
             <div class="form-group">
-                <label class="col-lg-2 control-label">Provider:</label>
+                <label class="col-lg-2 control-label">Provider / id:</label>
                 <div class="col-lg-10">
-                    <label class="col-lg-2 control-label">@authAccount.Provider</label>
+                    <label class="control-label">@authAccount.Provider / @authAccount.ProviderUserId</label>
                 </div>
             </div>
         }
         <div class="page-header">
             <h3>Roles</h3>
         </div>
-        
+
         <div class="form-group">
             <label class="col-lg-2 control-label">Manage Sponsors:</label>
             <div class="col-lg-10">
-                @Html.CheckBoxFor(model => model.InSponsorManagerRole, new { @class = "col-lg-2 checkbox"})                
+                @Html.CheckBoxFor(model => model.InSponsorManagerRole, new { @class = "col-lg-2 checkbox" })
             </div>
         </div>
-        
+
         <div class="form-group">
             <label class="col-lg-2 control-label">System Admin:</label>
             <div class="col-lg-10">
-                @Html.CheckBoxFor(model => model.InAdminRole, new { @class = "col-lg-2 checkbox"});
+                @Html.CheckBoxFor(model => model.InAdminRole, new { @class = "col-lg-2 checkbox" });
             </div>
         </div>
-        
+
         <div class="form-group">
             <div class="col-lg-offset-10 col-lg-2">
                 <button type="submit" class="btn btn-lg btn-success" style="width: 100%">Save</button>
