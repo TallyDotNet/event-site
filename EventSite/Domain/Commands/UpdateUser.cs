@@ -19,6 +19,10 @@ namespace EventSite.Domain.Commands
             }
 
             userToUpdate.Profile.Title = User.Profile.Title;
+            userToUpdate.Profile.Bio = User.Profile.Bio;
+            userToUpdate.Profile.Name = User.Profile.Name;
+            userToUpdate.Profile.Company = User.Profile.Company;
+            userToUpdate.Profile.TelephoneNumber = User.Profile.TelephoneNumber;
 
             userToUpdate.Roles.Clear();
             userToUpdate.AddRole(Roles.User);
