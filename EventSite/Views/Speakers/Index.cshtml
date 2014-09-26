@@ -10,8 +10,52 @@
     <p class="lead">Check out who's speaking.</p>
 </div>
 
-    
 <div class="container">
+
+    <div class="row featurette">
+        <a data-toggle="modal" href="#keynote-speaker" class="">
+            <div class="col-md-7" style="text-align: center;"><h2 class="featurette-heading">Keynote Speaker: <br />Ryan Kopinsky</h2></div>
+            <div class="col-md-5">
+                <img class="decorative-image challenge img-responsive" style="width: 200px; height:200px" src="~/Content/images/home/carousel/keynote_speaker.JPG" alt="Ryan Kopinsky" />
+            </div>
+        </a>
+    </div>
+    <div class="modal fade" id="keynote-speaker" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <img class="avatar img-responsive" style="width: auto" src="~/Content/images/home/carousel/keynote_speaker.JPG" alt="Ryan Kopinsky">
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <h3>Ryan Kopinsky</h3>
+                            <div>Founder of Shop X</div>
+                        </div>
+                        <button class="close col-xs-1 col-sm-1 col-md-1" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 bio">
+                            <p>
+                                Ryan, originally from Suriname, South America, is the leading advocate for wearable technology in Tallahassee, Florida.
+                                He became a Glass Explorer on November 26, 2013, and has been an avid user ever since.
+                            </p>
+                            <p>
+                                Prior to Shop X, he founded TechNOLEgy, the first recognized student organization at Florida State University focused on making
+                                computer programming a social and interdisciplinary experience.
+                            </p>
+                            <p>
+                                Ryan is currently a PhD Candidate in Robotics at Florida State University, and is the recipient of the FSU Legacy Fellowship. As
+                                part of his research, Ryan has worked on state-of-the-art tech including the NASA-IHMC X1 Exoskeleton.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="featurette-divider" />
+
     @foreach(var row in Model.UserRows) {
         <div class="row speakers">
             @foreach(var speaker in row) {
@@ -34,7 +78,7 @@
                                         <h3>@speaker.DisplayName</h3>
                                         <div>@speaker.User.GetProfessionalInfo()</div>
                                         @if (State.UserIsAdmin()) {
-                                        <div>@speaker.User.Email</div>
+                                            <div>@speaker.User.Email</div>
                                         }
                                     </div>
                                     <button class="close col-xs-1 col-sm-1 col-md-1" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -80,7 +124,7 @@
                 <a href="@Url.Action("Index", "Speakers", new {eventSlug = Model.EventSlug, page = Model.Page.PreviousPage})">Previous</a>
             </li>
         }
-        
+
         @if (Model.Page.HasNextPage)
         {
             <li>

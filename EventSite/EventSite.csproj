@@ -283,6 +283,7 @@
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\images\home\carousel\class.jpeg" />
     <Content Include="Content\images\home\carousel\crowd.jpeg" />
+    <Content Include="Content\images\home\carousel\keynote_speaker.JPG" />
     <Content Include="Content\images\home\carousel\speaker.jpg" />
     <Content Include="Content\images\home\carousel\vendor.jpeg" />
     <Content Include="Content\images\home\featurette\charity.jpg" />
