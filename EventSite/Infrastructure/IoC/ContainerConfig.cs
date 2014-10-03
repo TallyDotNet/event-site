@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -9,7 +10,9 @@ using EventSite.Infrastructure.Data;
 using EventSite.Infrastructure.Logging;
 using EventSite.Infrastructure.Views;
 using Raven.Client;
+using SimpleAuthentication.Core;
 using SimpleAuthentication.Mvc;
+using SimpleAuthentication.Mvc.Caching;
 
 namespace EventSite.Infrastructure.IoC {
     public class ContainerConfig {
@@ -39,6 +42,7 @@ namespace EventSite.Infrastructure.IoC {
             builder.Register(x => x.Resolve<IDocumentStore>().OpenSession()).As<IDocumentSession>().InstancePerHttpRequest();
             
             builder.RegisterType<AuthenticationCallbackProvider>().As<IAuthenticationCallbackProvider>();
+            builder.RegisterType<CookieCache>().As<ICache>();    
             builder.RegisterType<SimpleAuthenticationController>().As<SimpleAuthenticationController>().InstancePerHttpRequest();
             
             builder.RegisterType<DefaultSecurityEncoder>().As<ISecurityEncoder>().SingleInstance();
@@ -49,7 +53,6 @@ namespace EventSite.Infrastructure.IoC {
             } else {
                 builder.RegisterType<LocalImageStorage>().As<IImageStorage>().SingleInstance();
             }
-
         }
 
         static void RegisterMVCComponents(ContainerBuilder builder) {

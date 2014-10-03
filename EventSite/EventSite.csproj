@@ -76,16 +76,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleAuthentication.Core, Version=0.3.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SimpleAuthentication.Core, Version=0.3.14.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SimpleAuthentication.Core.0.3.7-pre\lib\net40\SimpleAuthentication.Core.dll</HintPath>
+      <HintPath>..\packages\SimpleAuthentication.Core.0.3.14\lib\net40\SimpleAuthentication.Core.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleAuthentication.ExtraProviders">
-      <HintPath>..\packages\SimpleAuthentication.ExtraProviders.0.3.7-pre\lib\net40\SimpleAuthentication.ExtraProviders.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleAuthentication.Mvc, Version=0.3.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SimpleAuthentication.ExtraProviders, Version=0.3.14.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SimpleAuthentication.Mvc4.0.3.7-pre\lib\net40\SimpleAuthentication.Mvc.dll</HintPath>
+      <HintPath>..\packages\SimpleAuthentication.ExtraProviders.0.3.14\lib\net40\SimpleAuthentication.ExtraProviders.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleAuthentication.Mvc, Version=0.3.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SimpleAuthentication.Mvc4.0.3.14\lib\net40\SimpleAuthentication.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
