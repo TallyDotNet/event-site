@@ -23,6 +23,11 @@ namespace EventSite.Infrastructure.Authentication {
         }
 
         public ActionResult Process(HttpContextBase context, AuthenticateCallbackData model) {
+
+            if (model.Exception != null) {
+                throw model.Exception;
+            }
+
             var authInfo = model.AuthenticatedClient;
             var userInfo = authInfo.UserInformation;
             var returnUrl = RouteHelper.GetReturnUrl(model.ReturnUrl);
