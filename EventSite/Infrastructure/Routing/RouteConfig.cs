@@ -18,6 +18,9 @@ namespace EventSite.Infrastructure.Routing {
             RouteFor("home")
                 .HandledBy<HomeController>(x => x.Index());
 
+            RouteFor("contact")
+                .HandledBy<HomeController>(x => x.Contact());
+
             RouteFor("account")
                 .HandledBy<AccountController>(x => x.Index());
 

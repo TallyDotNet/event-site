@@ -13,5 +13,9 @@ namespace EventSite.Controllers {
 
             return View(stats);
         }
+
+        public ActionResult Contact() {
+            return View();
+        }
     }
 }

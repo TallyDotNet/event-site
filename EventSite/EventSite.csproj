@@ -357,6 +357,7 @@
     <Content Include="Views\Attendees\Index.cshtml" />
     <Content Include="Views\Users\Update.cshtml" />
     <Content Include="Views\Sponsors\Info.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
