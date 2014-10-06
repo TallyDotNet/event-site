@@ -29,7 +29,8 @@ namespace EventSite.Tests.Infrastructure.Helpers
         }
 
         public void Test() {
-            When("building an excel file result", () => SUT.Build(testQuery, exportCommand));
+
+            When("building an excel file result", () => SUT.Build(pageNumber => testQuery, exportCommand));
 
             Given("the query returns less than 1 page of results.",() => Get<IApplicationBus>().Expect(bus => bus.Query(testQuery))
                 .Return(new Page<TestType> {CurrentPage = 1, Items = new[] {new TestType(1, "one")}, TotalPages = 1}).Repeat.Once()).Verify(() =>

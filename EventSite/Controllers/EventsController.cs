@@ -52,7 +52,7 @@ namespace EventSite.Controllers {
         public FileResult ExportAttendees(string eventSlug) {
             var eventId = Event.IdFrom(eventSlug);
             return PerformExcelExport("attendees",
-                new AttendeesForEvent(eventId, 1, PageSizeForExport),
+                pageNumber =>  new AttendeesForEvent(eventId, pageNumber, PageSizeForExport),
                 new AttendeesExportColumnMappings());
         }
 
@@ -64,9 +64,9 @@ namespace EventSite.Controllers {
                 new SponsorsExportColumnMappings());
         }
 
-        private FileResult PerformExcelExport<T>(string rootFileName, Query<Page<T>> query, IExportColumnMappings<T> columns) {
+        private FileResult PerformExcelExport<T>(string rootFileName, Func<int, Query<Page<T>>> queryBuilder, IExportColumnMappings<T> columns) {
             var exportItems = GetExcelExportItems(rootFileName, columns);
-            exportItems.FileBuilder.Build(query, exportItems.Exporter);
+            exportItems.FileBuilder.Build(queryBuilder, exportItems.Exporter);
             return File(exportItems.TempFileInfo.FullName, "application/xlsx", exportItems.TempFileInfo.Name);
         }
 

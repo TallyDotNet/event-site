@@ -49,8 +49,8 @@ namespace EventSite.Infrastructure.Helpers
             this.bus = bus;
         } 
 
-        public void Build<T>(Query<Page<T>> pagedQuery, IExcelExporter<T> exportCommand) {
-            var data = ExecuteQuery(pagedQuery);
+        public void Build<T>(Func<int,Query<Page<T>>> queryBuilder, IExcelExporter<T> exportCommand) {
+            var data = ExecuteQuery(queryBuilder);
             exportCommand.Export(data);
         }
 
@@ -59,13 +59,14 @@ namespace EventSite.Infrastructure.Helpers
             exportCommand.Export(data);
         }
 
-        private IEnumerable<T> ExecuteQuery<T>(Query<Page<T>> pagedQuery) {
+        private IEnumerable<T> ExecuteQuery<T>(Func<int, Query<Page<T>>> queryBuilder) {
             var pageNumber = 1;
             var result = new List<T>();
             Page<T> currentPage;
 
             do {
-                currentPage = bus.Query(pagedQuery);
+                var queryForNextPage = queryBuilder(pageNumber);
+                currentPage = bus.Query(queryForNextPage);
                 result.AddRange(currentPage.Items);
                 pageNumber++;
             } while (currentPage.HasNextPage);
