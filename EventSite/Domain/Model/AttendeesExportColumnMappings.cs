@@ -13,7 +13,8 @@ namespace EventSite.Domain.Model {
                     {"DisplayName", attendee => attendee.DisplayName},
                     {"Email", attendee => attendee.User.Email},
                     {"ReceiveEmail", attendee => attendee.User.Preferences.ReceiveEmail},
-                    {"ListInAttendeeDirectory", attendee => attendee.User.Preferences.ListInAttendeeDirectory}
+                    {"ListInAttendeeDirectory", attendee => attendee.User.Preferences.ListInAttendeeDirectory},
+                    {"IsSpeaker" , attendee => attendee.IsSpeaker }
                 };
             }
         }

@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using EventSite.Domain.Commands;
 using EventSite.Domain.Infrastructure;
-using EventSite.Domain.Model;
-using EventSite.Domain.Queries;
 using EventSite.Infrastructure.Data.Export;
 
 namespace EventSite.Infrastructure.Helpers
@@ -54,11 +48,6 @@ namespace EventSite.Infrastructure.Helpers
             exportCommand.Export(data);
         }
 
-        public void Build<T>(Query<IEnumerable<T>> query, IExcelExporter<T> exportCommand) {
-            var data = ExecuteQuery(query);
-            exportCommand.Export(data);
-        }
-
         private IEnumerable<T> ExecuteQuery<T>(Func<int, Query<Page<T>>> queryBuilder) {
             var pageNumber = 1;
             var result = new List<T>();
@@ -72,10 +61,6 @@ namespace EventSite.Infrastructure.Helpers
             } while (currentPage.HasNextPage);
 
             return result;
-        }
-
-        private IEnumerable<T> ExecuteQuery<T>(Query<IEnumerable<T>> query) {
-            return bus.Query(query);
-        }
+        }       
     }
 }

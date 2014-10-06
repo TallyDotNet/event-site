@@ -5,5 +5,6 @@
         public string DisplayName { get; set; }
         public User User { get; set; }
         public bool ListInDirectory { get; set; }
+        public bool IsSpeaker { get; set; }
     }
 }

@@ -54,7 +54,8 @@ namespace EventSite.Domain.Queries {
                     EventId = registration.Event.Id,
                     UserId = registration.User.Id,
                     ListInDirectory = registeredUser.Preferences.ListInAttendeeDirectory,
-                    DisplayName = string.IsNullOrEmpty(registeredUser.Profile.Name) ? registeredUser.Username : registeredUser.Profile.Name
+                    DisplayName = string.IsNullOrEmpty(registeredUser.Profile.Name) ? registeredUser.Username : registeredUser.Profile.Name,
+                    IsSpeaker = registration.IsSpeaker
                 };
 
             Store(x => x.UserId, FieldStorage.Yes);
