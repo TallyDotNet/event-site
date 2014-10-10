@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
+using System.Web.WebPages;
 using EventSite.Domain;
 using EventSite.Domain.Commands;
+using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 using EventSite.Domain.Queries;
 using EventSite.Infrastructure.Controllers;
@@ -47,14 +49,16 @@ namespace EventSite.Controllers {
             return Execute(input)
                 .OnSuccess(x => {
                     DocSession.SaveChanges();
-                    return RedirectToAction("Index", "Account");
+                    var controllerName = State.UserIsAdmin() ? "Sessions" : "Account";
+                    var routeValues = State.UserIsAdmin() ? new { Status = SessionStatus.PendingApproval } : null;
+                    return RedirectToAction("Index", controllerName, routeValues);
                 })
                 .OnFailure(x => View("CreateOrUpdate", input));
         }
 
         [HttpGet]
         [LoggedIn]
-        public ActionResult Create() {
+        public ActionResult Create(string userSlug) {
             if(State.NoEventScheduled()) {
                 return View("NoEventScheduled");
             }
@@ -64,7 +68,13 @@ namespace EventSite.Controllers {
                 return RedirectToAction("Create", "Registration", new {eventSlug = State.CurrentEventSlug()});
             }
 
-            return View("CreateOrUpdate", new SubmitOrEditSession());
+            var createUser = new SubmitOrEditSession();
+            if (State.UserIsAdmin() && !userSlug.IsEmpty())
+            {
+                createUser.UserSlug = userSlug;
+            }
+
+            return View("CreateOrUpdate", createUser);
         }
 
         [HttpGet]

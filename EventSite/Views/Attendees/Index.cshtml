@@ -64,7 +64,8 @@
                                     }
                                 </div>
                                 @if (State.UserIsAdmin()) {
-                                 @Html.ActionLink("Edit User", "Update", "Users", new { userSlug = slug}, null);   
+                                    @Html.ActionLink("Edit User", "Update", "Users", new { userSlug = slug}, null);<br/>
+                                    @Html.ActionLink("Create Session", "Create", "Sessions", new { userSlug = slug}, null);
                                 }
                             </div>
                         </div>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.WebPages;
 using EventSite.Domain.Infrastructure;
 using EventSite.Domain.Model;
 
@@ -6,6 +7,7 @@ namespace EventSite.Domain.Commands {
     public class SubmitOrEditSession : Command<Result> {
         public string SessionSlug { get; set; }
         public string EventSlug { get; set; }
+        public string UserSlug { get; set; }
 
         [Required]
         [StringLength(150, MinimumLength = 3)]
@@ -44,19 +46,42 @@ namespace EventSite.Domain.Commands {
         }
 
         Result createNewSession() {
-            if(!State.RegisteredForEvent()) {
+            if(!State.UserIsAdmin() && !State.RegisteredForEvent()) {
                 return Error("You are not registered for the event. Please register before submitting a session.");
             }
 
-            var slug = SlugConverter.ToSlug(Name);
-            var id = Session.IdFrom(State.CurrentEventSlug(), slug);
+            if (!State.UserIsAdmin() && (!State.EventScheduled() || !State.CurrentEvent.IsSessionSubmissionOpen)) {
+                return Error("The currently scheduled event is not currently open for session submission.");
+            }
 
-            if(DocSession.Load<Session>(id) != null) {
+            var sessionSlug = SlugConverter.ToSlug(Name);
+            var sessionId = Session.IdFrom(State.CurrentEventSlug(), sessionSlug);
+
+            if(DocSession.Load<Session>(sessionId) != null) {
                 return Error("The provided session name is not available.");
             }
 
+            Reference sessionUser;
+            if (State.UserIsAdmin() && !UserSlug.IsEmpty()) {
+                var targetUser = DocSession.Load<User>(User.IdFrom(UserSlug));
+                if (targetUser == null) {
+                    return Error(string.Format("Unable to find user with slug '{0}'", UserSlug));
+                }
+
+                sessionUser = new Reference {
+                    Id = targetUser.Id,
+                    Name = targetUser.Username
+                };
+            }
+            else {
+                sessionUser = new Reference {
+                    Id = CurrentUser.Id,
+                    Name = CurrentUser.Username
+                };
+            }
+
             var session = new Session {
-                Id = id,
+                Id = sessionId,
                 Name = Name,
                 Description = Description,
                 Level = Level,
@@ -64,10 +89,7 @@ namespace EventSite.Domain.Commands {
                     Id = State.CurrentEvent.Id,
                     Name = State.CurrentEvent.Name
                 },
-                User = new Reference {
-                    Id = CurrentUser.Id,
-                    Name = CurrentUser.Username
-                },
+                User = sessionUser,
                 SubmittedOn = Now(),
                 Status = SessionStatus.PendingApproval
             };
