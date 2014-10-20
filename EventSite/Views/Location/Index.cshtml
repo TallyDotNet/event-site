@@ -14,57 +14,70 @@
         <div role="complementary">
             <ul class="sidenav nav">
                 <li class="active">When</li>
-                <li>@Model.Name starts on @Model.Start.DateTime.ToLongDateString() at @Model.Start.DateTime.ToShortTimeString() and ends
+                <li>
+                    @Model.Name starts on @Model.Start.DateTime.ToLongDateString() at @Model.Start.DateTime.ToShortTimeString() and ends
 
-                    @if (Model.Start.Date == Model.End.Date) {
+                    @if (Model.Start.Date == Model.End.Date)
+                    {
                         <span>later that day at @Model.End.DateTime.ToShortTimeString().</span>
                     }
-                    else {
+                    else
+                    {
                         <span>at @Model.End.Date.ToLongDateString() at @Model.End.DateTime.ToShortTimeString().</span>
                     }
                 </li>
             </ul>
         </div>
-        
+
         <div role="complementary">
             <ul class="sidenav nav">
                 <li class="active">Where</li>
                 @if (Model.Venue.Name.HasValue())
                 {
-                    <li>@Model.Venue.Name</li>
+                <li>@Model.Venue.Name</li>
                     if (!string.IsNullOrEmpty(Model.Venue.Street1))
                      {
-                         <li>@Model.Venue.Street1</li>
+                <li>@Model.Venue.Street1</li>
                      }
                     if (!string.IsNullOrEmpty(Model.Venue.Street2))
                      {
-                         <li>@Model.Venue.Street2</li>
+                <li>@Model.Venue.Street2</li>
                      }
-                    <li>@Model.Venue.City, @Model.Venue.StateOrProvince</li>
-                    <li>@Model.Venue.Country @Model.Venue.PostalCode</li>
+                <li>@Model.Venue.City, @Model.Venue.StateOrProvince</li>
+                <li>@Model.Venue.Country @Model.Venue.PostalCode</li>
+                    if (Model.Venue.VenueInfoLink.HasValue())
+                     {
+                <li><a href="@Model.Venue.VenueInfoLink" target="_blank">Additional Venue Information</a></li>
+                     }
                 }
                 else
                 {
-                    <li>The venue for this event is TBD</li>
+                <li>The venue for this event is TBD</li>
                 }
             </ul>
         </div>
-        
+
         <div role="complementary">
             <ul class="sidenav nav">
                 <li class="active">Parking</li>
                 @if (Model.Venue.ParkingInformation.HasValue())
                 {
-                    <li>@Model.Venue.ParkingInformation</li>
+                <li>@Model.Venue.ParkingInformation</li>
+
+                    if (Model.Venue.ParkingInfoLink.HasValue())
+                    {
+                <li><a href="@Model.Venue.ParkingInfoLink" target="_blank">Additional Parking Information</a></li>
+                    }
                 }
                 else
                 {
-                    <li>No parking information is avaliable for this event yet.</li>
+                <li>No parking information is avaliable for this event yet.</li>
                 }
             </ul>
         </div>
-        
-        @if(!string.IsNullOrEmpty(Model.ScheduleSummary)) {
+
+        @if (!string.IsNullOrEmpty(Model.ScheduleSummary))
+        {
             <div role="complementary">
                 <ul class="sidenav nav">
                     <li class="active">Schedule</li>
@@ -72,104 +85,107 @@
                     {
                         foreach (var line in Model.ScheduleSummary.Split('\n'))
                          {
-                             <li>@line</li>
+                    <li>@line</li>
                          }
                     }
                     else
                     {
-                        <li>No schedule information is available for this event yet.</li>
+                    <li>No schedule information is available for this event yet.</li>
                     }
-                    
+
                 </ul>
             </div>
         }
     </div>
-    
+    @*<div class="page-header text-center">
+        <h3>A detailed schedule of all sessions will be available here closer to the date of the event.</h3>
+    </div>*@
+
     @if (Model.Venue.HasAddressSet())
     {
         <div class="col-md-9" role="main">
-            <div id="map"style="width: 100%; height: 480px;" />
+            <div id="map" style="width: 100%; height: 480px;" />
         </div>
     }
     else
     {
-        <p>Once a venue address has been identified for this event a map with directions will be available here.</p>
+        <p>Once a venue address has been identified for this event a map will be available here.</p>
     }
-    
+
 </div>
 
-    @if (Model.Venue.HasAddressSet())
-    {
-        <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
-        <script type="text/javascript">
-            var map;
-            var credentials = "@State.Settings.BingMapsAPIKey";
-            var address = "@Model.Venue.Street1 @Model.Venue.Street2 @Model.Venue.City, @Model.Venue.StateOrProvince @Model.Venue.Country @Model.Venue.PostalCode";
+@if (Model.Venue.HasAddressSet())
+{
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script type="text/javascript">
+        var map;
+        var credentials = "@State.Settings.BingMapsAPIKey";
+        var address = "@Model.Venue.Street1 @Model.Venue.Street2 @Model.Venue.City, @Model.Venue.StateOrProvince @Model.Venue.Country @Model.Venue.PostalCode";
 
-            function geocodeCallback
-            (result) {
+        function geocodeCallback
+        (result) {
 
-                if (result &&
-                    result.resourceSets &&
-                    result.resourceSets.length > 0 &&
-                    result.resourceSets[0].resources &&
-                    result.resourceSets[0].resources.length > 0) {
+            if (result &&
+                result.resourceSets &&
+                result.resourceSets.length > 0 &&
+                result.resourceSets[0].resources &&
+                result.resourceSets[0].resources.length > 0) {
 
-                    var bbox = result.resourceSets[0].resources[0].bbox;
-                    var viewBoundaries = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(bbox[0], bbox[1]), new Microsoft.Maps.Location(bbox[2], bbox[3]));
-                    map.setView(
-                        {
-                            bounds:
-                                viewBoundaries
-                        }
-                    );
+                var bbox = result.resourceSets[0].resources[0].bbox;
+                var viewBoundaries = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(bbox[0], bbox[1]), new Microsoft.Maps.Location(bbox[2], bbox[3]));
+                map.setView(
+                    {
+                        bounds:
+                            viewBoundaries
+                    }
+                );
 
 
-                    var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
-                    var pushpin = new Microsoft.Maps.Pushpin(location);
+                var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
+                var pushpin = new Microsoft.Maps.Pushpin(location);
 
-                    var infoBox = new Microsoft.Maps.Infobox(pushpin.getLocation(),
-                        {
-                            title: "@Model.Venue.Name",
+                var infoBox = new Microsoft.Maps.Infobox(pushpin.getLocation(),
+                    {
+                        title: "@Model.Venue.Name",
                         description: address,
                         visible: true,
                         offset: new Microsoft.Maps.Point(0, 15)
                     });
 
-                    Microsoft.Maps.Events.addHandler(pushpin, 'click', function() {
-                            infoBox.setOptions(
-                                {
-                                    visible:
-                                        true
-                                }
-                            )
+                Microsoft.Maps.Events.addHandler(pushpin, 'click', function () {
+                    infoBox.setOptions(
+                        {
+                            visible:
+                                true
                         }
-                    );
-
-                    map.entities.push(pushpin);
-                    map.entities.push(infoBox);
-                } else {
-                    alert('No resuilts were found for the venue location.');
+                    )
                 }
+                );
+
+                map.entities.push(pushpin);
+                map.entities.push(infoBox);
+            } else {
+                alert('No resuilts were found for the venue location.');
             }
+        }
 
-            function startGeocoding
-            () {
+        function startGeocoding
+        () {
 
-                var geocodeRequest = "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(address) + "&output=json&jsonp=geocodeCallback&key=" + credentials;
+            var geocodeRequest = "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(address) + "&output=json&jsonp=geocodeCallback&key=" + credentials;
 
-                var script = document.createElement("script");
-                script.setAttribute("type", "text/javascript");
-                script.setAttribute("src", geocodeRequest);
-                document.body.appendChild(script);
-            }
+            var script = document.createElement("script");
+            script.setAttribute("type", "text/javascript");
+            script.setAttribute("src", geocodeRequest);
+            document.body.appendChild(script);
+        }
 
-            function loadMap
-            () {
-                map = new Microsoft.Maps.Map(document.getElementById("map"), { credentials: credentials });
-                startGeocoding();
-            }
+        function loadMap
+        () {
+            map = new Microsoft.Maps.Map(document.getElementById("map"), { credentials: credentials });
+            startGeocoding();
+        }
 
-            loadMap();
-        </script>
-    }
+        loadMap();
+    </script>
+}

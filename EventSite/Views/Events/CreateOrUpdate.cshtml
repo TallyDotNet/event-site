@@ -159,10 +159,24 @@
                         </div>
                         
                         <div class="form-group">
+                            <label for="Event.Venue.VenueInfoLink" class="col-lg-2 control-label">Venue info link:</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="Event.Venue.VenueInfoLink" name="Event.Venue.VenueInfoLink" placeholder="Venue Info URL" value="@Model.Event.Venue.VenueInfoLink"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="Event.Venue.ParkingInformation" class="col-lg-2 control-label">Parking Information</label>
                             <div class="col-lg-10">
                                 <textarea rows="4" class="form-control" id="Event.Venue.ParkingInformation" name="Event.Venue.ParkingInformation" placeholder="Parking Information">@Model.Event.Venue.ParkingInformation</textarea>
                                 @Html.ValidationMessage("Event.Venue.ParkingInformation")
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="Event.Venue.ParkingInfoLink" class="col-lg-2 control-label">Parking info link:</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="Event.Venue.ParkingInfoLink" name="Event.Venue.ParkingInfoLink" placeholder="Parking Info URL" value="@Model.Event.Venue.ParkingInfoLink"/>
                             </div>
                         </div>
                     </p>

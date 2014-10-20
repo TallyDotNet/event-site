@@ -9,7 +9,9 @@ namespace EventSite.Domain.Model {
         public string StateOrProvince { get; set; }
         public string Country { get; set; }
         public string PostalCode { get; set; }
+        public string VenueInfoLink { get; set; }
         public string ParkingInformation { get; set; }
+        public string ParkingInfoLink { get; set; }
 
         public bool HasAddressSet() {
             return Street1.HasValue() &&
