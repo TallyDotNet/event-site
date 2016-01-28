@@ -309,7 +309,6 @@
       <LastGenOutput>EventSiteResources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>EventSite</CustomToolNamespace>
     </EmbeddedResource>
-    <Content Include="Content\downloads\2014TallahasseeCodeCampSponsorship.pdf" />
     <Content Include="Content\downloads\TallahasseeCodeCamp2014Schedulev1.5.pdf" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\behavior.js" />
