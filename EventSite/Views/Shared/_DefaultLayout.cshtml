@@ -3,8 +3,11 @@
 }
 
 @Html.Partial("NavBar")
+<div id="wrap">
+    <div class="container">
 
-<div class="container">
-    @RenderBody()
+        @RenderBody()
+
+    </div>
 </div>
 @Html.Partial("Footer")

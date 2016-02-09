@@ -11,6 +11,14 @@
 html {
   height: 100%;
 }
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -100px;
+  padding: 0 0 80px;
+  position: relative;
+}
 .dev-env-banner {
   width: 100%;
   text-align: center;
@@ -351,16 +359,17 @@ address {
   letter-spacing: -1px;
 }
 #footer {
-  height: 110px;
+  clear: both;
+  height: 120px;
   background-color: #f5f5f5;
   margin-top: 100px;
   padding-top: 20px;
   padding-bottom: 20px;
-  position: absolute;
+  position: relative;
   width: 100%;
   max-width: 100%;
   right: 0;
-  /*bottom: 0;*/
+  bottom: 0;
   left: 0;
 }
 #footer {
