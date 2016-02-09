@@ -16,6 +16,11 @@ namespace EventSite.Domain.Model {
         public SponsorStatus Status { get; set; }
         public DateTimeOffset? DonatedOn { get; set; }
 
+        public Sponsor()
+        {
+            this.Link = "http://";
+        }
+
         public static string IdFrom(string eventSlug, string sponsorSlug) {
             if(string.IsNullOrEmpty(sponsorSlug) || string.IsNullOrEmpty(eventSlug)) {
                 return null;
