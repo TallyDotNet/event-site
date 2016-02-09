@@ -282,14 +282,16 @@
     <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\images\Code-Camp-Logo---One-Line---shortest.png" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\images\home\carousel\class.jpeg" />
     <Content Include="Content\images\home\carousel\crowd.jpeg" />
     <Content Include="Content\images\home\carousel\keynote_speaker.JPG" />
     <Content Include="Content\images\home\carousel\speaker.jpg" />
     <Content Include="Content\images\home\carousel\vendor.jpeg" />
-    <Content Include="Content\images\home\featurette\charity.jpg" />
+    <Content Include="Content\images\home\featurette\charity.png" />
     <Content Include="Content\images\home\featurette\food.jpg" />
+    <Content Include="Content\images\home\tallahassee.jpg" />
     <Content Include="Content\images\logo.gif" />
     <Content Include="Content\styles\ie10mobile.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -299,7 +301,9 @@
     <Content Include="Content\styles\site.min.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\styles\font-awesome.css" />
+    <Content Include="Content\styles\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -311,15 +315,20 @@
       <LastGenOutput>EventSiteResources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>EventSite</CustomToolNamespace>
     </EmbeddedResource>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap\bootstrap.css.map" />
     <Content Include="Content\bootstrap\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\behavior.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -330,6 +339,11 @@
     <Content Include="Scripts\html5shiv.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config">
@@ -367,6 +381,7 @@
     <Content Include="Views\Users\Update.cshtml" />
     <Content Include="Views\Sponsors\Info.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\_EventStuff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

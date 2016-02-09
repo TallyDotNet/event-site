@@ -5,7 +5,16 @@
     ViewInfo.Title = "Home";
 }
 
-@Html.Partial("_Carousel")
+@*@Html.Partial("_Carousel")*@
+
+    <!-- Header -->
+<header>
+    <div class="container">
+        <div class="intro-text">
+            <div class="intro-heading">Tallahassee Code Camp 11</div>
+        </div>
+    </div>
+</header>
 
 <div class="container marketing">
     @if (State.EventScheduled()) {
@@ -74,8 +83,7 @@
             </div>
         </div>
     }
-
+    @Html.Partial("_EventStuff")
     @Html.Partial("_Featurette")
-
-    @Html.Partial("Footer")
 </div>
+@Html.Partial("Footer")

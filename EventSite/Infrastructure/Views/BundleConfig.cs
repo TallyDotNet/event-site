@@ -19,6 +19,8 @@ namespace EventSite.Infrastructure.Views {
                     .Include("~/Content/styles/ie10mobile.css")
                     .Include("~/Content/bootstrap/bootstrap.min.css")
                     .Include("~/Content/styles/site.min.css")
+                    .Include("~/Content/styles/font-awesome.css")
+                    .Include("~/Content/styles/site.less")
                 );
         }
 
