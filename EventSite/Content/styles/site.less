@@ -1,8 +1,28 @@
 body {
-  padding-bottom: 40px;
-  color: #5a5a5a;
+    padding-top: 50px;
+    padding-bottom: 40px;
+    color: #5a5a5a;
+    height: 100%;
+    width: auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    margin: 0 auto;
 }
- 
+
+html {
+    height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -190px;
+  padding: 0 0 80px;
+  position:relative;
+}
+
+
 .dev-env-banner {
     width: 100%;
     text-align: center;
@@ -12,17 +32,18 @@ body {
 }
 
 .navbar-wrapper {
-  position: relative;
-  z-index: 15;
+    position: relative;
+    z-index: 15;
 }
 
 .navbar-custom {
-    background-color: #002a4c;
+    /*background-color: #002a4c;*/
+    /*background-color:#007ee6;*/
     border-color: #00182b;
-    background-image: -webkit-gradient(linear, left 0%, left 100%, from(#00467f), to(#002a4c));
-    background-image: -webkit-linear-gradient(top, #00467f, 0%, #002a4c, 100%);
-    background-image: -moz-linear-gradient(top, #00467f 0%, #002a4c 100%);
-    background-image: linear-gradient(to bottom, #00467f 0%, #002a4c 100%);
+    /*background-image: -webkit-gradient(linear, left 0%, left 100%, from(#00467f), to(#002a4c));
+    background-image: -webkit-linear-gradient(top, #007ee6, 0%, #00549a, 100%);
+    background-image: -moz-linear-gradient(top, #007ee6 0%, #00549a 100%);
+    background-image: linear-gradient(to bottom, #007ee6 0%, #00549a 100%);*/
     background-repeat: repeat-x;
     //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00467f', endColorstr='#ff002a4c', GradientType=0);
     -webkit-box-shadow: 1px 1px 10px rgba(0,0,0,.75);
@@ -33,9 +54,11 @@ body {
     color: #ffffff;
 
     img {
-        position: absolute;
-        top: 5px;
-        width: 42px;
+        max-height: 60px;
+        margin-top: -20px;
+        /*position: absolute;
+        top: 5px;*/
+        /*width: 42px;*/
     }
 
     span {
@@ -50,106 +73,127 @@ body {
 
 .navbar-custom .navbar-brand:hover,
 .navbar-custom .navbar-brand:focus {
-  color: #e6e6e6;
-  background-color: transparent;
+    color: #e6e6e6;
+    background-color: transparent;
 }
+
 .navbar-custom .navbar-text {
-  color: #ffffff;
-}
-.navbar-custom .navbar-nav > li:last-child > a {
-  border-right: 1px solid #00182b;
-}
-.navbar-custom .navbar-nav > li > a {
     color: #ffffff;
-    border-left: 1px solid #00182b;
-    -webkit-text-shadow: 0 1px 10px rgba(0,0,0,0.6);
-    text-shadow: 0 1px 10px rgba(0,0,0,0.6);
 }
+
+.navbar-custom .navbar-nav > li:last-child > a {
+    border-right: 1px solid #00182b;
+}
+
+.navbar-custom .navbar-nav > li > a {
+    /*color: #ffffff;*/
+    color: #64071c;
+    border-left: 1px solid #00182b;
+    /*-webkit-text-shadow: 0 1px 10px rgba(0,0,0,0.6);
+    text-shadow: 0 1px 10px rgba(0,0,0,0.6);*/
+}
+
 .navbar-custom .navbar-nav > li > a:hover,
 .navbar-custom .navbar-nav > li > a:focus {
-  color: #c0c0c0;
-  background-color: transparent;
+    color: #ab0c30;
+    background-color: transparent;
 }
+
 .navbar-custom .navbar-nav > .active > a,
 .navbar-custom .navbar-nav > .active > a:hover,
 .navbar-custom .navbar-nav > .active > a:focus {
-  color: #c0c0c0;
-  background-color: #00182b;
-  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#00182b), to(#00345e));
-  background-image: -webkit-linear-gradient(top, #00182b, 0%, #00345e, 100%);
-  background-image: -moz-linear-gradient(top, #00182b 0%, #00345e 100%);
-  background-image: linear-gradient(to bottom, #00182b 0%, #00345e 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00182b', endColorstr='#ff00345e', GradientType=0);
+    color: #ab0c30;
+    background-color: #00182b;
+    background-image: -webkit-gradient(linear, left 0%, left 100%, from(#00182b), to(#00345e));
+    background-image: -webkit-linear-gradient(top, #00182b, 0%, #00345e, 100%);
+    background-image: -moz-linear-gradient(top, #00182b 0%, #00345e 100%);
+    background-image: linear-gradient(to bottom, #00182b 0%, #00345e 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00182b', endColorstr='#ff00345e', GradientType=0);
 }
+
 .navbar-custom .navbar-nav > .disabled > a,
 .navbar-custom .navbar-nav > .disabled > a:hover,
 .navbar-custom .navbar-nav > .disabled > a:focus {
-  color: #cccccc;
-  background-color: transparent;
+    color: #cccccc;
+    background-color: transparent;
 }
+
 .navbar-custom .navbar-toggle {
-  border-color: #dddddd;
+    border-color: #dddddd;
 }
+
 .navbar-custom .navbar-toggle:hover,
 .navbar-custom .navbar-toggle:focus {
-  background-color: #dddddd;
+    background-color: #dddddd;
 }
+
 .navbar-custom .navbar-toggle .icon-bar {
-  background-color: #cccccc;
+    background-color: #64071c;
 }
+
 .navbar-custom .navbar-collapse,
 .navbar-custom .navbar-form {
-  border-color: #001628;
+    border-color: #001628;
 }
+
 .navbar-custom .navbar-nav > .dropdown > a:hover .caret,
 .navbar-custom .navbar-nav > .dropdown > a:focus .caret {
-  border-top-color: #c0c0c0;
-  border-bottom-color: #c0c0c0;
+    border-top-color: #c0c0c0;
+    border-bottom-color: #c0c0c0;
 }
+
 .navbar-custom .navbar-nav > .open > a,
 .navbar-custom .navbar-nav > .open > a:hover,
 .navbar-custom .navbar-nav > .open > a:focus {
-  background-color: #00182b;
-  color: #c0c0c0;
+    background-color: #00182b;
+    color: #c0c0c0;
 }
+
 .navbar-custom .navbar-nav > .open > a .caret,
 .navbar-custom .navbar-nav > .open > a:hover .caret,
 .navbar-custom .navbar-nav > .open > a:focus .caret {
-  border-top-color: #c0c0c0;
-  border-bottom-color: #c0c0c0;
+    border-top-color: #c0c0c0;
+    border-bottom-color: #c0c0c0;
 }
+
 .navbar-custom .navbar-nav > .dropdown > a .caret {
-  border-top-color: #ffffff;
-  border-bottom-color: #ffffff;
+    border-top-color: #ffffff;
+    border-bottom-color: #ffffff;
 }
+
 @media (max-width: 767) {
-  .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
-    color: #ffffff;
-  }
-  .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover,
-  .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #c0c0c0;
-    background-color: transparent;
-  }
-  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a,
-  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:hover,
-  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #c0c0c0;
-    background-color: #00182b;
-  }
-  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a,
-  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:hover,
-  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:focus {
-    color: #cccccc;
-    background-color: transparent;
-  }
+    .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
+        color: #ffffff;
+    }
+
+    .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #c0c0c0;
+        background-color: transparent;
+    }
+
+    .navbar-custom .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:focus {
+        color: #c0c0c0;
+        background-color: #00182b;
+    }
+
+    .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a,
+    .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+    .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+        color: #cccccc;
+        background-color: transparent;
+    }
 }
+
 .navbar-custom .navbar-link {
-  color: #ffffff;
+    color: #ffffff;
 }
+
 .navbar-custom .navbar-link:hover {
-  color: #c0c0c0;
+    color: #c0c0c0;
 }
 
 .navbar-custom .navbar-nav > li > a.avatar {
@@ -170,7 +214,8 @@ body {
 
 .jumbotron {
     text-align: center;
-    background: #900;
+    /*background: #900;*/
+    background: #64071c;
     color: white;
     padding: 5px 60px 20px 60px;
     -webkit-box-shadow: inset 1px 1px 30px rgba(0,0,0,.5);
@@ -191,7 +236,7 @@ body {
     border-radius: 4px;
     border: 1px solid white;
     -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.6);
-    box-shadow: 0 1px 10px rgba(0,0,0,0.6)
+    box-shadow: 0 1px 10px rgba(0,0,0,0.6);
 }
 
 .charity {
@@ -283,7 +328,7 @@ address {
 
 #map {
     margin-bottom: 64px;
-    position:relative;
+    position: relative;
     border-radius: 4px;
     border: 1px solid white;
     -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.6);
@@ -308,15 +353,15 @@ address {
     }
 }
 
-footer {
+/*footer {
     margin-top: 40px;
-}
+}*/
 
 /* Carousel base class */
 .carousel {
-  margin-bottom: 60px;
-  position: relative;
-  top: -90px;
+    margin-bottom: 60px;
+    position: relative;
+    top: -90px;
 }
 
 /* Since positioning the image, we need to help out the caption */
@@ -324,30 +369,27 @@ footer {
     z-index: 10;
     right: 0;
     left: 0;
-
     width: 28%;
     bottom: 50px;
-
     margin-left: 18%;
     margin-right: 51%;
 }
 
 /* Declare heights because of positioning of img element */
 .carousel .item {
-  height: 500px;
-  background-color: #990000;
+    height: 500px;
+    background-color: #990000;
 }
 
 .carousel-inner > .item > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  //min-width: 100%;
-  height: 400px;
-  margin-top: 84px;
-
-  margin-left: 51%;
-  margin-right: 30%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    //min-width: 100%;
+    height: 400px;
+    margin-top: 84px;
+    margin-left: 51%;
+    margin-right: 30%;
 }
 
 .carousel-indicators {
@@ -359,73 +401,166 @@ footer {
 
 /* Pad the edges of the mobile views a bit */
 .marketing {
-  padding-left: 15px;
-  padding-right: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 /* Center align the text within the three columns below the carousel */
 .marketing .col-lg-4 {
-  text-align: center;
-  margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .marketing h2 {
-  font-weight: normal;
+    font-weight: normal;
 }
 
 .marketing .col-lg-4 p {
-  margin-left: 10px;
-  margin-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /* Featurettes
 ------------------------- */
 .featurette-divider {
-  margin: 80px 0; /* Space out the Bootstrap <hr> more */
+    margin: 80px 0; /* Space out the Bootstrap <hr> more */
 }
 
 /* Thin out the marketing headings */
 .featurette-heading {
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -1px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
 }
+
+#footer {
+    clear:both;
+    height: 120px;
+    background-color: #f5f5f5;
+    margin-top: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#footer {
+    background-color: #64071c;
+}
+
+#footer a {
+    color: #efefef;
+}
+
+#footer p {
+    color: #efefef;
+}
+
+#footer > .container {
+}
+
+header {
+    background-image: url('../images/home/tallahassee.jpg');
+    background-repeat: none;
+    background-attachment: scroll;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    text-align: center;
+    color: white;
+    margin-top: -15px;
+}
+
+header .intro-text {
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+header .intro-text .intro-lead-in {
+    font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 22px;
+    margin-bottom: 25px;
+}
+
+header .intro-text .intro-heading {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 50px;
+    margin-bottom: 25px;
+}
+
+@media (min-width: 768px) {
+    header .intro-text {
+        padding-top: 300px;
+        padding-bottom: 200px;
+    }
+
+    header .intro-text .intro-lead-in {
+        font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-style: italic;
+        font-size: 40px;
+        line-height: 40px;
+        margin-bottom: 25px;
+    }
+
+    header .intro-text .intro-heading {
+        font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 75px;
+        line-height: 75px;
+        margin-bottom: 50px;
+    }
+}
+
+
+
+
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
 @media (min-width: 768px) {
 
-  /* Remove the edge padding needed for mobile */
-  .marketing {
-    padding-left: 0;
-    padding-right: 0;
-  }
+    /* Remove the edge padding needed for mobile */
+    .marketing {
+        padding-left: 0;
+        padding-right: 0;
+    }
 
-  /* Navbar positioning foo */
-  .navbar-wrapper {
-    margin-top: 16px;
-  }
-  /* The navbar becomes detached from the top, so we round the corners */
-  .navbar-wrapper .navbar {
-    border-radius: 4px;
-  }
+    /* Navbar positioning foo */
+    .navbar-wrapper {
+        margin-top: 16px;
+    }
+    /* The navbar becomes detached from the top, so we round the corners */
+    .navbar-wrapper .navbar {
+        border-radius: 4px;
+    }
 
-  /* Bump up size of carousel content */
-  .carousel-caption p {
-    margin-bottom: 20px;
-    font-size: 21px;
-    line-height: 1.4;
-  }
+    /* Bump up size of carousel content */
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 21px;
+        line-height: 1.4;
+    }
 
-  .featurette-heading {
-    font-size: 50px;
-  }
-
+    .featurette-heading {
+        font-size: 50px;
+    }
 }
 
 @media (min-width: 992px) {
-  .featurette-heading {
-    margin-top: 120px;
-  }
+    .featurette-heading {
+        margin-top: 120px;
+    }
 }

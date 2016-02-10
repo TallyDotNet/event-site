@@ -42,6 +42,8 @@ local.properties
 *.sln.docstates
 .vs
 
+.vs/
+
 # Build results
 
 [Dd]ebug/

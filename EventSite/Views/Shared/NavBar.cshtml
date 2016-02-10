@@ -7,15 +7,10 @@
         ? State.CurrentEvent.Name
         : State.Settings.Name;
 }
-@if (!State.RunningInProduction()){
-    <div class="dev-env-banner">
-        <span>This is a development/test environment.</span>
-    </div>
-}
 <div class="navbar-wrapper">
     <div class="container" style="padding: 0">
-        <div class="navbar-custom navbar navbar-inverse navbar-static-top">
-            <div class="container" style="padding: 0">
+        <div class="navbar-custom navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid less-padding" >
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
@@ -23,12 +18,18 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="@Url.Action("Index", "Home")" style="margin-left: 0">
-                        <img src="~/Content/images/logo.gif" title="@siteTitle"/>
-                        <span>@siteTitle</span>
+                        <img src="~/Content/images/Code-Camp-Logo---One-Line---shortest.png" title="@siteTitle" />
+                        @*<span>@siteTitle</span>*@
                     </a>
                 </div>
-                <div class="navbar-collapse collapse pull-right" style="padding: 0">
+                <div class="navbar-collapse collapse navbar-right">
                     <ul class="nav navbar-nav">
+                        @if (!State.RunningInProduction())
+                        {
+                            <li >
+                                <a>This is a development/test environment.</a>
+                            </li>
+                        }
                         <li><a href="@Url.Action("Index", "Location", new{eventSlug=State.CurrentEventSlug()})">Time &amp; Place</a></li>
                         <li><a href="@Url.Action("Index", "Sessions", new{eventSlug=State.CurrentEventSlug()})">Sessions</a></li>
                         <li><a href="@Url.Action("Index", "Speakers", new{eventSlug=State.CurrentEventSlug()})">Speakers</a></li>

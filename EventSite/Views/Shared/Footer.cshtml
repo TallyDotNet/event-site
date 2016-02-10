@@ -1,11 +1,21 @@
 ﻿@using EventSite.Domain
-<footer>
-    <p class="pull-right"><a href="#">Back to top</a></p>
-    <p class="pull-left">
-        @State.Settings.Owner<br/>
-        <a href="@Url.RouteUrl("Contact")">Contact Us</a>
-    </p>
-</footer>
+
+<div id="footer" class="footer">
+    <div class="container">
+        <div class="row text-center">
+            <p>
+                <a href="https://www.facebook.com/Tallahassee-Code-Camp-175430389192507/?fref=ts" title="Facebook"><i class="fa fa-facebook fa-2x"></i></a>&nbsp;&nbsp;
+                <a href="https://twitter.com/tallycodecamp" title="Twitter"><i class="fa fa-twitter fa-2x"></i></a>
+            </p>
+        </div>
+        <div class="row text-center">
+            <p>&copy; @DateTime.Now.Year - @State.Settings.Owner</p>
+        </div>
+        <div class="row text-center">
+            <a href="@Url.RouteUrl("Contact")">Contact Us</a>
+        </div>
+    </div>
+</div>
 <!--  
     Commit @State.Settings.CommitId
     -->

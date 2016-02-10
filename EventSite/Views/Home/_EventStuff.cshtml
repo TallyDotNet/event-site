@@ -1,0 +1,52 @@
+﻿@using EventSite.Domain
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">Awesome Speakers</h2>
+    </div>
+    <div class="col-md-6">
+        <p>Come meet and hear presentations from the best speakers in Tallahassee, Florida, and the surrounding states. Enjoy this free opportunity to level up your developer skills.</p>
+        @if (State.EventScheduled())
+        {
+            <p>
+                <a class="btn btn-large btn-primary" href="@Url.Action("Index", "Speakers", new{eventSlug=State.CurrentEventSlug()})">Learn more</a>
+            </p>
+        }
+    </div>
+    <div class="col-md-6">
+        <img class="img-responsive decorative-image" src="~/Content/images/home/carousel/speaker.jpg" alt="Speakers">
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">Relevent Content</h2>
+    </div>
+    <div class="col-md-6">
+        <img class="img-responsive decorative-image" src="~/Content/images/home/carousel/class.jpeg" alt="Sessions">
+    </div>
+    <div class="col-md-6">
+        <p>Attend developer sessions that are relevant to your daily work and that will enhance your career. Learn something new or dig deeper into your current interests.</p>
+        @if (State.EventScheduled())
+        {
+            <p>
+                <a class="btn btn-large btn-primary" href="@Url.Action("Index", "Sessions", new{eventSlug=State.CurrentEventSlug()})">Learn more</a>
+            </p>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">Awesome Speakers</h2>
+    </div>
+    <div class="col-md-6">
+        <p>Looking to learn about new technology? Trying to find a job? Want to get in touch with local technology companies? This is the place.</p>
+        @if (State.EventScheduled())
+        {
+            <p>
+                <a class="btn btn-large btn-primary" href="@Url.Action("Index", "Sponsors", new{eventSlug=State.CurrentEventSlug()})">Learn more</a>
+            </p>
+        }
+    </div>
+    <div class="col-md-6">
+        <img class="img-responsive decorative-image" src="~/Content/images/home/carousel/vendor.jpeg" alt="Vendors">
+    </div>
+</div>
