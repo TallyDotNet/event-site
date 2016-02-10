@@ -7,7 +7,7 @@
         <p>Come meet and hear presentations from the best speakers in Tallahassee, Florida, and the surrounding states. Enjoy this free opportunity to level up your developer skills.</p>
         @if (State.EventScheduled())
         {
-            <p>
+            <p class="text-center">
                 <a class="btn btn-large btn-primary" href="@Url.Action("Index", "Speakers", new{eventSlug=State.CurrentEventSlug()})">Learn more</a>
             </p>
         }
@@ -27,7 +27,7 @@
         <p>Attend developer sessions that are relevant to your daily work and that will enhance your career. Learn something new or dig deeper into your current interests.</p>
         @if (State.EventScheduled())
         {
-            <p>
+            <p class="text-center">
                 <a class="btn btn-large btn-primary" href="@Url.Action("Index", "Sessions", new{eventSlug=State.CurrentEventSlug()})">Learn more</a>
             </p>
         }
@@ -41,7 +41,7 @@
         <p>Looking to learn about new technology? Trying to find a job? Want to get in touch with local technology companies? This is the place.</p>
         @if (State.EventScheduled())
         {
-            <p>
+            <p class="text-center">
                 <a class="btn btn-large btn-primary" href="@Url.Action("Index", "Sponsors", new{eventSlug=State.CurrentEventSlug()})">Learn more</a>
             </p>
         }
