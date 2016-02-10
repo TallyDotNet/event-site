@@ -41,6 +41,8 @@ local.properties
 *.user
 *.sln.docstates
 
+.vs/
+
 # Build results
 
 [Dd]ebug/
@@ -222,4 +224,3 @@ Event-Site/packages/RavenDB.Server.2.0.2330/tools/Database/
 
 #ImageStorage
 /EventSite/Content/localImageStorage/
-/.vs/
