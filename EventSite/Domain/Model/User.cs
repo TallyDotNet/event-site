@@ -81,9 +81,14 @@ namespace EventSite.Domain.Model {
             public string Company { get; set; }
             public string Bio { get; set; }
             public string TelephoneNumber { get; set; }
+            public bool IsKeynoteSpeaker { get; set; }
             //public string BlogUrl { get; set; }
             //public string TwitterHandle { get; set; }
             //public bool IsMVP { get; set; }
+            public UserProfile()
+            {
+                IsKeynoteSpeaker = false;
+            }
         }
     }
 }
