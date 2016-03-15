@@ -24,7 +24,7 @@
                 
                 var slug = EventSite.Domain.Model.User.SlugFromId(attendeee.UserId);
 
-                <a data-toggle="modal" href="#@slug" class="col-xs-2 col-sm-2 col-md-2">
+                <a data-toggle="modal" href="#@slug" class="col-xs-6 col-sm-4 col-md-2">
                     <img class="avatar img-responsive" src="@Avatar.GetUrl(attendeee.User.Email, 128)" alt="@attendeee.DisplayName" />
                     <div class="text-center">@attendeee.DisplayName
                     @if (!attendeee.ListInDirectory)
@@ -40,7 +40,7 @@
                         <div class="modal-content">
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <div class="col-xs-6 col-sm-4 col-md-3">
                                         <img class="avatar img-responsive" style="width: auto" src="@Avatar.GetUrl(attendeee.User.Email, 128)" alt="@attendeee.DisplayName">
                                     </div>
                                     <div class="col-xs-8 col-sm-8 col-md-8">

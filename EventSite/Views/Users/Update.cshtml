@@ -8,7 +8,6 @@
     <h1>Update User</h1>
     <p class="lead">Edit user details</p>
 </div>
-
 <div class="col-md-9" role="main">
     <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="@Url.Action("Update", "Users", new { userSlug = EventSite.Domain.Model.User.SlugFromId(Model.User.Id)})">
         <div class="page-header">
