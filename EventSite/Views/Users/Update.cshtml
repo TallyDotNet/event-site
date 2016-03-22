@@ -1,7 +1,4 @@
-﻿@using EventSite.Domain.Model
-@using Raven.Client.Linq
-@using Roles = EventSite.Domain.Model.Roles
-@model EventSite.Domain.Commands.UpdateUser
+﻿@model EventSite.Domain.Commands.UpdateUser
 
 @{
 
@@ -11,7 +8,6 @@
     <h1>Update User</h1>
     <p class="lead">Edit user details</p>
 </div>
-
 <div class="col-md-9" role="main">
     <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="@Url.Action("Update", "Users", new { userSlug = EventSite.Domain.Model.User.SlugFromId(Model.User.Id)})">
         <div class="page-header">
@@ -48,6 +44,12 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="User.Profile.IsKeynoteSpeaker" class="col-lg-2 control-label">Is Keynote Speaker:</label>
+            <div class="col-lg-10">
+                @Html.CheckBoxFor(model => model.User.Profile.IsKeynoteSpeaker, new { @class = "col-lg-2 checkbox" })
+            </div>
+        </div>
+        <div class="form-group">
             <label for="User.Profile.Bio" class="col-lg-2 control-label">Bio:</label>
             <div class="col-lg-10">
                 <textarea class="form-control" id="User.Profile.Bio" name="User.Profile.Bio" placeholder="Bio">@Model.User.Profile.Bio</textarea>
@@ -80,7 +82,7 @@
         <div class="form-group">
             <label class="col-lg-2 control-label">System Admin:</label>
             <div class="col-lg-10">
-                @Html.CheckBoxFor(model => model.InAdminRole, new { @class = "col-lg-2 checkbox" });
+                @Html.CheckBoxFor(model => model.InAdminRole, new { @class = "col-lg-2 checkbox" })
             </div>
         </div>
 

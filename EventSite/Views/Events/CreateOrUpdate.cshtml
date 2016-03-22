@@ -4,7 +4,7 @@
     var title = isCreate ? "Create Event" : "Edit Event";
     var action = isCreate
         ? Url.Action("Index", "Events")
-        : Url.Action("Detail", "Events", new {eventSlug = Model.Slug});
+        : Url.Action("Detail", "Events", new { eventSlug = Model.Slug });
 
     ViewInfo.Title = title;
 }
@@ -25,13 +25,14 @@
                 <li>
                     <a href="#venue" data-toggle="tab">Venue</a>
                 </li>
-                @if(Model.Event.IsCurrent) {
+                @if (Model.Event.IsCurrent)
+                {
                     <li class="pull-right">
                         <span class="label label-success">Current</span>
                     </li>
                 }
             </ul>
-            
+
             <div class="tab-content">
                 <div class="tab-pane active" id="basics">
                     <p>
@@ -42,16 +43,28 @@
                                 @Html.ValidationMessage("Event.Name")
                             </div>
                         </div>
-                    
+
+
                         <div class="form-group">
                             <label for="Slug" class="col-lg-2 control-label">Slug</label>
                             <div class="col-lg-10">
-                                @if(isCreate) {
+                                @if (isCreate)
+                                {
                                     <input type="text" class="form-control" id="Slug" name="Slug" placeholder="Slug" value="@Model.Slug" />
                                     @Html.ValidationMessageFor(m => m.Slug)
-                                } else {
-                                    <p class="form-control-static">@Model.Slug</p>
                                 }
+
+                                @if (!isCreate)
+                                {
+                                    <label class="form-control-static">@Model.Slug</label>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Event.FlyerUrl" class="col-lg-2 control-label">Event Flyer</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="Event.FlyerUrl" name="Event.FlyerUrl" placeholder="Flyer Url" value="@Model.Event.FlyerUrl" />
+                                @Html.ValidationMessage("Event.Name")
                             </div>
                         </div>
 
@@ -70,7 +83,7 @@
                                 @Html.ValidationMessage("Event.End")
                             </div>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="Description" class="col-lg-2 control-label">Description</label>
                             <div class="col-lg-10">
@@ -78,7 +91,7 @@
                                 @Html.ValidationMessage("Event.Description")
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="ScheduleSummary" class="col-lg-2 control-label">Schedule Summary</label>
                             <div class="col-lg-10">
@@ -86,8 +99,9 @@
                                 @Html.ValidationMessage("Event.ScheduleSummary")
                             </div>
                         </div>
-                    
-                        @if(Model.Event.IsCurrent) {
+
+                        @if (Model.Event.IsCurrent)
+                        {
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
                                     <div class="checkbox">
@@ -97,7 +111,7 @@
                                     </div>
                                 </div>
                             </div>
-                        }   
+                        }
                     </p>
                 </div>
                 <div class="tab-pane" id="venue">
@@ -109,7 +123,7 @@
                                 @Html.ValidationMessage("Event.Venue.Name")
                             </div>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="Event.Venue.Street1" class="col-lg-2 control-label">Street 1</label>
                             <div class="col-lg-10">
@@ -117,7 +131,7 @@
                                 @Html.ValidationMessage("Event.Venue.Street1")
                             </div>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="Event.Venue.Street2" class="col-lg-2 control-label">Street 2</label>
                             <div class="col-lg-10">
@@ -125,7 +139,7 @@
                                 @Html.ValidationMessage("Event.Venue.Street2")
                             </div>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="Event.Venue.City" class="col-lg-2 control-label">City</label>
                             <div class="col-lg-10">
@@ -133,7 +147,7 @@
                                 @Html.ValidationMessage("Event.Venue.City")
                             </div>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="Event.Venue.StateOrProvince" class="col-lg-2 control-label">State/Province</label>
                             <div class="col-lg-10">
@@ -141,7 +155,7 @@
                                 @Html.ValidationMessage("Event.Venue.StateOrProvince")
                             </div>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="Event.Venue.Country" class="col-lg-2 control-label">Country</label>
                             <div class="col-lg-10">
@@ -149,7 +163,7 @@
                                 @Html.ValidationMessage("Event.Venue.Country")
                             </div>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="Event.Venue.PostalCode" class="col-lg-2 control-label">Postal Code</label>
                             <div class="col-lg-10">
@@ -157,11 +171,11 @@
                                 @Html.ValidationMessage("Event.Venue.PostalCode")
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="Event.Venue.VenueInfoLink" class="col-lg-2 control-label">Venue info link:</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" id="Event.Venue.VenueInfoLink" name="Event.Venue.VenueInfoLink" placeholder="Venue Info URL" value="@Model.Event.Venue.VenueInfoLink"/>
+                                <input type="text" class="form-control" id="Event.Venue.VenueInfoLink" name="Event.Venue.VenueInfoLink" placeholder="Venue Info URL" value="@Model.Event.Venue.VenueInfoLink" />
                             </div>
                         </div>
 
@@ -172,28 +186,33 @@
                                 @Html.ValidationMessage("Event.Venue.ParkingInformation")
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="Event.Venue.ParkingInfoLink" class="col-lg-2 control-label">Parking info link:</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" id="Event.Venue.ParkingInfoLink" name="Event.Venue.ParkingInfoLink" placeholder="Parking Info URL" value="@Model.Event.Venue.ParkingInfoLink"/>
+                                <input type="text" class="form-control" id="Event.Venue.ParkingInfoLink" name="Event.Venue.ParkingInfoLink" placeholder="Parking Info URL" value="@Model.Event.Venue.ParkingInfoLink" />
                             </div>
                         </div>
                     </p>
+
                 </div>
             </div>
-            
+
             <div class="pull-right">
-                @if(isCreate) {
+                @if (isCreate)
+                {
                     <button type="submit" class="btn btn-lg btn-success">Save</button>
-                } else {
+                }
+                else {
                     <button type="submit" class="btn btn-lg btn-success">Update</button>
                 }
             </div>
+
         </form>
-        
+
         <div class="pull-right">
-            @if(!isCreate && !Model.Event.IsCurrent) {
+            @if (!isCreate && !Model.Event.IsCurrent)
+            {
                 <form style="display: inline; margin-right: 8px" method="POST" action="@Url.Action("MakeCurrent", "Events", new {eventSlug = Model.Slug})">
                     <button class="btn btn-lg btn-primary">Make Current</button>
                 </form>

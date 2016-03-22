@@ -5,30 +5,33 @@
     ViewInfo.Title = "Home";
 }
 
-@*@Html.Partial("_Carousel")*@
-
-    <!-- Header -->
-<header>
-    <div class="container">
-        <div class="intro-text">
-            <div class="intro-heading">Tallahassee Code Camp 11</div>
-        </div>
-    </div>
-</header>
-
-<div class="container marketing">
-    @if (State.EventScheduled()) {
-        var ev = State.CurrentEvent;
-        var venue = ev.Venue;
-
-        <div class="row">
-            <div class="text-center">
-                <h1>
-                    @Model.SpeakerCount Speakers. @Model.SessionCount Sessions. @Model.RegisteredAttendeeCount Attendees.
-                </h1>
+@if (State.EventScheduled())
+{
+    var ev = State.CurrentEvent;
+    var venue = ev.Venue;
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-heading">@ev.Name</div>
             </div>
         </div>
-        <hr class="featurette-divider"/>
+    </header>
+    <div class="container marketing">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <h1>
+                        @Model.SpeakerCount Speakers. @Model.SessionCount Sessions. @Model.RegisteredAttendeeCount Attendees.
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="text-center">Download the event flyer <a href="@ev.FlyerUrl" target="_blank">here</a>!</h2>
+            </div>
+        </div>
+        <hr class="featurette-divider" />
         <div class="row">
             <div class="col-lg-4">
                 <span class="glyphicon glyphicon-info-sign info-icon"></span>
@@ -38,11 +41,9 @@
                     <a class="btn btn-default" href="@Url.Action("Index", "Sessions", new { eventSlug = State.CurrentEventSlug() })">Peruse Sessions &raquo;</a>
                 </p>
             </div>
-
             <div class="col-lg-4">
                 <span class="glyphicon glyphicon-road info-icon"></span>
                 <h2>Where?</h2>
-
                 <address>
                     <strong>@venue.Name</strong><br />
                     @if (!string.IsNullOrEmpty(venue.Street1))
@@ -59,11 +60,11 @@
                     <a class="btn btn-default" href="@Url.Action("Index", "Location", new { eventSlug = State.CurrentEventSlug() })">View Map &raquo;</a>
                 </p>
             </div>
-
             <div class="col-lg-4">
                 <span class="glyphicon glyphicon-calendar info-icon"></span>
                 <h2>When?</h2>
-                <p>@ev.Name starts on<br />@ev.Start.Date.ToLongDateString() at @ev.Start.DateTime.ToShortTimeString()
+                <p>
+                    @ev.Name starts on<br />@ev.Start.Date.ToLongDateString() at @ev.Start.DateTime.ToShortTimeString()
                     and ends
                     @if (ev.Start.Date == ev.End.Date)
                     {
@@ -79,8 +80,9 @@
                 </p>
             </div>
         </div>
-    }
-    @Html.Partial("_EventStuff")
-    @Html.Partial("_Featurette")
-</div>
+
+        @Html.Partial("_EventStuff")
+        @Html.Partial("_Featurette")
+    </div>
+}
 @Html.Partial("Footer")

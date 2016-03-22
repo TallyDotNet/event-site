@@ -3,7 +3,8 @@ using EventSite.Domain.Model;
 
 namespace EventSite.Domain.Commands
 {
-    public class UpdateUser : Command<Result>.AdminOnly {
+    public class UpdateUser : Command<Result>.AdminOnly
+    {
 
         public User User { get; set; }
 
@@ -11,10 +12,12 @@ namespace EventSite.Domain.Commands
 
         public bool InSponsorManagerRole { get; set; }
 
-        protected override Result Execute() {
+        protected override Result Execute()
+        {
             var userToUpdate = DocSession.Load<User>(User.Id);
 
-            if (userToUpdate == null) {
+            if (userToUpdate == null)
+            {
                 return Error("The user was not found in the database.");
             }
 
@@ -23,15 +26,18 @@ namespace EventSite.Domain.Commands
             userToUpdate.Profile.Name = User.Profile.Name;
             userToUpdate.Profile.Company = User.Profile.Company;
             userToUpdate.Profile.TelephoneNumber = User.Profile.TelephoneNumber;
+            userToUpdate.Profile.IsKeynoteSpeaker = User.Profile.IsKeynoteSpeaker;
 
             userToUpdate.Roles.Clear();
             userToUpdate.AddRole(Roles.User);
 
-            if (InAdminRole) {
+            if (InAdminRole)
+            {
                 userToUpdate.AddRole(Roles.Admin);
             }
 
-            if (InSponsorManagerRole) {
+            if (InSponsorManagerRole)
+            {
                 userToUpdate.AddRole(Roles.ManageSponsors);
             }
 
