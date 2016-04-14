@@ -14,6 +14,7 @@ namespace EventSite.Domain.Model
         public bool IsSessionSubmissionOpen { get; set; }
         public string ScheduleSummary { get; set; }
         public string FlyerUrl { get; set; }
+        public string ScheduleUrl { get; set; }
         public Event()
         {
             Venue = new Venue();
