@@ -124,8 +124,7 @@
         var credentials = "@State.Settings.BingMapsAPIKey";
         var address = "@Model.Venue.Street1 @Model.Venue.Street2 @Model.Venue.City, @Model.Venue.StateOrProvince @Model.Venue.Country @Model.Venue.PostalCode";
 
-        function geocodeCallback
-        (result) {
+        function geocodeCallback(result) {
 
             if (result &&
                 result.resourceSets &&
@@ -171,8 +170,7 @@
             }
         }
 
-        function startGeocoding
-        () {
+        function startGeocoding() {
 
             var geocodeRequest = "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(address) + "&output=json&jsonp=geocodeCallback&key=" + credentials;
 
@@ -182,8 +180,7 @@
             document.body.appendChild(script);
         }
 
-        function loadMap
-        () {
+        function loadMap() {
             map = new Microsoft.Maps.Map(document.getElementById("map"), { credentials: credentials });
             startGeocoding();
         }
