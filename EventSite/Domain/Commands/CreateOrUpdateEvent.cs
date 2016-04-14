@@ -52,6 +52,7 @@ namespace EventSite.Domain.Commands
                 toSave.Venue = Event.Venue;
                 toSave.ScheduleSummary = Event.ScheduleSummary;
                 toSave.FlyerUrl = Event.FlyerUrl;
+                toSave.ScheduleUrl = Event.ScheduleUrl;
             }
 
             if (toSave.IsCurrent)

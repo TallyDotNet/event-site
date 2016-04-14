@@ -52,9 +52,7 @@
                                 {
                                     <input type="text" class="form-control" id="Slug" name="Slug" placeholder="Slug" value="@Model.Slug" />
                                     @Html.ValidationMessageFor(m => m.Slug)
-                                }
-
-                                @if (!isCreate)
+                                }else
                                 {
                                     <label class="form-control-static">@Model.Slug</label>
                                 }
@@ -64,10 +62,16 @@
                             <label for="Event.FlyerUrl" class="col-lg-2 control-label">Event Flyer</label>
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" id="Event.FlyerUrl" name="Event.FlyerUrl" placeholder="Flyer Url" value="@Model.Event.FlyerUrl" />
-                                @Html.ValidationMessage("Event.Name")
+                                @Html.ValidationMessage("Event.FlyerUrl")
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label for="Event.FlyerUrl" class="col-lg-2 control-label">Schedule Url</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="Event.ScheduleUrl" name="Event.ScheduleUrl" placeholder="Schedule Url" value="@Model.Event.ScheduleUrl" />
+                                @Html.ValidationMessage("Event.ScheduleUrl")
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="Event.Start" class="col-lg-2 control-label">Start</label>
                             <div class="col-lg-10">

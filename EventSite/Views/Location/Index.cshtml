@@ -35,25 +35,25 @@
                 <li class="active">Where</li>
                 @if (Model.Venue.Name.HasValue())
                 {
-                <li>@Model.Venue.Name</li>
+                    <li>@Model.Venue.Name</li>
                     if (!string.IsNullOrEmpty(Model.Venue.Street1))
-                     {
-                <li>@Model.Venue.Street1</li>
-                     }
+                    {
+                        <li>@Model.Venue.Street1</li>
+                    }
                     if (!string.IsNullOrEmpty(Model.Venue.Street2))
-                     {
-                <li>@Model.Venue.Street2</li>
-                     }
-                <li>@Model.Venue.City, @Model.Venue.StateOrProvince</li>
-                <li>@Model.Venue.Country @Model.Venue.PostalCode</li>
+                    {
+                        <li>@Model.Venue.Street2</li>
+                    }
+                    <li>@Model.Venue.City, @Model.Venue.StateOrProvince</li>
+                    <li>@Model.Venue.Country @Model.Venue.PostalCode</li>
                     if (Model.Venue.VenueInfoLink.HasValue())
-                     {
-                <li><a href="@Model.Venue.VenueInfoLink" target="_blank">Additional Venue Information</a></li>
-                     }
+                    {
+                        <li><a href="@Model.Venue.VenueInfoLink" target="_blank">Additional Venue Information</a></li>
+                    }
                 }
                 else
                 {
-                <li>The venue for this event is TBD</li>
+                    <li>The venue for this event is TBD</li>
                 }
             </ul>
         </div>
@@ -63,16 +63,16 @@
                 <li class="active">Parking</li>
                 @if (Model.Venue.ParkingInformation.HasValue())
                 {
-                <li>@Model.Venue.ParkingInformation</li>
+                    <li>@Model.Venue.ParkingInformation</li>
 
                     if (Model.Venue.ParkingInfoLink.HasValue())
                     {
-                <li><a href="@Model.Venue.ParkingInfoLink" target="_blank">Additional Parking Information</a></li>
+                        <li><a href="@Model.Venue.ParkingInfoLink" target="_blank">Additional Parking Information</a></li>
                     }
                 }
                 else
                 {
-                <li>No parking information is avaliable for this event yet.</li>
+                    <li>No parking information is avaliable for this event yet.</li>
                 }
             </ul>
         </div>
@@ -85,13 +85,17 @@
                     @if (Model.ScheduleSummary.HasValue())
                     {
                         foreach (var line in Model.ScheduleSummary.Split('\n'))
-                         {
-                    <li>@line</li>
-                         }
+                        {
+                            <li>@line</li>
+                        }
+                        if (!string.IsNullOrEmpty(Model.ScheduleUrl))
+                        {
+                            <li><a href="@Model.ScheduleUrl" target="_blank">Schedule</a></li>
+                        }
                     }
                     else
                     {
-                    <li>No schedule information is available for this event yet.</li>
+                        <li>No schedule information is available for this event yet.</li>
                     }
 
                 </ul>
@@ -101,9 +105,9 @@
     <div class="col-md-9">
         @if (Model.Venue.HasAddressSet())
         {
-      
-                <div id="map" style="width: 100%; height: 480px;" />
-          
+
+            <div id="map" style="width: 100%; height: 480px;" />
+
         }
         else
         {
@@ -120,8 +124,7 @@
         var credentials = "@State.Settings.BingMapsAPIKey";
         var address = "@Model.Venue.Street1 @Model.Venue.Street2 @Model.Venue.City, @Model.Venue.StateOrProvince @Model.Venue.Country @Model.Venue.PostalCode";
 
-        function geocodeCallback
-        (result) {
+        function geocodeCallback(result) {
 
             if (result &&
                 result.resourceSets &&
@@ -167,8 +170,7 @@
             }
         }
 
-        function startGeocoding
-        () {
+        function startGeocoding() {
 
             var geocodeRequest = "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(address) + "&output=json&jsonp=geocodeCallback&key=" + credentials;
 
@@ -178,8 +180,7 @@
             document.body.appendChild(script);
         }
 
-        function loadMap
-        () {
+        function loadMap() {
             map = new Microsoft.Maps.Map(document.getElementById("map"), { credentials: credentials });
             startGeocoding();
         }

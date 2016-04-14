@@ -26,11 +26,24 @@
                 </div>
             </div>
         </div>
+        @if (!string.IsNullOrEmpty(ev.FlyerUrl))
+        {
         <div class="row">
             <div class="col-lg-12">
                 <h2 class="text-center">Download the event flyer <a href="@ev.FlyerUrl" target="_blank">here</a>!</h2>
             </div>
         </div>
+        }
+        @if (!string.IsNullOrEmpty(ev.ScheduleUrl))
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="text-center">
+                        <a href="@ev.ScheduleUrl" target="_blank">Event Schedule</a>
+                    </h2>
+                </div>
+            </div>
+        }
         <hr class="featurette-divider" />
         <div class="row">
             <div class="col-lg-4">
